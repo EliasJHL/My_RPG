@@ -13,7 +13,8 @@ CSFML	=	-lcsfml-system -lcsfml-graphics -lcsfml-window -lcsfml-audio
 
 CPPFLAGS = -I./include
 
-SRC =	src/main.c
+SRC	=	src/main.c	\
+		src/init_structs.c	\
 
 OBJ = $(SRC:.c=.o)
 
