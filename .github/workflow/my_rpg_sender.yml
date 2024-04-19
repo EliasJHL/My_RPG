@@ -1,4 +1,4 @@
-name: 42sh_Sender
+name: My_RPG_Sender
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  EXECUTABLES: "42sh"
+  EXECUTABLES: "my_rpg"
   MIRROR_URL: "git@github.com:EpitechPromo2028/B-MUL-200-MPL-2-1-myrpg-elias-josue.hajjar-llauquen.git"
 
 jobs:
