@@ -1,16 +1,13 @@
 /*
 ** EPITECH PROJECT, 2024
-** shell
+** My_RPG
 ** File description:
-** shell
+** Elias Josué HAJJAR LLAUQUEN
 */
 
+#pragma once
 #include <SFML/Graphics.h>
-#include <SFML/Audio.h>
 #include <SFML/Window.h>
 #include <SFML/System.h>
+#include <SFML/Audio.h>
 #include <SFML/Network.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
