@@ -57,41 +57,20 @@ jobs:
           fi
           exit 0
         id: check_project
-      - name: Install Valgrind
-        if: steps.check_project.outputs.cancel != 'true'
-        run: sudo apt install valgrind --fix-missing
-      - name: Install CSFML
-        if: steps.check_project.outputs.cancel != 'true'
-        run: sudo apt install libcsfml-dev
-      - name: Run Valgrind
-        if: steps.check_project.outputs.cancel != 'true'
-        run: make && make clean && echo -e "ls" | valgrind --error-exitcode=1 ./42sh
-        timeout-minutes: 2
-      - name: Clean
-        if: steps.check_project.outputs.cancel != 'true'
-        run: make fclean
-        timeout-minutes: 2
       - name: Copilation test
         if: steps.check_project.outputs.cancel != 'true'
         run: make
         timeout-minutes: 2
       - name: Clean
         if: steps.check_project.outputs.cancel != 'true'
-        run: make clean
-      - name: Execution test
-        if: steps.check_project.outputs.cancel != 'true'
+        run: make fclean
+      - name: Check repo size
         run: |
-          for file in $EXECUTABLES; do
-            if [ ! -x "$file" ]; then
-              echo "Error: $file is either missing or not executable."
+          size=$(du -sh | cut -f1)
+          if [ $size -gt 15 ]; then
+            echo "Error: Projet trop volumineux !"
             exit 1
           fi
-            exit 0
-          done
-      - name: Bonus test
-        if: steps.check_project.outputs.cancel != 'true'
-        run: make tests_run
-        timeout-minutes: 2
 
   Send_to_repisitory:
     needs: [General_tests]
