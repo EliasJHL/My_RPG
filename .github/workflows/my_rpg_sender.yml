@@ -48,7 +48,7 @@ jobs:
         working-directory: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check if 42sh exist
+      - name: Check if my_rpg exist
         run: |
           if [ ! -f Makefile ]; then
             echo "Error: There's no project."
@@ -57,9 +57,6 @@ jobs:
           fi
           exit 0
         id: check_project
-      - name: docker_start
-        if: steps.check_project.outputs.cancel != 'true'
-        run: docker run epitechcontent/epitest-docker:latest
       - name: Install Valgrind
         if: steps.check_project.outputs.cancel != 'true'
         run: sudo apt install valgrind
