@@ -1,1 +1,3 @@
-.github
+src/*.o
+coding-style-reports.log
+my_rpg

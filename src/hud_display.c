@@ -9,10 +9,10 @@
 
 void pause_menu(data_t *data)
 {
-    sfRenderWindow_drawRectangleShape(data->window, data->menu->menu_shape, NULL);
+    sfRenderWindow_drawRectangleShape(data->window, data->menu->shape, NULL);
 }
 
 void inventory_menu(data_t *data)
 {
-    sfRenderWindow_drawRectangleShape(data->window, data->menu->menu_shape, NULL);
+    sfRenderWindow_drawRectangleShape(data->window, data->menu->shape, NULL);
 }

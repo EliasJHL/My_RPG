@@ -35,7 +35,7 @@ jobs:
               MSG=$(echo $line | cut -d':' -f3)
               echo "::error file=$FILE,line=$LINE::$MSG"
             done < coding-style-reports.log
-            exit 0
+            exit 1
           fi
           rm -f coding-style-reports.log
   

@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 typedef struct menu_s {
-    sfRectangleShape *menu_shape;
+    sfRectangleShape *shape;
     sfVector2f menu_pos;
 } menu_t;
 

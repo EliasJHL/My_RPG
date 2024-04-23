@@ -7,7 +7,7 @@
 
 #include "../include/my.h"
 
-void display_hud(sfEvent event, data_t *data)
+static void display_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape)
         data->hud_state = 3;
@@ -19,7 +19,7 @@ void display_hud(sfEvent event, data_t *data)
         data->hud_state = 6;
 }
 
-void disable_hud(sfEvent event, data_t *data)
+static void disable_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape && data->hud_state == 3)
         data->hud_state = 0;

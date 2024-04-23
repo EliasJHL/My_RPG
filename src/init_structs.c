@@ -48,7 +48,7 @@ menu_t *init_menu(void)
     sfRectangleShape_setSize(shape, (sfVector2f){1920, 1080});
     sfRectangleShape_setFillColor(shape, (sfColor){0, 0, 0, 150});
     sfRectangleShape_setPosition(shape, pos);
-    menu->menu_shape = shape;
+    menu->shape = shape;
     menu->menu_pos = pos;
     return menu;
 }
