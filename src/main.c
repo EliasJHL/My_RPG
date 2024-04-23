@@ -75,6 +75,7 @@ int main(void)
     data->map = init_map();
     data->player = init_player();
     data->menu = init_menu();
+    data->pause = init_pause();
     game_loop(data);
     free(data->map);
     free(data);

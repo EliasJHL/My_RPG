@@ -39,6 +39,20 @@ player_t *init_player(void)
     return player;
 }
 
+pause_t *init_pause(void)
+{
+    pause_t *pause = malloc(sizeof(pause_t));
+    sfTexture *bg = sfTexture_createFromFile("assets/bg_pause.png", NULL);
+
+    pause->bg_pause = sfSprite_create();
+    sfSprite_setTexture(pause->bg_pause, bg, sfTrue);
+    pause->bg_pos.x = (1920 / 2) - (416 / 2);
+    pause->bg_pos.y = (1080 / 2) - (448 / 2);
+    sfSprite_setPosition(pause->bg_pause, pause->bg_pos);
+    free(bg);
+    return pause;
+}
+
 menu_t *init_menu(void)
 {
     menu_t *menu = malloc(sizeof(menu_t));

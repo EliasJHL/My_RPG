@@ -14,21 +14,50 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Menu struct
 typedef struct menu_s {
     sfRectangleShape *shape;
     sfVector2f menu_pos;
 } menu_t;
 
-typedef enum hud_s {
-    NONE,
-    MENU,
-    OPTIONS,
-    PAUSE,
-    INVENTORY,
-    QUESTS,
-    STATS
-} hud_t;
+// Pause menu struct
+typedef struct pause_s {
+    sfSprite *bg_pause;
+    sfSprite *resume;
+    sfSprite *options;
+    sfSprite *exit;
+    sfVector2f bg_pos;
+    sfVector2f resume_pos;
+    sfVector2f options_pos;
+    sfVector2f exit_pos;
+} pause_t;
 
+// Items stock data
+typedef struct items_s {
+    sfRectangleShape *slot;
+    sfVector2f slot_pos;
+    sfSprite *item;
+    sfVector2f item_pos;
+    int item_id;
+    int item_amount;
+    struct items_s *next;
+} items_t;
+
+// Inventory struct
+typedef struct slots_s {
+    sfRectangleShape *slot;
+    sfVector2f slot_pos;
+    items_t *items;
+    struct slots_s *next;
+} slots_t;
+
+typedef struct inventory_s {
+    sfRectangleShape *inv;
+    sfVector2f inv_pos;
+    slots_t *slots;
+} inventory_t;
+
+// Player data
 typedef struct player_s {
     sfSprite *player_sprite;
     sfVector2f player_pos;
@@ -36,6 +65,7 @@ typedef struct player_s {
     sfView *camera;
 } player_t;
 
+// Map struct
 typedef struct map_s {
     sfSprite *map_sprite;
     sfVector2f map_pos;
@@ -48,12 +78,14 @@ typedef struct data_s {
     map_t *map;
     player_t *player;
     menu_t *menu;
+    pause_t *pause;
 }data_t;
 
 // Init structs & data
 map_t *init_map(void);
 player_t *init_player(void);
 menu_t *init_menu(void);
+pause_t *init_pause(void);
 
 // HUD Display
 void pause_menu(data_t *data);
