@@ -27,14 +27,12 @@ player_t *init_player(void)
 
     player->player_sprite = sfSprite_create();
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
+    sfSprite_setTextureRect(player->player_sprite, (sfIntRect){0, 0, 64, 64});
     player->player_pos.x = 0;
     player->player_pos.y = 0;
-    player->player_rect.top = 0;
-    player->player_rect.left = 0;
-    player->player_rect.width = 32;
-    player->player_rect.height = 32;
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
+    sfView_zoom(player->camera, 0.5);
     free(txt);
     return player;
 }

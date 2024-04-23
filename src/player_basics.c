@@ -15,17 +15,49 @@ void type_hud(data_t *data)
         inventory_menu(data);
 }
 
+static void release_position(sfEvent event, data_t *data)
+{
+    if (event.type == sfEvtKeyReleased) {
+        if (event.key.code == sfKeyZ) {
+            sfSprite_setTextureRect(data->player->player_sprite,
+                (sfIntRect){0, 64, 64, 64});
+        }
+        if (event.key.code == sfKeyS) {
+            sfSprite_setTextureRect(data->player->player_sprite,
+                (sfIntRect){0, 0, 64, 64});
+        }
+        if (event.key.code == sfKeyQ) {
+            sfSprite_setTextureRect(data->player->player_sprite,
+                (sfIntRect){0, 192, 64, 64});
+        }
+        if (event.key.code == sfKeyD) {
+            sfSprite_setTextureRect(data->player->player_sprite,
+                (sfIntRect){0, 128, 64, 64});
+        }
+    }
+}
+
 void player_movement(sfEvent event, data_t *data)
 {
     if (event.type == sfEvtKeyPressed) {
-        if (event.key.code == sfKeyZ)
+        if (event.key.code == sfKeyZ) {
+            move_top(data);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {0, -5});
-        if (event.key.code == sfKeyS)
+        }
+        if (event.key.code == sfKeyS) {
+            move_down(data);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {0, 5});
-        if (event.key.code == sfKeyQ)
+        }
+        if (event.key.code == sfKeyQ) {
+            move_left(data);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {-5, 0});
-        if (event.key.code == sfKeyD)
+        }
+        if (event.key.code == sfKeyD) {
+            move_right(data);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {5, 0});
+        }
+    } else if (event.type == sfEvtKeyReleased) {
+        release_position(event, data);
     }
 }
 

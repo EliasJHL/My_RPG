@@ -7,14 +7,6 @@
 
 #include "../include/my.h"
 
-static void move_top(sfEvent event, data_t *data)
-{
-    data->player->player_pos.y -= 5;
-    data->player->player_rect.top = 96;
-    sfSprite_setTextureRect(data->player->player_sprite,
-        data->player->player_rect);
-}
-
 static void display_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape)
@@ -48,9 +40,19 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
             display_hud(event, data);
         else
             disable_hud(event, data);
-        if (data->hud_state == 0)
-            player_movement(event, data);
     }
+    if (data->hud_state == 0)
+        player_movement(event, data);
+}
+
+static void camera_handler(data_t *data)
+{
+    sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
+
+    pos.x += 64 / 2;
+    pos.y += 64 / 2;
+    sfView_setCenter(data->player->camera, pos);
+    sfRenderWindow_setView(data->window, data->player->camera);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
@@ -72,6 +74,7 @@ void game_loop(data_t *data)
         sfRenderWindow_clear(data->window, sfBlack);
         draw_sprites(data->window, data);
         player_basics(event, data);
+        camera_handler(data);
         sfRenderWindow_display(data->window);
     }
 }

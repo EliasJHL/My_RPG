@@ -61,7 +61,7 @@ typedef struct inventory_s {
 typedef struct player_s {
     sfSprite *player_sprite;
     sfVector2f player_pos;
-    sfIntRect player_rect;
+    sfIntRect rect;
     sfView *camera;
 } player_t;
 
@@ -88,6 +88,12 @@ map_t *init_map(void);
 player_t *init_player(void);
 menu_t *init_menu(void);
 pause_t *init_pause(void);
+
+//animations functions
+void move_top(data_t *data);
+void move_right(data_t *data);
+void move_left(data_t *data);
+void move_down(data_t *data);
 
 // HUD Display
 void pause_menu(data_t *data);

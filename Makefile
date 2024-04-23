@@ -17,6 +17,7 @@ SRC	=	src/main.c	\
 		src/init_structs.c	\
 		src/player_basics.c	\
 		src/hud_display.c	\
+		src/player_animations.c	\
 
 OBJ = $(SRC:.c=.o)
 
