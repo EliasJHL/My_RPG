@@ -74,6 +74,8 @@ typedef struct map_s {
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 typedef struct data_s {
     int hud_state;
+    sfClock *clock;
+    sfTime elapsed_time;
     sfRenderWindow *window;
     map_t *map;
     player_t *player;

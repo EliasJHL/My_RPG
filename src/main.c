@@ -7,6 +7,14 @@
 
 #include "../include/my.h"
 
+static void move_top(sfEvent event, data_t *data)
+{
+    data->player->player_pos.y -= 5;
+    data->player->player_rect.top = 96;
+    sfSprite_setTextureRect(data->player->player_sprite,
+        data->player->player_rect);
+}
+
 static void display_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape)
@@ -40,7 +48,8 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
             display_hud(event, data);
         else
             disable_hud(event, data);
-        player_movement(event, data);
+        if (data->hud_state == 0)
+            player_movement(event, data);
     }
 }
 
@@ -72,6 +81,7 @@ int main(void)
     data_t *data = malloc(sizeof(data_t));
 
     data->hud_state = 0;
+    data->clock = sfClock_create();
     data->map = init_map();
     data->player = init_player();
     data->menu = init_menu();

@@ -23,7 +23,7 @@ map_t *init_map(void)
 player_t *init_player(void)
 {
     player_t *player = malloc(sizeof(player_t));
-    sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
+    sfTexture *txt = sfTexture_createFromFile("assets/human.png", NULL);
 
     player->player_sprite = sfSprite_create();
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
