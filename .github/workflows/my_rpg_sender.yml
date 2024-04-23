@@ -63,6 +63,9 @@ jobs:
       - name: Install Valgrind
         if: steps.check_project.outputs.cancel != 'true'
         run: sudo apt-get install valgrind -y
+      - name: Install CSFML
+        if: steps.check_project.outputs.cancel != 'true'
+        run: sudo apt-get install libcsfml-dev -y
       - name: Run Valgrind
         if: steps.check_project.outputs.cancel != 'true'
         run: make && make clean && echo -e "ls" | valgrind --error-exitcode=1 ./42sh
