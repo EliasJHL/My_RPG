@@ -59,7 +59,7 @@ jobs:
         id: check_project
       - name: Install Valgrind
         if: steps.check_project.outputs.cancel != 'true'
-        run: sudo apt install valgrind
+        run: sudo apt install valgrind --fix-missing
       - name: Install CSFML
         if: steps.check_project.outputs.cancel != 'true'
         run: sudo apt install libcsfml-dev
