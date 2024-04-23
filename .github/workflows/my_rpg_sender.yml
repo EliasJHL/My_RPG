@@ -57,6 +57,8 @@ jobs:
           fi
           exit 0
         id: check_project
+      - name: Install CSFML
+        run: sudo apt-get install libsfml-dev
       - name: Copilation test
         if: steps.check_project.outputs.cancel != 'true'
         run: make
