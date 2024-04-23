@@ -38,3 +38,17 @@ player_t *init_player(void)
     free(txt);
     return player;
 }
+
+menu_t *init_menu(void)
+{
+    menu_t *menu = malloc(sizeof(menu_t));
+    sfRectangleShape *shape = sfRectangleShape_create();
+    sfVector2f pos = {0, 0};
+
+    sfRectangleShape_setSize(shape, (sfVector2f){1920, 1080});
+    sfRectangleShape_setFillColor(shape, (sfColor){0, 0, 0, 150});
+    sfRectangleShape_setPosition(shape, pos);
+    menu->menu_shape = shape;
+    menu->menu_pos = pos;
+    return menu;
+}

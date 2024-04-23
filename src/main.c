@@ -7,21 +7,40 @@
 
 #include "../include/my.h"
 
+void display_hud(sfEvent event, data_t *data)
+{
+    if (event.key.code == sfKeyEscape)
+        data->hud_state = 3;
+    if (event.key.code == sfKeyE)
+        data->hud_state = 4;
+    if (event.key.code == sfKeyB)
+        data->hud_state = 5;
+    if (event.key.code == sfKeyN)
+        data->hud_state = 6;
+}
+
+void disable_hud(sfEvent event, data_t *data)
+{
+    if (event.key.code == sfKeyEscape && data->hud_state == 3)
+        data->hud_state = 0;
+    if (event.key.code == sfKeyE && data->hud_state == 4)
+        data->hud_state = 0;
+    if (event.key.code == sfKeyB && data->hud_state == 5)
+        data->hud_state = 0;
+    if (event.key.code == sfKeyN && data->hud_state == 6)
+        data->hud_state = 0;
+}
+
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
 {
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
     if (event.type == sfEvtKeyPressed) {
-        if (event.key.code == sfKeyEscape)
-            sfRenderWindow_close(window);
-        if (event.key.code == sfKeyZ)
-            sfSprite_move(data->player->player_sprite, (sfVector2f){0, -5});
-        if (event.key.code == sfKeyS)
-            sfSprite_move(data->player->player_sprite, (sfVector2f){0, 5});
-        if (event.key.code == sfKeyQ)
-            sfSprite_move(data->player->player_sprite, (sfVector2f){-5, 0});
-        if (event.key.code == sfKeyD)
-            sfSprite_move(data->player->player_sprite, (sfVector2f){5, 0});
+        if (data->hud_state == 0)
+            display_hud(event, data);
+        else
+            disable_hud(event, data);
+        player_movement(event, data);
     }
 }
 
@@ -34,17 +53,17 @@ void draw_sprites(sfRenderWindow *window, data_t *data)
 void game_loop(data_t *data)
 {
     sfVideoMode mode = {1920, 1080, 32};
-    sfRenderWindow *window;
     sfEvent event;
 
-    window = sfRenderWindow_create(mode, "My_RPG", sfResize | sfClose, NULL);
-    sfRenderWindow_setFramerateLimit(window, 60);
-    while (sfRenderWindow_isOpen(window)) {
-        while (sfRenderWindow_pollEvent(window, &event))
-            event_handler(window, event, data);
-        sfRenderWindow_clear(window, sfBlack);
-        draw_sprites(window, data);
-        sfRenderWindow_display(window);
+    data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
+    sfRenderWindow_setFramerateLimit(data->window, 60);
+    while (sfRenderWindow_isOpen(data->window)) {
+        while (sfRenderWindow_pollEvent(data->window, &event))
+            event_handler(data->window, event, data);
+        sfRenderWindow_clear(data->window, sfBlack);
+        draw_sprites(data->window, data);
+        player_basics(event, data);
+        sfRenderWindow_display(data->window);
     }
 }
 
@@ -52,8 +71,10 @@ int main(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
+    data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
+    data->menu = init_menu();
     game_loop(data);
     free(data->map);
     free(data);
