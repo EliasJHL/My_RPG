@@ -40,6 +40,8 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
             display_hud(event, data);
         else
             disable_hud(event, data);
+        printf("pause %s\n", data->hud_state == 3 ? "true" : "false");
+        printf("hud_state: %s\n", data->hud_state == 4 ? "false" : "true");
     }
     if (data->hud_state == 0)
         player_movement(event, data);
