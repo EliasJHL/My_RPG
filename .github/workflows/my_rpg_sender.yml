@@ -75,7 +75,6 @@ jobs:
   #        fi
 
   Send_to_repisitory:
-    needs: [Coding_style_checker]
     if: ${{ needs.General_tests.result == 'success' }}
     timeout-minutes: 4
     runs-on: ubuntu-latest
