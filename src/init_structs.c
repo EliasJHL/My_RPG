@@ -10,7 +10,7 @@
 map_t *init_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
-    sfTexture *txt = sfTexture_createFromFile("assets/map.jpg", NULL);
+    sfTexture *txt = sfTexture_createFromFile("assets/Map.png", NULL);
 
     map->map_sprite = sfSprite_create();
     sfSprite_setTexture(map->map_sprite, txt, sfTrue);
@@ -27,7 +27,7 @@ player_t *init_player(void)
 
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
-    sfSprite_setScale(player->player_sprite, (sfVector2f){3, 3});
+    sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
     sfSprite_setTextureRect(player->player_sprite, (sfIntRect){0, 0, 64, 64});
     player->player_pos.x = 0;

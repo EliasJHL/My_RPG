@@ -65,8 +65,8 @@ static void camera_handler(data_t *data)
 {
     sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
 
-    pos.x += (48 * 3) / 2;
-    pos.y += (48 * 3) / 2;
+    pos.x += 48 / 2;
+    pos.y += 48 / 2;
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
 }
@@ -99,16 +99,23 @@ void game_loop(data_t *data)
     }
 }
 
-int main(void)
+static void starter(data_t *data)
 {
-    data_t *data = malloc(sizeof(data_t));
-
     data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
     data->menu = init_menu();
     data->pause = init_pause();
     data->hud = hud_init();
+    init_life(data);
+    start_meteo(data);
+}
+
+int main(void)
+{
+    data_t *data = malloc(sizeof(data_t));
+
+    starter(data);
     game_loop(data);
     free(data->map);
     free(data);

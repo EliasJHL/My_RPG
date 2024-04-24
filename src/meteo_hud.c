@@ -26,7 +26,6 @@ static void day_texutre(data_t *data, sfVector2f pos)
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
     sfSprite_setPosition(data->hud->meteo, pos);
     sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
-    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
     free(txt);
     i++;
 }
@@ -50,7 +49,6 @@ static void night_display(data_t *data, sfVector2f pos)
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
     sfSprite_setPosition(data->hud->meteo, pos);
     sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
-    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
     free(txt);
     i++;
 }
@@ -74,24 +72,30 @@ static void rain(data_t *data, sfVector2f pos)
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
     sfSprite_setPosition(data->hud->meteo, pos);
     sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
-    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
     free(txt);
     i++;
 }
 
 void change_texture(data_t *data)
 {
+    double seconds;
     int x = (1920 / 3) - 1050;
     int y = (1080 / 2) - 40;
     sfVector2f center = sfView_getCenter(data->player->camera);
     sfVector2f sprite_pos = {center.x - x, center.y - y};
 
-    if (data->hud->meteo_status == 1)
-        day_texutre(data, sprite_pos);
-    if (data->hud->meteo_status == 2)
-        night_display(data, sprite_pos);
-    if (data->hud->meteo_status == 3)
-        rain(data, sprite_pos);
+    data->hud->time_meteo = sfClock_getElapsedTime(data->hud->clock_meteo);
+    seconds = sfTime_asSeconds(data->hud->time_meteo);
+    if (seconds >= 0.15) {
+        if (data->hud->meteo_status == 1)
+            day_texutre(data, sprite_pos);
+        if (data->hud->meteo_status == 2)
+            night_display(data, sprite_pos);
+        if (data->hud->meteo_status == 3)
+            rain(data, sprite_pos);
+        sfClock_restart(data->hud->clock_meteo);
+    }
+    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
 }
 
 void meteo_display(data_t *data)

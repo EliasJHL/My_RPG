@@ -61,15 +61,26 @@ typedef struct inventory_s {
     slots_t *slots;
 } inventory_t;
 
+// Life data stock
+typedef struct life_s {
+    sfSprite *heart;
+    sfVector2f heart_pos;
+    struct life_s *next;
+}life_t;
+
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
     int animation;
+    int life;
+    int xp;
+    int level;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;
     sfVector2f player_pos;
     sfIntRect rect;
     sfView *camera;
+    life_t *life_hud;
 } player_t;
 
 // Map struct
@@ -106,6 +117,8 @@ player_t *init_player(void);
 menu_t *init_menu(void);
 pause_t *init_pause(void);
 hud_t *hud_init(void);
+void init_life(data_t *data);
+void start_meteo(data_t *data);
 
 //animations functions
 void move(data_t *data, int top);

@@ -25,13 +25,32 @@ void inventory_menu(data_t *data)
     sfRenderWindow_drawRectangleShape(data->window, data->menu->shape, NULL);
 }
 
+void display_life(data_t *data)
+{
+    int x = (1920 / 3) - 170;
+    int y = (1080 / 3) + 20;
+    int pos_x = 0;
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos;
+    life_t *current = data->player->life_hud;
+
+    for (int i = 0; i < 10; i++) {
+        sprite_pos = (sfVector2f){(center.x - x) + pos_x, center.y - y};
+        sfRenderWindow_drawSprite(data->window, current->heart, NULL);
+        sfSprite_setPosition(current->heart, sprite_pos);
+        current = current->next;
+        pos_x += 18;
+    }
+}
+
 void hud_player(data_t *data)
 {
-    int x = (1920 / 3) - 135;
-    int y = (1080 / 2) - 30;
+    int x = (1920 / 3) - 130;
+    int y = (1080 / 2) - 65;
     sfVector2f center = sfView_getCenter(data->player->camera);
     sfVector2f sprite_pos = {center.x - x, center.y - y};
 
     sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
     sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
+    display_life(data);
 }
