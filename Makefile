@@ -18,6 +18,7 @@ SRC	=	src/main.c	\
 		src/player_basics.c	\
 		src/hud_display.c	\
 		src/player_animations.c	\
+		src/meteo_hud.c	\
 
 OBJ = $(SRC:.c=.o)
 

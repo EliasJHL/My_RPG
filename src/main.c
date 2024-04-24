@@ -19,6 +19,17 @@ static void display_hud(sfEvent event, data_t *data)
         data->hud_state = 6;
 }
 
+// Temporary function
+static void meteo_changer(sfEvent event, data_t *data)
+{
+    if (event.key.code == sfKeyNum1)
+        data->hud->meteo_status = 1;
+    if (event.key.code == sfKeyNum2)
+        data->hud->meteo_status = 2;
+    if (event.key.code == sfKeyNum3)
+        data->hud->meteo_status = 3;
+}
+
 static void disable_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape && data->hud_state == 3)
@@ -42,6 +53,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
             display_hud(event, data);
         else
             disable_hud(event, data);
+        meteo_changer(event, data);
     }
     if (data->hud_state == 0) {
         player_movement(event, data, &pos);
@@ -64,6 +76,7 @@ void draw_sprites(sfRenderWindow *window, data_t *data)
     sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
     sfRenderWindow_drawSprite(window, data->player->player_sprite, NULL);
     hud_player(data);
+    meteo_display(data);
 }
 
 void game_loop(data_t *data)

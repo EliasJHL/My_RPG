@@ -113,6 +113,7 @@ void move(data_t *data, int top);
 void pause_menu(data_t *data);
 void inventory_menu(data_t *data);
 void hud_player(data_t *data);
+void meteo_display(data_t *data);
 
 // Basic Functions
 int player_basics(sfEvent event, data_t *data);
