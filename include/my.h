@@ -61,8 +61,9 @@ typedef struct inventory_s {
     slots_t *slots;
 } inventory_t;
 
-// Player data
+// Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
+    int animation;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;
@@ -108,6 +109,7 @@ hud_t *hud_init(void);
 
 //animations functions
 void move(data_t *data, int top);
+void idle(data_t *data, int top);
 
 // HUD Display
 void pause_menu(data_t *data);

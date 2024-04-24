@@ -15,9 +15,9 @@ void move(data_t *data, int top)
     seconds = sfTime_asSeconds(data->player->elapsed_time);
     if (seconds >= 0.15) {
         data->player->rect.top = top;
-        data->player->rect.left += 64;
-        data->player->rect.height = 64;
-        data->player->rect.width = 64;
+        data->player->rect.left += 48;
+        data->player->rect.height = 48;
+        data->player->rect.width = 48;
         if (data->player->rect.left >= data->player->rect.width * 6) {
             data->player->rect.left = 0;
         }

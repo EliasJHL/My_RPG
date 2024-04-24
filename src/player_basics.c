@@ -15,49 +15,55 @@ void type_hud(data_t *data)
         inventory_menu(data);
 }
 
-static void release_position(sfEvent event, data_t *data)
+static void idle(data_t *data, int top)
 {
-    if (event.type == sfEvtKeyReleased) {
-        if (event.key.code == sfKeyZ) {
-            sfSprite_setTextureRect(data->player->player_sprite,
-                (sfIntRect){0, 64, 64, 64});
+    double seconds;
+
+    data->player->elapsed_time = sfClock_getElapsedTime(data->player->clock);
+    seconds = sfTime_asSeconds(data->player->elapsed_time);
+    if (seconds >= 0.15) {
+        data->player->rect.top = top;
+        data->player->rect.left += 48;
+        data->player->rect.height = 48;
+        data->player->rect.width = 48;
+        if (data->player->rect.left >= data->player->rect.width * 6) {
+            data->player->rect.left = 0;
         }
-        if (event.key.code == sfKeyS) {
-            sfSprite_setTextureRect(data->player->player_sprite,
-                (sfIntRect){0, 0, 64, 64});
-        }
-        if (event.key.code == sfKeyQ) {
-            sfSprite_setTextureRect(data->player->player_sprite,
-                (sfIntRect){0, 192, 64, 64});
-        }
-        if (event.key.code == sfKeyD) {
-            sfSprite_setTextureRect(data->player->player_sprite,
-                (sfIntRect){0, 128, 64, 64});
-        }
+        sfClock_restart(data->player->clock);
+        sfSprite_setTextureRect(data->player->player_sprite,
+                                data->player->rect);
+    }
+}
+
+static void move_player(sfEvent event, data_t *data, sfVector2f *pos)
+{
+    if (UP(event)) {
+        move(data, 240);
+        pos->y -= 5;
+    }
+    if (DOWN(event)) {
+        move(data, 144);
+        pos->y += 5;
+    }
+    if (LEFT(event)) {
+        move(data, 192);
+        pos->x -= 5;
+    }
+    if (RIGHT(event)) {
+        move(data, 192);
+        pos->x += 5;
     }
 }
 
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
 {
     if (event.type == sfEvtKeyPressed) {
-        if (UP(event)) {
-            move(data, 320);
-            pos->y -= 5;
-        }
-        if (DOWN(event)) {
-            move(data, 256);
-            pos->y += 5;
-        }
-        if (LEFT(event)) {
-            move(data, 448);
-            pos->x -= 5;
-        }
-        if (RIGHT(event)) {
-            move(data, 384);
-            pos->x += 5;
-        }
-    } else if (event.type == sfEvtKeyReleased) {
-        release_position(event, data);
+        data->player->animation = 1;
+        move_player(event, data, pos);
+    }
+    if (event.type == sfEvtKeyReleased) {
+        if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
+            data->player->animation = 0;
     }
 }
 
