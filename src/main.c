@@ -49,8 +49,8 @@ static void camera_handler(data_t *data)
 {
     sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
 
-    pos.x += 64 / 2;
-    pos.y += 64 / 2;
+    pos.x += (64 * 3) / 2;
+    pos.y += (64 * 3) / 2;
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
 }

@@ -39,43 +39,43 @@ jobs:
           fi
           rm -f coding-style-reports.log
   
-  #General_tests:
-  #  runs-on: ubuntu-latest
-  #  needs: [Coding_style_checker]
-  #  timeout-minutes: 10
-  #  defaults:
-  #    run:
-  #      working-directory: ${{ github.workspace }}
-  #  steps:
-  #    - uses: actions/checkout@v4
-  #    - name: Check if my_rpg exist
-  #      run: |
-  #        if [ ! -f Makefile ]; then
-  #          echo "Error: There's no project."
-  #          echo "::set-output name=cancel::true"
-  #          exit 0
-  #        fi
-  #        exit 0
-  #      id: check_project
-  #    - name: Install CSFML
-  #      run: sudo apt-get install libsfml-dev
-  #    - name: Copilation test
-  #      if: steps.check_project.outputs.cancel != 'true'
-  #      run: make
-  #      timeout-minutes: 2
-  #    - name: Clean
-  #      if: steps.check_project.outputs.cancel != 'true'
-  #      run: make fclean
-  #    - name: Check repo size
-  #      run: |
-  #        size=$(du -sh | cut -f1)
-  #        if [ $size -gt 15 ]; then
-  #          echo "Error: Projet trop volumineux !"
-  #          exit 1
-  #        fi
+  General_tests:
+    runs-on: ubuntu-latest
+    needs: [Coding_style_checker]
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check if my_rpg exist
+        run: |
+          if [ ! -f Makefile ]; then
+            echo "Error: There's no project."
+            echo "::set-output name=cancel::true"
+            exit 0
+          fi
+          exit 0
+        id: check_project
+      - name: Install CSFML
+        run: sudo apt-get install libsfml-dev
+      - name: Copilation test
+        if: steps.check_project.outputs.cancel != 'true'
+        run: make
+        timeout-minutes: 2
+      - name: Clean
+        if: steps.check_project.outputs.cancel != 'true'
+        run: make fclean
+      - name: Check repo size
+        run: |
+          size=$(du -sh | cut -f1)
+          if [ $size -gt 30 ]; then
+            echo "Error: Projet trop volumineux !"
+            exit 1
+          fi
 
   Send_to_repisitory:
-    needs: [Coding_style_checker]
+    needs: [General_tests]
     timeout-minutes: 4
     runs-on: ubuntu-latest
     steps:

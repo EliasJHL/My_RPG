@@ -26,13 +26,14 @@ player_t *init_player(void)
     sfTexture *txt = sfTexture_createFromFile("assets/human.png", NULL);
 
     player->player_sprite = sfSprite_create();
+    sfSprite_setScale(player->player_sprite, (sfVector2f){3, 3});
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
     sfSprite_setTextureRect(player->player_sprite, (sfIntRect){0, 0, 64, 64});
     player->player_pos.x = 0;
     player->player_pos.y = 0;
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
-    sfView_zoom(player->camera, 0.1);
+    sfView_zoom(player->camera, 0.9);
     free(txt);
     return player;
 }

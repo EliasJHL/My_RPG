@@ -39,23 +39,26 @@ static void release_position(sfEvent event, data_t *data)
 
 void player_movement(sfEvent event, data_t *data)
 {
+    sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
+
     if (event.type == sfEvtKeyPressed) {
         if (event.key.code == sfKeyZ) {
             move(data, 320);
-            sfSprite_move(data->player->player_sprite, (sfVector2f) {0, -1});
+            pos.y -= 1;
         }
         if (event.key.code == sfKeyS) {
             move(data, 256);
-            sfSprite_move(data->player->player_sprite, (sfVector2f) {0, 1});
+            pos.y += 1;
         }
         if (event.key.code == sfKeyQ) {
             move(data, 448);
-            sfSprite_move(data->player->player_sprite, (sfVector2f) {-1, 0});
+            pos.x -= 1;
         }
         if (event.key.code == sfKeyD) {
             move(data, 384);
-            sfSprite_move(data->player->player_sprite, (sfVector2f) {1, 0});
+            pos.x += 1;
         }
+        sfSprite_setPosition(data->player->player_sprite, pos);
     } else if (event.type == sfEvtKeyReleased) {
         release_position(event, data);
     }
