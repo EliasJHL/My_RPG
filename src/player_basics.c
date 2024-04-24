@@ -40,19 +40,19 @@ static void release_position(sfEvent event, data_t *data)
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
 {
     if (event.type == sfEvtKeyPressed) {
-        if (event.key.code == sfKeyZ) {
+        if (UP(event)) {
             move(data, 320);
             pos->y -= 2;
         }
-        if (event.key.code == sfKeyS) {
+        if (DOWN(event)) {
             move(data, 256);
             pos->y += 2;
         }
-        if (event.key.code == sfKeyQ) {
+        if (LEFT(event)) {
             move(data, 448);
             pos->x -= 2;
         }
-        if (event.key.code == sfKeyD) {
+        if (RIGHT(event)) {
             move(data, 384);
             pos->x += 2;
         }

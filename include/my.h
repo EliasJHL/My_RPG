@@ -13,6 +13,10 @@
 #include <SFML/Network.h>
 #include <stdlib.h>
 #include <stdio.h>
+#define UP(e) (e.key.code == sfKeyZ || e.key.code == sfKeyUp)
+#define DOWN(e) (e.key.code == sfKeyS || e.key.code == sfKeyDown)
+#define RIGHT(e) (e.key.code == sfKeyD || e.key.code == sfKeyRight)
+#define LEFT(e) (e.key.code == sfKeyQ || e.key.code == sfKeyLeft)
 
 // Menu struct
 typedef struct menu_s {
