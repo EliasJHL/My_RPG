@@ -25,6 +25,7 @@ player_t *init_player(void)
     player_t *player = malloc(sizeof(player_t));
     sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
 
+    player->zoom = 0.5;
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
     sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});
@@ -36,7 +37,7 @@ player_t *init_player(void)
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
     sfView_setSize(player->camera, (sfVector2f){1920, 1080});
-    sfView_zoom(player->camera, 1);
+    sfView_zoom(player->camera, player->zoom);
     free(txt);
     return player;
 }

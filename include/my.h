@@ -74,6 +74,7 @@ typedef struct player_s {
     int life;
     int xp;
     int level;
+    float zoom;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;

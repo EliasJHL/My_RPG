@@ -69,14 +69,14 @@ static void camera_handler(data_t *data)
     pos.y += 48 / 2;
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
+    sfRenderWindow_drawSprite(data->window, data->player->player_sprite, NULL);
+    hud_player(data);
+    meteo_display(data);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
 {
     sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
-    sfRenderWindow_drawSprite(window, data->player->player_sprite, NULL);
-    hud_player(data);
-    meteo_display(data);
     if (data->player->animation == 0)
         idle(data, 0);
 }
@@ -93,8 +93,8 @@ void game_loop(data_t *data)
             event_handler(data->window, event, data);
         sfRenderWindow_clear(data->window, sfBlack);
         draw_sprites(data->window, data);
-        player_basics(event, data);
         camera_handler(data);
+        player_basics(event, data);
         sfRenderWindow_display(data->window);
     }
 }
