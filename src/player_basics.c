@@ -41,19 +41,19 @@ void player_movement(sfEvent event, data_t *data)
 {
     if (event.type == sfEvtKeyPressed) {
         if (event.key.code == sfKeyZ) {
-            move_top(data);
+            move(data, 320);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {0, -1});
         }
         if (event.key.code == sfKeyS) {
-            move_down(data);
+            move(data, 256);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {0, 1});
         }
         if (event.key.code == sfKeyQ) {
-            move_left(data);
+            move(data, 448);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {-1, 0});
         }
         if (event.key.code == sfKeyD) {
-            move_right(data);
+            move(data, 384);
             sfSprite_move(data->player->player_sprite, (sfVector2f) {1, 0});
         }
     } else if (event.type == sfEvtKeyReleased) {

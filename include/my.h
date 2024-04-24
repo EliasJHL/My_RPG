@@ -90,10 +90,7 @@ menu_t *init_menu(void);
 pause_t *init_pause(void);
 
 //animations functions
-void move_top(data_t *data);
-void move_right(data_t *data);
-void move_left(data_t *data);
-void move_down(data_t *data);
+void move(data_t *data, int top);
 
 // HUD Display
 void pause_menu(data_t *data);

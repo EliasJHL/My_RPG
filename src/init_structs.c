@@ -32,7 +32,7 @@ player_t *init_player(void)
     player->player_pos.y = 0;
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
-    sfView_zoom(player->camera, 0.6);
+    sfView_zoom(player->camera, 0.1);
     free(txt);
     return player;
 }
