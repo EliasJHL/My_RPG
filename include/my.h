@@ -63,6 +63,8 @@ typedef struct inventory_s {
 
 // Player data
 typedef struct player_s {
+    sfClock *clock;
+    sfTime elapsed_time;
     sfSprite *player_sprite;
     sfVector2f player_pos;
     sfIntRect rect;
@@ -75,16 +77,26 @@ typedef struct map_s {
     sfVector2f map_pos;
 } map_t;
 
+// HUD struct | 0 : Day | 1 : Night | 2 : Rain
+typedef struct hud_s {
+    int meteo_status;
+    sfClock *clock_meteo;
+    sfTime time_meteo;
+    sfSprite *meteo;
+    sfSprite *hud_holder;
+    sfVector2f hud_pos;
+    sfVector2f meteo_pos;
+} hud_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 typedef struct data_s {
     int hud_state;
-    sfClock *clock;
-    sfTime elapsed_time;
     sfRenderWindow *window;
     map_t *map;
     player_t *player;
     menu_t *menu;
     pause_t *pause;
+    hud_t *hud;
 }data_t;
 
 // Init structs & data
@@ -92,6 +104,7 @@ map_t *init_map(void);
 player_t *init_player(void);
 menu_t *init_menu(void);
 pause_t *init_pause(void);
+hud_t *hud_init(void);
 
 //animations functions
 void move(data_t *data, int top);
@@ -99,6 +112,7 @@ void move(data_t *data, int top);
 // HUD Display
 void pause_menu(data_t *data);
 void inventory_menu(data_t *data);
+void hud_player(data_t *data);
 
 // Basic Functions
 int player_basics(sfEvent event, data_t *data);

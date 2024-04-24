@@ -24,3 +24,14 @@ void inventory_menu(data_t *data)
     sfRectangleShape_setPosition(data->menu->shape, sprite_pos);
     sfRenderWindow_drawRectangleShape(data->window, data->menu->shape, NULL);
 }
+
+void hud_player(data_t *data)
+{
+    int x = (1920 / 3) - 135;
+    int y = (1080 / 2) - 30;
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - x, center.y - y};
+
+    sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
+    sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
+}

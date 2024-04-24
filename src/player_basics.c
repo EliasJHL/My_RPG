@@ -42,19 +42,19 @@ void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
     if (event.type == sfEvtKeyPressed) {
         if (UP(event)) {
             move(data, 320);
-            pos->y -= 2;
+            pos->y -= 5;
         }
         if (DOWN(event)) {
             move(data, 256);
-            pos->y += 2;
+            pos->y += 5;
         }
         if (LEFT(event)) {
             move(data, 448);
-            pos->x -= 2;
+            pos->x -= 5;
         }
         if (RIGHT(event)) {
             move(data, 384);
-            pos->x += 2;
+            pos->x += 5;
         }
     } else if (event.type == sfEvtKeyReleased) {
         release_position(event, data);

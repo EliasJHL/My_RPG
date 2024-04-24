@@ -63,6 +63,7 @@ void draw_sprites(sfRenderWindow *window, data_t *data)
 {
     sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
     sfRenderWindow_drawSprite(window, data->player->player_sprite, NULL);
+    hud_player(data);
 }
 
 void game_loop(data_t *data)
@@ -88,11 +89,11 @@ int main(void)
     data_t *data = malloc(sizeof(data_t));
 
     data->hud_state = 0;
-    data->clock = sfClock_create();
     data->map = init_map();
     data->player = init_player();
     data->menu = init_menu();
     data->pause = init_pause();
+    data->hud = hud_init();
     game_loop(data);
     free(data->map);
     free(data);

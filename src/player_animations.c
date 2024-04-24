@@ -11,8 +11,8 @@ void move(data_t *data, int top)
 {
     double seconds;
 
-    data->elapsed_time = sfClock_getElapsedTime(data->clock);
-    seconds = sfTime_asSeconds(data->elapsed_time);
+    data->player->elapsed_time = sfClock_getElapsedTime(data->player->clock);
+    seconds = sfTime_asSeconds(data->player->elapsed_time);
     if (seconds >= 0.15) {
         data->player->rect.top = top;
         data->player->rect.left += 64;
@@ -21,7 +21,7 @@ void move(data_t *data, int top)
         if (data->player->rect.left >= data->player->rect.width * 6) {
             data->player->rect.left = 0;
         }
-        sfClock_restart(data->clock);
+        sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
     }
