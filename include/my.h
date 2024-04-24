@@ -100,4 +100,4 @@ void inventory_menu(data_t *data);
 int player_basics(sfEvent event, data_t *data);
 
 //event function (player movements)
-void player_movement(sfEvent event, data_t *data);
+void player_movement(sfEvent event, data_t *data, sfVector2f *pos);

@@ -33,6 +33,8 @@ static void disable_hud(sfEvent event, data_t *data)
 
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
 {
+    sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
+
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
     if (event.type == sfEvtKeyPressed) {
@@ -41,8 +43,10 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
         else
             disable_hud(event, data);
     }
-    if (data->hud_state == 0)
-        player_movement(event, data);
+    if (data->hud_state == 0) {
+        player_movement(event, data, &pos);
+        sfSprite_setPosition(data->player->player_sprite, pos);
+    }
 }
 
 static void camera_handler(data_t *data)
