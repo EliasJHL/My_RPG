@@ -35,23 +35,25 @@ void idle(data_t *data, int top)
     }
 }
 
-static void move_player(sfEvent event, data_t *data, sfVector2f *pos)
+void move_player(data_t *data, sfVector2f *pos)
 {
+    if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
+        data->player->animation = 1;
     if (UP(event)) {
         move(data, 240);
-        pos->y -= 5;
+        pos->y -= 3;
     }
     if (DOWN(event)) {
         move(data, 144);
-        pos->y += 5;
+        pos->y += 3;
     }
     if (LEFT(event)) {
         move(data, 192);
-        pos->x -= 5;
+        pos->x -= 3;
     }
     if (RIGHT(event)) {
         move(data, 192);
-        pos->x += 5;
+        pos->x += 3;
     }
 }
 
@@ -59,7 +61,9 @@ void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
 {
     if (event.type == sfEvtKeyPressed) {
         data->player->animation = 1;
-        move_player(event, data, pos);
+        move_player(data, pos);
+        if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
+            data->player->animation = 0;
     }
     if (event.type == sfEvtKeyReleased) {
         if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))

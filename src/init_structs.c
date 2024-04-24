@@ -76,7 +76,7 @@ hud_t *hud_init(void)
     sfTexture *hud_holder = sfTexture_createFromFile("assets/player_info.png",
         NULL);
 
-    hud->meteo_status = 3;
+    hud->meteo_status = 1;
     hud->hud_holder = sfSprite_create();
     sfSprite_setTexture(hud->hud_holder, hud_holder, sfTrue);
     hud->hud_pos.x = 100;
