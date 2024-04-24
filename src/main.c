@@ -91,7 +91,7 @@ void game_loop(data_t *data)
     while (sfRenderWindow_isOpen(data->window)) {
         while (sfRenderWindow_pollEvent(data->window, &event))
             event_handler(data->window, event, data);
-        sfRenderWindow_clear(data->window, sfBlack);
+        sfRenderWindow_clear(data->window, sfCyan);
         draw_sprites(data->window, data);
         camera_handler(data);
         player_basics(event, data);

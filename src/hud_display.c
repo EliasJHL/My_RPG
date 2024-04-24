@@ -28,7 +28,7 @@ void inventory_menu(data_t *data)
 void display_life(data_t *data)
 {
     int x = 420;
-    int y = 165;
+    int y = 190;
     int pos_x = 0;
     sfVector2f center = sfView_getCenter(data->player->camera);
     sfVector2f sprite_pos;

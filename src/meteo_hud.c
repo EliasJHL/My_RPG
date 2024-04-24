@@ -7,7 +7,7 @@
 
 #include "../include/my.h"
 
-static void day_texutre(data_t *data, sfVector2f pos)
+static void day_texutre(data_t *data)
 {
     static int i;
     char str[30] = "assets/meteo_hud/day/";
@@ -24,13 +24,11 @@ static void day_texutre(data_t *data, sfVector2f pos)
     txt = sfTexture_createFromFile(str, NULL);
     data->hud->meteo = sfSprite_create();
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
-    sfSprite_setPosition(data->hud->meteo, pos);
-    sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
     free(txt);
     i++;
 }
 
-static void night_display(data_t *data, sfVector2f pos)
+static void night_display(data_t *data)
 {
     static int i;
     char str[30] = "assets/meteo_hud/night/";
@@ -47,13 +45,11 @@ static void night_display(data_t *data, sfVector2f pos)
     txt = sfTexture_createFromFile(str, NULL);
     data->hud->meteo = sfSprite_create();
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
-    sfSprite_setPosition(data->hud->meteo, pos);
-    sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
     free(txt);
     i++;
 }
 
-static void rain(data_t *data, sfVector2f pos)
+static void rain(data_t *data)
 {
     static int i;
     char str[30] = "assets/meteo_hud/rain/";
@@ -70,8 +66,6 @@ static void rain(data_t *data, sfVector2f pos)
     txt = sfTexture_createFromFile(str, NULL);
     data->hud->meteo = sfSprite_create();
     sfSprite_setTexture(data->hud->meteo, txt, sfTrue);
-    sfSprite_setPosition(data->hud->meteo, pos);
-    sfSprite_setScale(data->hud->meteo, (sfVector2f){1, 1.5});
     free(txt);
     i++;
 }
@@ -79,26 +73,27 @@ static void rain(data_t *data, sfVector2f pos)
 void change_texture(data_t *data)
 {
     double seconds;
-    int x = (1920 / 3) - 1050;
-    int y = (1080 / 2) - 40;
+    int x = 385;
+    int y = 270;
     sfVector2f center = sfView_getCenter(data->player->camera);
-    sfVector2f sprite_pos = {center.x - x, center.y - y};
+    sfVector2f sprite_pos = {center.x + x, center.y - y};
 
     data->hud->time_meteo = sfClock_getElapsedTime(data->hud->clock_meteo);
     seconds = sfTime_asSeconds(data->hud->time_meteo);
     if (seconds >= 0.15) {
         if (data->hud->meteo_status == 1)
-            day_texutre(data, sprite_pos);
+            day_texutre(data);
         if (data->hud->meteo_status == 2)
-            night_display(data, sprite_pos);
+            night_display(data);
         if (data->hud->meteo_status == 3)
-            rain(data, sprite_pos);
+            rain(data);
         sfClock_restart(data->hud->clock_meteo);
     }
-    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
+    sfSprite_setPosition(data->hud->meteo, sprite_pos);
 }
 
 void meteo_display(data_t *data)
 {
     change_texture(data);
+    sfRenderWindow_drawSprite(data->window, data->hud->meteo, NULL);
 }
