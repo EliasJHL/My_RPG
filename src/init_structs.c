@@ -35,6 +35,7 @@ player_t *init_player(void)
     sfSprite_setPosition(player->player_sprite, player->player_pos);
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
+    sfView_setSize(player->camera, (sfVector2f){1920, 1080});
     sfView_zoom(player->camera, 1);
     free(txt);
     return player;
