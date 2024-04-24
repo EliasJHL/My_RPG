@@ -13,12 +13,9 @@ CSFML	=	-lcsfml-system -lcsfml-graphics -lcsfml-window -lcsfml-audio
 
 CPPFLAGS = -I./include
 
-SRC	=	src/main.c	\
-		src/init_structs.c	\
-		src/player_basics.c	\
-		src/hud_display.c	\
-		src/player_animations.c	\
-		src/meteo_hud.c	\
+SRCDIR	=	src
+
+SRC	=	$(wildcard $(SRCDIR)/*.c)	\
 
 OBJ = $(SRC:.c=.o)
 
