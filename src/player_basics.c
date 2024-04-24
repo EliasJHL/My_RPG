@@ -7,7 +7,7 @@
 
 #include "../include/my.h"
 
-void type_hud(data_t *data)
+static void type_hud(data_t *data)
 {
     if (data->hud_state == 3)
         pause_menu(data);
@@ -15,7 +15,7 @@ void type_hud(data_t *data)
         inventory_menu(data);
 }
 
-static void idle(data_t *data, int top)
+void idle(data_t *data, int top)
 {
     double seconds;
 
