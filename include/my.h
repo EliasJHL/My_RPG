@@ -88,6 +88,16 @@ typedef struct player_s {
     life_t *life_hud;
 } player_t;
 
+typedef struct boss_s {
+    int anim;
+    int health;
+    sfClock *clockb;
+    sfTime elapsed_timeb;
+    sfSprite *boss_sprite;
+    sfVector2f boss_pos;
+    sfIntRect rectb;
+} boss_t;
+
 // Map struct
 typedef struct map_s {
     sfSprite *map_sprite;
