@@ -7,13 +7,53 @@
 
 #include "../include/my.h"
 
+int is_clicked(data_t *data, sfSprite *sprite)
+{
+    sfFloatRect bounds = sfSprite_getGlobalBounds(sprite);
+    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(data->window);
+
+    if (sfFloatRect_contains(&bounds, mouse_pos.x, mouse_pos.y)) {
+        return 1;
+    }
+    return 0;
+}
+
+static void pos_menu(data_t *data)
+{
+    sfVector2f view_center = sfView_getCenter(data->player->camera);
+    sfVector2f pos = {view_center.x - 416 / 2 + 60, view_center.y - 448 / 2};
+
+    pos.y += 70;
+    sfSprite_setPosition(data->pause->resume, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->options, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->menu, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->exit, pos);
+    sfSprite_setScale(data->pause->resume, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->exit, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->menu, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->options, (sfVector2f){0.5, 0.5});
+}
+
+static void pause_menu_sprites(data_t *data)
+{
+    pos_menu(data);
+    sfRenderWindow_drawSprite(data->window, data->pause->bg_pause, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->resume, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->exit, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->menu, NULL);
+}
+
 void pause_menu(data_t *data)
 {
     sfVector2f view_center = sfView_getCenter(data->player->camera);
     sfVector2f sprite_pos = {view_center.x - 416 / 2, view_center.y - 448 / 2};
 
     sfSprite_setPosition(data->pause->bg_pause, sprite_pos);
-    sfRenderWindow_drawSprite(data->window, data->pause->bg_pause, NULL);
+    pause_menu_sprites(data);
+    sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
 }
 
 void inventory_menu(data_t *data)

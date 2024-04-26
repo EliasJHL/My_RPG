@@ -59,6 +59,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
         player_movement(event, data, &pos);
         sfSprite_setPosition(data->player->player_sprite, pos);
     }
+    action_menu(event, data);
 }
 
 static void camera_handler(data_t *data)
@@ -92,6 +93,7 @@ void game_loop(data_t *data)
         while (sfRenderWindow_pollEvent(data->window, &event))
             event_handler(data->window, event, data);
         sfRenderWindow_clear(data->window, sfCyan);
+        background(data);
         draw_sprites(data->window, data);
         camera_handler(data);
         player_basics(event, data);

@@ -35,6 +35,22 @@ void idle(data_t *data, int top)
     }
 }
 
+static void move_player_2(data_t *data, sfVector2f *pos)
+{
+    if (LEFT(event)) {
+        move(data, 192);
+        pos->x -= 3;
+        sfSprite_setScale(data->player->player_sprite, (sfVector2f){-1, 1});
+        data->player->direction = 2;
+    }
+    if (RIGHT(event)) {
+        move(data, 192);
+        pos->x += 3;
+        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        data->player->direction = 3;
+    }
+}
+
 void move_player(data_t *data, sfVector2f *pos)
 {
     if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
@@ -42,19 +58,16 @@ void move_player(data_t *data, sfVector2f *pos)
     if (UP(event)) {
         move(data, 240);
         pos->y -= 3;
+        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        data->player->direction = 0;
     }
     if (DOWN(event)) {
         move(data, 144);
         pos->y += 3;
+        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        data->player->direction = 1;
     }
-    if (LEFT(event)) {
-        move(data, 192);
-        pos->x -= 3;
-    }
-    if (RIGHT(event)) {
-        move(data, 192);
-        pos->x += 3;
-    }
+    move_player_2(data, pos);
 }
 
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
@@ -64,9 +77,15 @@ void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
         move_player(data, pos);
         if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
             data->player->animation = 0;
+        if (SPACE(event)){
+            data->player->animation = 1;
+            attack(data);
+        }
     }
     if (event.type == sfEvtKeyReleased) {
         if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
+            data->player->animation = 0;
+        if (SPACE(event))
             data->player->animation = 0;
     }
 }

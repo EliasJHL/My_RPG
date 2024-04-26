@@ -42,11 +42,33 @@ player_t *init_player(void)
     return player;
 }
 
+static void init_pause_buttons(pause_t *pause)
+{
+    sfTexture *resume = sfTexture_createFromFile("assets/pause/c.png", NULL);
+    sfTexture *quit = sfTexture_createFromFile("assets/pause/q.png", NULL);
+    sfTexture *menu = sfTexture_createFromFile("assets/pause/m.png", NULL);
+    sfTexture *opt = sfTexture_createFromFile("assets/pause/o.png", NULL);
+
+    pause->resume = sfSprite_create();
+    pause->exit = sfSprite_create();
+    pause->menu = sfSprite_create();
+    pause->options = sfSprite_create();
+    sfSprite_setTexture(pause->resume, resume, sfTrue);
+    sfSprite_setTexture(pause->exit, quit, sfTrue);
+    sfSprite_setTexture(pause->menu, menu, sfTrue);
+    sfSprite_setTexture(pause->options, opt, sfTrue);
+    free(resume);
+    free(quit);
+    free(menu);
+    free(opt);
+}
+
 pause_t *init_pause(void)
 {
     pause_t *pause = malloc(sizeof(pause_t));
     sfTexture *bg = sfTexture_createFromFile("assets/bg_pause.png", NULL);
 
+    init_pause_buttons(pause);
     pause->bg_pause = sfSprite_create();
     sfSprite_setTexture(pause->bg_pause, bg, sfTrue);
     pause->bg_pos.x = (1920 / 2) - (416 / 2);

@@ -21,6 +21,7 @@
 #define RIGHT(e) (sfKeyboard_isKeyPressed(sfKeyRight) || RIGHT_KEY(e))
 #define LEFT_KEY(e) (sfKeyboard_isKeyPressed(sfKeyQ))
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
+#define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 
 // Menu struct
 typedef struct menu_s {
@@ -34,6 +35,7 @@ typedef struct pause_s {
     sfSprite *resume;
     sfSprite *options;
     sfSprite *exit;
+    sfSprite *menu;
     sfVector2f bg_pos;
     sfVector2f resume_pos;
     sfVector2f options_pos;
@@ -75,6 +77,7 @@ typedef struct life_s {
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
     int animation;
+    int direction;
     int life;
     int xp;
     int level;
@@ -125,15 +128,21 @@ hud_t *hud_init(void);
 void init_life(data_t *data);
 void start_meteo(data_t *data);
 
+// UI functions
+int is_clicked(data_t *data, sfSprite *sprite);
+void action_menu(sfEvent event, data_t *data);
+
 //animations functions
 void move(data_t *data, int top);
 void idle(data_t *data, int top);
+void attack(data_t *data);
 
 // HUD Display
 void pause_menu(data_t *data);
 void inventory_menu(data_t *data);
 void hud_player(data_t *data);
 void meteo_display(data_t *data);
+void background(data_t *data);
 
 // Basic Functions
 int player_basics(sfEvent event, data_t *data);
