@@ -59,6 +59,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
         player_movement(event, data, &pos);
         sfSprite_setPosition(data->player->player_sprite, pos);
     }
+    action_menu(event, data);
 }
 
 static void camera_handler(data_t *data)

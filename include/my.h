@@ -35,6 +35,7 @@ typedef struct pause_s {
     sfSprite *resume;
     sfSprite *options;
     sfSprite *exit;
+    sfSprite *menu;
     sfVector2f bg_pos;
     sfVector2f resume_pos;
     sfVector2f options_pos;
@@ -126,6 +127,10 @@ pause_t *init_pause(void);
 hud_t *hud_init(void);
 void init_life(data_t *data);
 void start_meteo(data_t *data);
+
+// UI functions
+int is_clicked(data_t *data, sfSprite *sprite);
+void action_menu(sfEvent event, data_t *data);
 
 //animations functions
 void move(data_t *data, int top);
