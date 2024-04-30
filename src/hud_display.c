@@ -111,6 +111,19 @@ static void display_life(data_t *data)
     }
 }
 
+static void test_items(data_t *data)
+{
+    items_t *current = data->items;
+    sfVector2f center = sfView_getCenter(data->player->camera);
+
+    while (current != NULL) {
+        sfSprite_setPosition(current->item, center);
+        center.x += 20;
+        sfRenderWindow_drawSprite(data->window, current->item, NULL);
+        current = current->next;
+    }
+}
+
 // A REFAIRE POUR NE PAS HARDCODE LES POSITIONS
 void hud_player(data_t *data)
 {
@@ -123,5 +136,6 @@ void hud_player(data_t *data)
     sfSprite_setScale(data->hud->hud_holder, (sfVector2f){zoom, zoom});
     sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
     sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
+    test_items(data);
     display_life(data);
 }

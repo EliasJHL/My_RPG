@@ -110,6 +110,7 @@ static void starter(data_t *data)
     data->pause = init_pause();
     data->hud = hud_init();
     data->inv = init_inventory();
+    init_items(data);
     init_life(data);
     start_meteo(data);
 }

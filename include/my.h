@@ -13,6 +13,8 @@
 #include <SFML/Network.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #define UP_KEY(e) (sfKeyboard_isKeyPressed(sfKeyZ))
 #define UP(e) (sfKeyboard_isKeyPressed(sfKeyUp) || UP_KEY(e))
 #define DOWN_KEY(e) (sfKeyboard_isKeyPressed(sfKeyS))
@@ -44,15 +46,17 @@ typedef struct pause_s {
 
 // Items stock data
 typedef struct items_s {
-    sfRectangleShape *slot;
-    sfVector2f slot_pos;
     sfVector2f item_pos;
     sfBool in_inventory;
     sfBool is_picked;
     sfSprite *item;
+    char *item_name;
+    char *item_type;
     int item_amount;
+    int item_max_amount;
     int item_value;
     int item_id;
+    int price;
     struct items_s *next;
 } items_t;
 
@@ -134,6 +138,7 @@ hud_t *hud_init(void);
 void init_life(data_t *data);
 void start_meteo(data_t *data);
 inventory_t *init_inventory(void);
+int init_items(data_t *data);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
