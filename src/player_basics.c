@@ -26,9 +26,8 @@ void idle(data_t *data, int top)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left >= data->player->rect.width * 6) {
+        if (data->player->rect.left >= data->player->rect.width * 6)
             data->player->rect.left = 0;
-        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
                                 data->player->rect);

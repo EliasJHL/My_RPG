@@ -56,13 +56,40 @@ void pause_menu(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
 }
 
+void display_slots(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - 180, center.y + 30};
+    int status = 0;
+
+    for (int i = 0; i < 48; i++) {
+        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
+        sprite_pos.x += 30;
+        if (sprite_pos.x >= center.x + 180) {
+            sprite_pos.x = center.x - 180;
+            sprite_pos.y += 30;
+        }
+        if (i >= 35 && status != 1) {
+            status = 1;
+            sprite_pos.y += 15;
+        }
+        sfRenderWindow_drawRectangleShape(data->window, data->inv->slots[i].slot, NULL);
+    }
+}
+
 void inventory_menu(data_t *data)
 {
     sfVector2f center = sfView_getCenter(data->player->camera);
-    sfVector2f sprite_pos = {center.x - 1920 / 2, center.y - 1080 / 2};
+    sfVector2f bg_pos = {center.x - 1920 / 2, center.y - 1080 / 2};
+    sfVector2f s = {(656 * 0.7), (544 * 0.9)};
+    sfVector2f sprite_pos = {center.x - s.x / 2, center.y - s.y / 2};
 
-    sfRectangleShape_setPosition(data->menu->shape, sprite_pos);
-    sfRenderWindow_drawRectangleShape(data->window, data->menu->shape, NULL);
+    sfRectangleShape_setPosition(data->inv->inv, bg_pos);
+    sfSprite_setPosition(data->inv->inv_sprite, sprite_pos);
+    sfSprite_setScale(data->inv->inv_sprite, (sfVector2f){0.7, 0.9});
+    sfRenderWindow_drawRectangleShape(data->window, data->inv->inv, NULL);
+    sfRenderWindow_drawSprite(data->window, data->inv->inv_sprite, NULL);
+    display_slots(data);
 }
 
 void display_life(data_t *data)

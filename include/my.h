@@ -46,10 +46,13 @@ typedef struct pause_s {
 typedef struct items_s {
     sfRectangleShape *slot;
     sfVector2f slot_pos;
-    sfSprite *item;
     sfVector2f item_pos;
-    int item_id;
+    sfBool in_inventory;
+    sfBool is_picked;
+    sfSprite *item;
     int item_amount;
+    int item_value;
+    int item_id;
     struct items_s *next;
 } items_t;
 
@@ -57,13 +60,14 @@ typedef struct items_s {
 typedef struct slots_s {
     sfRectangleShape *slot;
     sfVector2f slot_pos;
-    items_t *items;
-    struct slots_s *next;
+    int item_id;
 } slots_t;
 
 typedef struct inventory_s {
     sfRectangleShape *inv;
+    sfSprite *inv_sprite;
     sfVector2f inv_pos;
+    sfVector2f sprite_pos;
     slots_t *slots;
 } inventory_t;
 
@@ -117,6 +121,8 @@ typedef struct data_s {
     menu_t *menu;
     pause_t *pause;
     hud_t *hud;
+    inventory_t *inv;
+    items_t *items;
 }data_t;
 
 // Init structs & data
@@ -127,6 +133,7 @@ pause_t *init_pause(void);
 hud_t *hud_init(void);
 void init_life(data_t *data);
 void start_meteo(data_t *data);
+inventory_t *init_inventory(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
