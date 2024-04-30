@@ -11,5 +11,5 @@ items_t *init_items(void)
 {
     items_t *items = malloc(sizeof(items_t));
 
-
+    return 0;
 }

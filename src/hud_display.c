@@ -73,7 +73,8 @@ void display_slots(data_t *data)
             status = 1;
             sprite_pos.y += 15;
         }
-        sfRenderWindow_drawRectangleShape(data->window, data->inv->slots[i].slot, NULL);
+        sfRenderWindow_drawRectangleShape(data->window,
+            data->inv->slots[i].slot, NULL);
     }
 }
 
@@ -92,7 +93,7 @@ void inventory_menu(data_t *data)
     display_slots(data);
 }
 
-void display_life(data_t *data)
+static void display_life(data_t *data)
 {
     int x = 420;
     int y = 190;
