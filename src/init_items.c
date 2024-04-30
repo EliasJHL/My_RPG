@@ -33,7 +33,8 @@ void add_new_node(char *line, items_t *newNode)
     newNode->item_id = atoi(strtok(NULL, ":"));
     strcat(sprite, test_texture(strtok(NULL, ":")));
     txt = sfTexture_createFromFile(sprite, NULL);
-    sfSprite_setTexture(newNode->item, sfTexture_createFromFile("assets/items/none.png", NULL), sfTrue);
+    sfSprite_setTexture(newNode->item, sfTexture_createFromFile(
+        "assets/items/none.png", NULL), sfTrue);
     free(txt);
     sfSprite_setScale(newNode->item, (sfVector2f){0.1, 0.1});
     newNode->price = atoi(strtok(NULL, ":"));
