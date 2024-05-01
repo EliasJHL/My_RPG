@@ -56,25 +56,41 @@ void pause_menu(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
 }
 
+static void display_items(data_t *data, sfVector2f sprite_pos, int id)
+{
+    items_t *current = data->items;
+
+    while (current != NULL) {
+        if (current->item_id == id) {
+            sfSprite_setPosition(current->item, sprite_pos);
+            sfRenderWindow_drawSprite(data->window, current->item, NULL);
+            return;
+        }
+        current = current->next;
+    }
+}
+
 void display_slots(data_t *data)
 {
     sfVector2f center = sfView_getCenter(data->player->camera);
-    sfVector2f sprite_pos = {center.x - 180, center.y + 30};
+    sfVector2f sprite_pos = {center.x - 210, center.y + 30};
     int status = 0;
 
     for (int i = 0; i < 48; i++) {
-        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
         sprite_pos.x += 30;
         if (sprite_pos.x >= center.x + 180) {
             sprite_pos.x = center.x - 180;
             sprite_pos.y += 30;
         }
-        if (i >= 35 && status != 1) {
+        if (i >= 36 && status != 1) {
             status = 1;
             sprite_pos.y += 15;
         }
+        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
         sfRenderWindow_drawRectangleShape(data->window,
             data->inv->slots[i].slot, NULL);
+        if (data->inv->slots[i].item_id != 0)
+            display_items(data, sprite_pos, data->inv->slots[i].item_id);
     }
 }
 
@@ -111,19 +127,6 @@ static void display_life(data_t *data)
     }
 }
 
-static void test_items(data_t *data)
-{
-    items_t *current = data->items;
-    sfVector2f center = sfView_getCenter(data->player->camera);
-
-    while (current != NULL) {
-        sfSprite_setPosition(current->item, center);
-        center.x += 20;
-        sfRenderWindow_drawSprite(data->window, current->item, NULL);
-        current = current->next;
-    }
-}
-
 // A REFAIRE POUR NE PAS HARDCODE LES POSITIONS
 void hud_player(data_t *data)
 {
@@ -136,6 +139,5 @@ void hud_player(data_t *data)
     sfSprite_setScale(data->hud->hud_holder, (sfVector2f){zoom, zoom});
     sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
     sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
-    test_items(data);
     display_life(data);
 }

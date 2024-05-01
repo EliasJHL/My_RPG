@@ -7,23 +7,29 @@
 
 #include "../include/my.h"
 
-char *test_texture(char *name)
+void test_texture(char *name, items_t *newNode)
 {
-    char *path = strdup("assets/items/");
+    char *path = malloc(strlen("assets/items/") + strlen(name) + 1);
+    sfTexture *txt = NULL;
 
+    strcpy(path, "assets/items/");
     strcat(path, name);
-    if (access(path, F_OK) == 0) {
+    txt = sfTexture_createFromFile(path, NULL);
+    if (txt == NULL) {
         free(path);
-        return name;
+        txt = sfTexture_createFromFile("assets/items/none.png", NULL);
+        sfSprite_setTexture(newNode->item, txt, sfTrue);
+        free(txt);
+    } else {
+        free(path);
+        sfSprite_setTexture(newNode->item, txt, sfTrue);
+        free(txt);
     }
-    free(path);
-    return "none.png";
 }
 
 void add_new_node(char *line, items_t *newNode)
 {
-    char *sprite = strdup("assets/items/");
-    sfTexture *txt = NULL;
+    sfFloatRect s;
 
     newNode->item = sfSprite_create();
     newNode->item_name = strdup(strtok(line, ":"));
@@ -31,16 +37,14 @@ void add_new_node(char *line, items_t *newNode)
     newNode->item_value = atoi(strtok(NULL, ":"));
     newNode->item_max_amount = atoi(strtok(NULL, ":"));
     newNode->item_id = atoi(strtok(NULL, ":"));
-    strcat(sprite, test_texture(strtok(NULL, ":")));
-    txt = sfTexture_createFromFile(sprite, NULL);
-    sfSprite_setTexture(newNode->item, sfTexture_createFromFile(
-        "assets/items/none.png", NULL), sfTrue);
-    free(txt);
-    sfSprite_setScale(newNode->item, (sfVector2f){0.1, 0.1});
+    test_texture(strtok(NULL, ":"), newNode);
+    s = sfSprite_getGlobalBounds(newNode->item);
+    s.width = 25 / s.width;
+    s.height = 25 / s.height;
+    sfSprite_setScale(newNode->item, (sfVector2f){s.width, s.height});
     newNode->price = atoi(strtok(NULL, ":"));
     newNode->in_inventory = sfFalse;
     newNode->next = NULL;
-    free(sprite);
 }
 
 void add_chained_list(data_t *data, char *line)
