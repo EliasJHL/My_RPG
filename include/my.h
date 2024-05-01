@@ -65,6 +65,7 @@ typedef struct slots_s {
     sfRectangleShape *slot;
     sfVector2f slot_pos;
     int item_id;
+    int slot_id;
 } slots_t;
 
 typedef struct inventory_s {
