@@ -109,24 +109,6 @@ void inventory_menu(data_t *data)
     display_slots(data);
 }
 
-static void display_life(data_t *data)
-{
-    int x = 420;
-    int y = 190;
-    int pos_x = 0;
-    sfVector2f center = sfView_getCenter(data->player->camera);
-    sfVector2f sprite_pos;
-    life_t *current = data->player->life_hud;
-
-    for (int i = 0; i < 10; i++) {
-        sprite_pos = (sfVector2f){(center.x - x) + pos_x, center.y - y};
-        sfSprite_setPosition(current->heart, sprite_pos);
-        sfRenderWindow_drawSprite(data->window, current->heart, NULL);
-        current = current->next;
-        pos_x += 10;
-    }
-}
-
 // A REFAIRE POUR NE PAS HARDCODE LES POSITIONS
 void hud_player(data_t *data)
 {
@@ -139,6 +121,6 @@ void hud_player(data_t *data)
     sfSprite_setScale(data->hud->hud_holder, (sfVector2f){zoom, zoom});
     sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
     sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
-    display_life(data);
+    display_life_hud(data);
     display_item_holder(data);
 }

@@ -26,6 +26,7 @@ player_t *init_player(void)
     sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
 
     player->zoom = 0.5;
+    player->life = 200;
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
     sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});

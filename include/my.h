@@ -80,7 +80,7 @@ typedef struct inventory_s {
 typedef struct life_s {
     sfSprite *heart;
     sfVector2f heart_pos;
-    struct life_s *next;
+    sfIntRect rect;
 }life_t;
 
 // Player data | animation = 1 → animation en cours | 0 → idle
@@ -143,6 +143,7 @@ void init_life(data_t *data);
 void start_meteo(data_t *data);
 inventory_t *init_inventory(void);
 int init_items(data_t *data);
+void display_life_hud(data_t *data);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
