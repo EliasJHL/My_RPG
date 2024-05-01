@@ -9,22 +9,17 @@
 
 static void item_display_holder(data_t *data, int i, sfVector2f pos, int j)
 {
-    sfFloatRect s;
-    sfVector2f selected = {1.1, 1.1};
     items_t *item = data->items;
 
     while (item != NULL) {
-        s = sfSprite_getGlobalBounds(item->item);
-        s.width = 25 / s.width;
-        s.height = 25 / s.height;
-        if (j == 1)
-            sfSprite_setScale(item->item, selected);
-        else
-            sfSprite_setScale(item->item, (sfVector2f){s.width, s.height});
-        if (item->item_id == data->inv->slots[i].item_id) {
+        if (item->item_id == data->inv->slots[i].item_id && j == 1) {
             sfSprite_setPosition(item->item, pos);
+            sfRenderWindow_drawSprite(data->window, item->item, NULL);
         }
-        sfRenderWindow_drawSprite(data->window, item->item, NULL);
+        if (item->item_id == data->inv->slots[i].item_id && j == 0) {
+            sfSprite_setPosition(item->item, pos);
+            sfRenderWindow_drawSprite(data->window, item->item, NULL);
+        }
         item = item->next;
     }
 }
@@ -37,9 +32,9 @@ static void display_item_2(data_t *data, int i, sfVector2f slot, sfVector2f s)
     sfRectangleShape_setPosition(data->inv->slots[i].slot, slot);
     slot.x += 1;
     slot.y += 2;
-    item_display_holder(data, i, slot, 1);
     sfRenderWindow_drawRectangleShape(data->window,
         data->inv->slots[i].slot, NULL);
+    item_display_holder(data, i, slot, 1);
 }
 
 static void display_item_holder_slots(data_t *data, sfVector2f center)
