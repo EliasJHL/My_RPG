@@ -66,3 +66,35 @@ void display_item_holder(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->hud->item_hold, NULL);
     display_item_holder_slots(data, center);
 }
+
+static void display_life(data_t *data, sfVector2f center)
+{
+    sfVector2f sprite_pos;
+    int life = 0;
+
+    sprite_pos = (sfVector2f){center.x - 390, center.y - 200};
+    data->player->life_hud->rect.left -= 48;
+    while (life < data->player->life) {
+        data->player->life_hud->rect.left -= 48;
+        life += 34;
+    }
+    if (data->player->life_hud->rect.left > 288)
+        data->player->life_hud->rect.left = 288;
+    sfSprite_setTextureRect(data->player->life_hud->heart,
+        data->player->life_hud->rect);
+    sfSprite_setScale(data->player->life_hud->heart, (sfVector2f){1.8, 1.8});
+    sfSprite_setPosition(data->player->life_hud->heart, sprite_pos);
+    sfRenderWindow_drawSprite(data->window,
+        data->player->life_hud->heart, NULL);
+}
+
+void display_life_hud(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+
+    data->player->life_hud->rect.top = 0;
+    data->player->life_hud->rect.left = 384;
+    data->player->life_hud->rect.width = 48;
+    data->player->life_hud->rect.height = 16;
+    display_life(data, center);
+}

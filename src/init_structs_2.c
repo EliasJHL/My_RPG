@@ -9,24 +9,12 @@
 
 void init_life(data_t *data)
 {
-    int pos_x = 0;
-    life_t *life = NULL;
-    life_t *node = NULL;
     sfTexture *heart;
 
-    heart = sfTexture_createFromFile("assets/life/active.png", NULL);
-    for (int i = 0; i < 10; i++) {
-        node = malloc(sizeof(life_t));
-        node->heart = sfSprite_create();
-        sfSprite_setTexture(node->heart, heart, sfTrue);
-        node->heart_pos.x += pos_x;
-        node->heart_pos.y = 0;
-        sfSprite_setPosition(node->heart, node->heart_pos);
-        pos_x += 18;
-        node->next = life;
-        life = node;
-    }
-    data->player->life_hud = life;
+    data->player->life_hud = malloc(sizeof(life_t));
+    heart = sfTexture_createFromFile("assets/slidebar.png", NULL);
+    data->player->life_hud->heart = sfSprite_create();
+    sfSprite_setTexture(data->player->life_hud->heart, heart, sfTrue);
     free(heart);
 }
 

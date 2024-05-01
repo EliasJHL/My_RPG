@@ -102,6 +102,14 @@ static void item_hold_change(sfEvent event, data_t *data)
     item_hold_change_2(event, data);
 }
 
+void debug_life(data_t *data, sfEvent event)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyP))
+        data->player->life += 10;
+    if (sfKeyboard_isKeyPressed(sfKeyM))
+        data->player->life -= 10;
+}
+
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
 {
     if (event.type == sfEvtKeyPressed) {
@@ -114,6 +122,7 @@ void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
             attack(data);
         }
         item_hold_change(event, data);
+        debug_life(data, event);
     }
     if (event.type == sfEvtKeyReleased) {
         if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
@@ -126,5 +135,9 @@ void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
 int player_basics(sfEvent event, data_t *data)
 {
     type_hud(data);
+    if (data->player->life > 200)
+        data->player->life = 200;
+    if (data->player->life < 0)
+        data->player->life = 0;
     return 0;
 }
