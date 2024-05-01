@@ -9,6 +9,8 @@
 
 static void type_hud(data_t *data)
 {
+    if (data->notif->active == true)
+        notification_display(data);
     if (data->hud_state == 3)
         pause_menu(data);
     if (data->hud_state == 4)
@@ -108,6 +110,8 @@ void debug_life(data_t *data, sfEvent event)
         data->player->life += 10;
     if (sfKeyboard_isKeyPressed(sfKeyM))
         data->player->life -= 10;
+    if (sfKeyboard_isKeyPressed(sfKeyL))
+        notification(data, 1);
 }
 
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos)

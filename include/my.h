@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdbool.h>
 #define UP_KEY(e) (sfKeyboard_isKeyPressed(sfKeyZ))
 #define UP(e) (sfKeyboard_isKeyPressed(sfKeyUp) || UP_KEY(e))
 #define DOWN_KEY(e) (sfKeyboard_isKeyPressed(sfKeyS))
@@ -120,6 +121,18 @@ typedef struct hud_s {
     sfVector2f item_hold_pos;
 } hud_t;
 
+// notification system
+typedef struct notif_s {
+    bool active;
+    int content;
+    sfClock *clock;
+    sfTime elapsed_time;
+    sfSprite *notif_content;
+    sfSprite *notif;
+    sfVector2f notif_pos;
+    sfVector2f text_pos;
+}notif_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 typedef struct data_s {
     int hud_state;
@@ -131,6 +144,7 @@ typedef struct data_s {
     hud_t *hud;
     inventory_t *inv;
     items_t *items;
+    notif_t *notif;
 }data_t;
 
 // Init structs & data
@@ -144,6 +158,7 @@ void start_meteo(data_t *data);
 inventory_t *init_inventory(void);
 int init_items(data_t *data);
 void display_life_hud(data_t *data);
+void init_notification_sprite(data_t *data);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
@@ -161,6 +176,10 @@ void inventory_menu(data_t *data);
 void hud_player(data_t *data);
 void meteo_display(data_t *data);
 void background(data_t *data);
+
+//notification system
+void notification(data_t *data, int nb);
+void notification_display(data_t *data);
 
 // Basic Functions
 int player_basics(sfEvent event, data_t *data);

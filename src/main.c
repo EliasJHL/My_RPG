@@ -112,6 +112,7 @@ static void starter(data_t *data)
     data->inv = init_inventory();
     init_items(data);
     init_life(data);
+    init_notification_sprite(data);
     start_meteo(data);
 }
 
