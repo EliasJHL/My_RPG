@@ -92,6 +92,19 @@ menu_t *init_menu(void)
     return menu;
 }
 
+static void item_holder(hud_t *hud)
+{
+    sfTexture *txt = sfTexture_createFromFile("assets/item_holder.png", NULL);
+
+    hud->item_hold = sfSprite_create();
+    sfSprite_setTexture(hud->item_hold, txt, sfTrue);
+    hud->item_hold_pos.x = 0;
+    hud->item_hold_pos.y = 0;
+    sfSprite_setPosition(hud->item_hold, hud->item_hold_pos);
+    sfSprite_setScale(hud->item_hold, (sfVector2f){0.7, 0.7});
+    free(txt);
+}
+
 hud_t *hud_init(void)
 {
     hud_t *hud = malloc(sizeof(hud_t));
@@ -105,6 +118,7 @@ hud_t *hud_init(void)
     hud->hud_pos.y = 50;
     sfSprite_setPosition(hud->hud_holder, hud->hud_pos);
     hud->clock_meteo = sfClock_create();
+    item_holder(hud);
     free(hud_holder);
     return hud;
 }

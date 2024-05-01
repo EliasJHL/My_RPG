@@ -140,4 +140,5 @@ void hud_player(data_t *data)
     sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
     sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
     display_life(data);
+    display_item_holder(data);
 }

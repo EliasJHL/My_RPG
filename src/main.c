@@ -22,11 +22,11 @@ static void display_hud(sfEvent event, data_t *data)
 // Temporary function
 static void meteo_changer(sfEvent event, data_t *data)
 {
-    if (event.key.code == sfKeyNum1)
+    if (event.key.code == sfKeyNumpad1)
         data->hud->meteo_status = 1;
-    if (event.key.code == sfKeyNum2)
+    if (event.key.code == sfKeyNumpad2)
         data->hud->meteo_status = 2;
-    if (event.key.code == sfKeyNum3)
+    if (event.key.code == sfKeyNumpad3)
         data->hud->meteo_status = 3;
 }
 

@@ -109,12 +109,15 @@ typedef struct map_s {
 // HUD struct | 0 : Day | 1 : Night | 2 : Rain
 typedef struct hud_s {
     int meteo_status;
+    int item_slot_nb;
     sfClock *clock_meteo;
     sfTime time_meteo;
     sfSprite *meteo;
     sfSprite *hud_holder;
+    sfSprite *item_hold;
     sfVector2f hud_pos;
     sfVector2f meteo_pos;
+    sfVector2f item_hold_pos;
 } hud_t;
 
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
@@ -144,6 +147,7 @@ int init_items(data_t *data);
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
 void action_menu(sfEvent event, data_t *data);
+void display_item_holder(data_t *data);
 
 //animations functions
 void move(data_t *data, int top);
