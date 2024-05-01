@@ -74,3 +74,19 @@ inventory_t *init_inventory(void)
     free(txt);
     return inventory;
 }
+
+void init_notification_sprite(data_t *data)
+{
+    sfTexture *txt = sfTexture_createFromFile("assets/notif/notif.png", NULL);
+
+    data->notif = malloc(sizeof(notif_t));
+    data->notif->notif = sfSprite_create();
+    data->notif->notif_content = sfSprite_create();
+    data->notif->content = 0;
+    data->notif->active = false;
+    data->notif->clock = sfClock_create();
+    data->notif->notif = sfSprite_create();
+    sfSprite_setTexture(data->notif->notif, txt, sfTrue);
+    sfSprite_setPosition(data->notif->notif, (sfVector2f){100, 100});
+    free(txt);
+}
