@@ -7,5 +7,9 @@ My_RPG project for Epitech - Make a game in CSFML
  - E : inventory menu
  - Escape : pause menu
  - N : stats of player
+ - Z : move
+ - Q : left
+ - D : right
+ - S : back
 
 Il y a des menus avec le status ( 1 → Menu & 2 → Options ) non accessibles via une touche
