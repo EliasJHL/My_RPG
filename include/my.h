@@ -87,7 +87,6 @@ typedef struct player_s {
     sfView *camera;
     life_t *life_hud;
 } player_t;
-
 typedef struct boss_s {
     int anim;
     int health;
