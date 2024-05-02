@@ -7,6 +7,22 @@
 
 #include "../include/my.h"
 
+void background(data_t *data)
+{
+    sfRectangleShape *bg = sfRectangleShape_create();
+    sfVector2f size = {10000, 10000};
+
+    sfRectangleShape_setSize(bg, size);
+    if (data->hud->meteo_status == 1)
+        sfRectangleShape_setFillColor(bg, sfCyan);
+    if (data->hud->meteo_status == 2)
+        sfRectangleShape_setFillColor(bg, sfBlack);
+    if (data->hud->meteo_status == 3)
+        sfRectangleShape_setFillColor(bg, sfColor_fromRGB(150, 150, 150));
+    sfRectangleShape_setPosition(bg, (sfVector2f){0, 0});
+    sfRenderWindow_drawRectangleShape(data->window, bg, NULL);
+}
+
 static void day_texutre(data_t *data)
 {
     static int i;

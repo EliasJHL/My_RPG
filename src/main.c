@@ -22,11 +22,11 @@ static void display_hud(sfEvent event, data_t *data)
 // Temporary function
 static void meteo_changer(sfEvent event, data_t *data)
 {
-    if (event.key.code == sfKeyNum1)
+    if (event.key.code == sfKeyNumpad1)
         data->hud->meteo_status = 1;
-    if (event.key.code == sfKeyNum2)
+    if (event.key.code == sfKeyNumpad2)
         data->hud->meteo_status = 2;
-    if (event.key.code == sfKeyNum3)
+    if (event.key.code == sfKeyNumpad3)
         data->hud->meteo_status = 3;
 }
 
@@ -59,6 +59,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
         player_movement(event, data, &pos);
         sfSprite_setPosition(data->player->player_sprite, pos);
     }
+    action_menu(event, data);
 }
 
 static void camera_handler(data_t *data)
@@ -92,6 +93,7 @@ void game_loop(data_t *data)
         while (sfRenderWindow_pollEvent(data->window, &event))
             event_handler(data->window, event, data);
         sfRenderWindow_clear(data->window, sfCyan);
+        background(data);
         draw_sprites(data->window, data);
         camera_handler(data);
         player_basics(event, data);
@@ -107,7 +109,10 @@ static void starter(data_t *data)
     data->menu = init_menu();
     data->pause = init_pause();
     data->hud = hud_init();
+    data->inv = init_inventory();
+    init_items(data);
     init_life(data);
+    init_notification_sprite(data);
     start_meteo(data);
 }
 

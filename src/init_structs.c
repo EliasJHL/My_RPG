@@ -26,6 +26,7 @@ player_t *init_player(void)
     sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
 
     player->zoom = 0.5;
+    player->life = 200;
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
     sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});
@@ -42,11 +43,33 @@ player_t *init_player(void)
     return player;
 }
 
+static void init_pause_buttons(pause_t *pause)
+{
+    sfTexture *resume = sfTexture_createFromFile("assets/pause/c.png", NULL);
+    sfTexture *quit = sfTexture_createFromFile("assets/pause/q.png", NULL);
+    sfTexture *menu = sfTexture_createFromFile("assets/pause/m.png", NULL);
+    sfTexture *opt = sfTexture_createFromFile("assets/pause/o.png", NULL);
+
+    pause->resume = sfSprite_create();
+    pause->exit = sfSprite_create();
+    pause->menu = sfSprite_create();
+    pause->options = sfSprite_create();
+    sfSprite_setTexture(pause->resume, resume, sfTrue);
+    sfSprite_setTexture(pause->exit, quit, sfTrue);
+    sfSprite_setTexture(pause->menu, menu, sfTrue);
+    sfSprite_setTexture(pause->options, opt, sfTrue);
+    free(resume);
+    free(quit);
+    free(menu);
+    free(opt);
+}
+
 pause_t *init_pause(void)
 {
     pause_t *pause = malloc(sizeof(pause_t));
     sfTexture *bg = sfTexture_createFromFile("assets/bg_pause.png", NULL);
 
+    init_pause_buttons(pause);
     pause->bg_pause = sfSprite_create();
     sfSprite_setTexture(pause->bg_pause, bg, sfTrue);
     pause->bg_pos.x = (1920 / 2) - (416 / 2);
@@ -70,6 +93,19 @@ menu_t *init_menu(void)
     return menu;
 }
 
+static void item_holder(hud_t *hud)
+{
+    sfTexture *txt = sfTexture_createFromFile("assets/item_holder.png", NULL);
+
+    hud->item_hold = sfSprite_create();
+    sfSprite_setTexture(hud->item_hold, txt, sfTrue);
+    hud->item_hold_pos.x = 0;
+    hud->item_hold_pos.y = 0;
+    sfSprite_setPosition(hud->item_hold, hud->item_hold_pos);
+    sfSprite_setScale(hud->item_hold, (sfVector2f){0.7, 0.7});
+    free(txt);
+}
+
 hud_t *hud_init(void)
 {
     hud_t *hud = malloc(sizeof(hud_t));
@@ -83,6 +119,7 @@ hud_t *hud_init(void)
     hud->hud_pos.y = 50;
     sfSprite_setPosition(hud->hud_holder, hud->hud_pos);
     hud->clock_meteo = sfClock_create();
+    item_holder(hud);
     free(hud_holder);
     return hud;
 }
