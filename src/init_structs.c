@@ -109,9 +109,9 @@ static void item_holder(hud_t *hud)
 hud_t *hud_init(void)
 {
     hud_t *hud = malloc(sizeof(hud_t));
-    sfTexture *hud_holder = sfTexture_createFromFile("assets/player_info.png",
-        NULL);
+    sfTexture *hud_holder;
 
+    hud_holder = sfTexture_createFromFile("assets/player_info.png", NULL);
     hud->meteo_status = 1;
     hud->hud_holder = sfSprite_create();
     sfSprite_setTexture(hud->hud_holder, hud_holder, sfTrue);

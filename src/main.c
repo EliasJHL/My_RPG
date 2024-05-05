@@ -123,7 +123,6 @@ int main(void)
 
     starter(data);
     game_loop(data);
-    free(data->map);
-    free(data);
+    close_the_game(data);
     return 0;
 }

@@ -192,8 +192,11 @@ void background(data_t *data);
 void notification(data_t *data, int nb);
 void notification_display(data_t *data);
 
-// Basic Functions
+// Basic Functions for player
 int player_basics(sfEvent event, data_t *data);
 
 //event function (player movements)
 void player_movement(sfEvent event, data_t *data, sfVector2f *pos);
+
+//destroy game (free memory)
+void close_the_game(data_t *data);
