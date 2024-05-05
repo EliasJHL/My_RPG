@@ -42,6 +42,7 @@ void add_new_node(char *line, items_t *newNode)
     s.width = 25 / s.width;
     s.height = 25 / s.height;
     sfSprite_setScale(newNode->item, (sfVector2f){s.width, s.height});
+    newNode->original_scale = (sfVector2f){s.width, s.height};
     newNode->price = atoi(strtok(NULL, ":"));
     newNode->in_inventory = sfFalse;
     newNode->next = NULL;
