@@ -10,11 +10,17 @@
 static void item_display_holder(data_t *data, int i, sfVector2f pos, int j)
 {
     items_t *item = data->items;
+    sfVector2f selected;
 
     while (item != NULL) {
         if (item->item_id == data->inv->slots[i].item_id && j == 1) {
+            pos = (sfVector2f){pos.x - 1, pos.y - 2};
             sfSprite_setPosition(item->item, pos);
+            selected = (sfVector2f){sfSprite_getScale(item->item).x * 1.1,
+                sfSprite_getScale(item->item).y * 1.1};
+            sfSprite_setScale(item->item, selected);
             sfRenderWindow_drawSprite(data->window, item->item, NULL);
+            sfSprite_setScale(item->item, item->original_scale);
         }
         if (item->item_id == data->inv->slots[i].item_id && j == 0) {
             sfSprite_setPosition(item->item, pos);
@@ -34,6 +40,7 @@ static void display_item_2(data_t *data, int i, sfVector2f slot, sfVector2f s)
     slot.y += 2;
     sfRenderWindow_drawRectangleShape(data->window,
         data->inv->slots[i].slot, NULL);
+    data->player->item_selected = data->inv->slots[i].item_id;
     item_display_holder(data, i, slot, 1);
 }
 

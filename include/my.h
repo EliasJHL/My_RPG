@@ -47,6 +47,7 @@ typedef struct pause_s {
 
 // Items stock data
 typedef struct items_s {
+    sfVector2f original_scale;
     sfVector2f item_pos;
     sfBool in_inventory;
     sfBool is_picked;
@@ -86,6 +87,7 @@ typedef struct life_s {
 
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
+    int item_selected;
     int animation;
     int direction;
     int life;
