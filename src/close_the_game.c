@@ -9,7 +9,7 @@
 
 void destroy_clock(data_t *data)
 {
-    sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
+    sfTexture *txt = sfTexture_createFromFile("assets/player/p.png", NULL);
 
     sfClock_destroy(data->player->clock);
     sfClock_destroy(data->hud->clock_meteo);

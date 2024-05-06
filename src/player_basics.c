@@ -111,6 +111,8 @@ void player_movement(data_t *data)
             data->player->animation = 1;
             attack(data);
         }
+    } else {
+        data->player->animation = 0;
     }
 }
 
