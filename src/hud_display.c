@@ -7,17 +7,6 @@
 
 #include "../include/my.h"
 
-int is_clicked(data_t *data, sfSprite *sprite)
-{
-    sfFloatRect bounds = sfSprite_getGlobalBounds(sprite);
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(data->window);
-
-    if (sfFloatRect_contains(&bounds, mouse_pos.x, mouse_pos.y)) {
-        return 1;
-    }
-    return 0;
-}
-
 static void pos_menu(data_t *data)
 {
     sfVector2f view_center = sfView_getCenter(data->player->camera);
