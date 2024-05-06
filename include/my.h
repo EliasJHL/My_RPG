@@ -25,6 +25,7 @@
 #define LEFT_KEY(e) (sfKeyboard_isKeyPressed(sfKeyQ))
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
+#define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
 
 // Menu struct
 typedef struct menu_s {
@@ -101,6 +102,10 @@ typedef struct player_s {
     sfIntRect rect;
     sfView *camera;
     life_t *life_hud;
+    int moving_up;
+    int moving_down;
+    int moving_left;
+    int moving_right;
 } player_t;
 typedef struct boss_s {
     int anim;
@@ -147,6 +152,7 @@ typedef struct notif_s {
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 typedef struct data_s {
     int hud_state;
+    sfEvent event;
     sfRenderWindow *window;
     map_t *map;
     player_t *player;
@@ -181,6 +187,10 @@ void move(data_t *data, int top);
 void idle(data_t *data, int top);
 void attack(data_t *data);
 
+// Inventory system functions
+void item_system_inventory(data_t *data);
+void item_hold_change(sfEvent event, data_t *data);
+
 // HUD Display
 void pause_menu(data_t *data);
 void inventory_menu(data_t *data);
@@ -196,7 +206,10 @@ void notification_display(data_t *data);
 int player_basics(sfEvent event, data_t *data);
 
 //event function (player movements)
-void player_movement(sfEvent event, data_t *data, sfVector2f *pos);
+void player_movement(data_t *data);
 
 //destroy game (free memory)
 void close_the_game(data_t *data);
+
+//Temporary function (To be removed)
+void debug_life(data_t *data);

@@ -48,13 +48,21 @@ void pause_menu(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
 }
 
+void display_items_status(items_t *current, sfVector2f sprite_pos)
+{
+    if (!current->is_picked)
+        sfSprite_setPosition(current->item, sprite_pos);
+    else
+        sfSprite_setPosition(current->item, current->item_pos);
+}
+
 static void display_items(data_t *data, sfVector2f sprite_pos, int id)
 {
     items_t *current = data->items;
 
     while (current != NULL) {
         if (current->item_id == id) {
-            sfSprite_setPosition(current->item, sprite_pos);
+            display_items_status(current, sprite_pos);
             sfRenderWindow_drawSprite(data->window, current->item, NULL);
             return;
         }

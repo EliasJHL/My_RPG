@@ -36,39 +36,39 @@ void idle(data_t *data, int top)
     }
 }
 
-static void move_player_2(data_t *data, sfVector2f *pos)
+static void move_player_2(data_t *data)
 {
     if (LEFT(event)) {
         move(data, 192);
-        pos->x -= 3;
+        sfSprite_move(data->player->player_sprite, (sfVector2f){-1, 0});
         sfSprite_setScale(data->player->player_sprite, (sfVector2f){-1, 1});
         data->player->direction = 2;
     }
     if (RIGHT(event)) {
         move(data, 192);
-        pos->x += 3;
         sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        sfSprite_move(data->player->player_sprite, (sfVector2f){1, 0});
         data->player->direction = 3;
     }
 }
 
-void move_player(data_t *data, sfVector2f *pos)
+void move_player(data_t *data)
 {
     if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
         data->player->animation = 1;
     if (UP(event)) {
         move(data, 240);
-        pos->y -= 3;
         sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        sfSprite_move(data->player->player_sprite, (sfVector2f){0, -1});
         data->player->direction = 0;
     }
     if (DOWN(event)) {
         move(data, 144);
-        pos->y += 3;
         sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
+        sfSprite_move(data->player->player_sprite, (sfVector2f){0, 1});
         data->player->direction = 1;
     }
-    move_player_2(data, pos);
+    move_player_2(data);
 }
 
 static void item_hold_change_2(sfEvent event, data_t *data)
@@ -87,7 +87,7 @@ static void item_hold_change_2(sfEvent event, data_t *data)
         data->hud->item_slot_nb = 11;
 }
 
-static void item_hold_change(sfEvent event, data_t *data)
+void item_hold_change(sfEvent event, data_t *data)
 {
     if (sfKeyboard_isKeyPressed(sfKeyNum1))
         data->hud->item_slot_nb = 0;
@@ -104,35 +104,17 @@ static void item_hold_change(sfEvent event, data_t *data)
     item_hold_change_2(event, data);
 }
 
-void debug_life(data_t *data, sfEvent event)
+void player_movement(data_t *data)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyP))
-        data->player->life += 10;
-    if (sfKeyboard_isKeyPressed(sfKeyM))
-        data->player->life -= 10;
-    if (sfKeyboard_isKeyPressed(sfKeyL))
-        notification(data, 1);
-}
-
-void player_movement(sfEvent event, data_t *data, sfVector2f *pos)
-{
-    if (event.type == sfEvtKeyPressed) {
+    if (MOVE(event)) {
         data->player->animation = 1;
-        move_player(data, pos);
+        move_player(data);
         if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
             data->player->animation = 0;
         if (SPACE(event)){
             data->player->animation = 1;
             attack(data);
         }
-        item_hold_change(event, data);
-        debug_life(data, event);
-    }
-    if (event.type == sfEvtKeyReleased) {
-        if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
-            data->player->animation = 0;
-        if (SPACE(event))
-            data->player->animation = 0;
     }
 }
 

@@ -44,8 +44,6 @@ static void disable_hud(sfEvent event, data_t *data)
 
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
 {
-    sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
-
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
     if (event.type == sfEvtKeyPressed) {
@@ -55,10 +53,14 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
             disable_hud(event, data);
         meteo_changer(event, data);
     }
-    if (data->hud_state == 0) {
-        player_movement(event, data, &pos);
-        sfSprite_setPosition(data->player->player_sprite, pos);
+    if (event.type == sfEvtKeyReleased) {
+        if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
+            data->player->animation = 0;
+        if (SPACE(event))
+            data->player->animation = 0;
     }
+    item_hold_change(event, data);
+    debug_life(data);
     action_menu(event, data);
 }
 
@@ -92,6 +94,7 @@ void game_loop(data_t *data)
     while (sfRenderWindow_isOpen(data->window)) {
         while (sfRenderWindow_pollEvent(data->window, &event))
             event_handler(data->window, event, data);
+        player_movement(data);
         sfRenderWindow_clear(data->window, sfCyan);
         background(data);
         draw_sprites(data->window, data);

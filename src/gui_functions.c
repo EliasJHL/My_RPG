@@ -62,8 +62,10 @@ void action_menu(sfEvent event, data_t *data)
     if (event.type == sfEvtMouseButtonPressed) {
         if (data->hud_state == 3)
             hud_pause_actions(data, event);
-        if (data->hud_state == 4)
+        if (data->hud_state == 4) {
+            item_system_inventory(data);
             inventory_menu(data);
+        }
     }
     if (event.type == sfEvtMouseMoved) {
         if (data->hud_state == 3) {
