@@ -68,8 +68,7 @@ void action_menu(sfEvent event, data_t *data)
         }
     }
     if (event.type == sfEvtMouseMoved) {
-        if (data->hud_state == 3) {
+        if (data->hud_state == 3)
             hud_pause_hover(data);
-        }
     }
 }
