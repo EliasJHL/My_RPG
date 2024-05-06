@@ -39,14 +39,12 @@ void idle(data_t *data, int top)
 static void move_player_2(data_t *data)
 {
     if (LEFT(event)) {
-        move(data, 192);
+        move(data, 528);
         sfSprite_move(data->player->player_sprite, (sfVector2f){-1, 0});
-        sfSprite_setScale(data->player->player_sprite, (sfVector2f){-1, 1});
         data->player->direction = 2;
     }
     if (RIGHT(event)) {
         move(data, 192);
-        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
         sfSprite_move(data->player->player_sprite, (sfVector2f){1, 0});
         data->player->direction = 3;
     }
@@ -58,13 +56,11 @@ void move_player(data_t *data)
         data->player->animation = 1;
     if (UP(event)) {
         move(data, 240);
-        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
         sfSprite_move(data->player->player_sprite, (sfVector2f){0, -1});
         data->player->direction = 0;
     }
     if (DOWN(event)) {
         move(data, 144);
-        sfSprite_setScale(data->player->player_sprite, (sfVector2f){1, 1});
         sfSprite_move(data->player->player_sprite, (sfVector2f){0, 1});
         data->player->direction = 1;
     }

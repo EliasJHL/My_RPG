@@ -23,7 +23,7 @@ map_t *init_map(void)
 player_t *init_player(void)
 {
     player_t *player = malloc(sizeof(player_t));
-    sfTexture *txt = sfTexture_createFromFile("assets/player.png", NULL);
+    sfTexture *txt = sfTexture_createFromFile("assets/player/p.png", NULL);
 
     player->zoom = 0.5;
     player->life = 200;
