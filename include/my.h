@@ -26,6 +26,9 @@
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
+#define TILE 16
+#define MAP_SIZE_X 3200
+#define MAP_SIZE_Y 3200
 
 // Menu struct
 typedef struct menu_s {
@@ -92,6 +95,7 @@ typedef struct player_s {
     int animation;
     int direction;
     int life;
+    int hungry;
     int xp;
     int level;
     float zoom;
@@ -99,14 +103,12 @@ typedef struct player_s {
     sfTime elapsed_time;
     sfSprite *player_sprite;
     sfVector2f player_pos;
+    sfVector2f spawn_point;
     sfIntRect rect;
     sfView *camera;
     life_t *life_hud;
-    int moving_up;
-    int moving_down;
-    int moving_left;
-    int moving_right;
 } player_t;
+
 typedef struct boss_s {
     int anim;
     int health;
@@ -152,6 +154,7 @@ typedef struct notif_s {
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 typedef struct data_s {
     int hud_state;
+    int *map_data;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
@@ -191,6 +194,9 @@ void attack(data_t *data);
 void item_system_inventory(data_t *data);
 void item_hold_change(sfEvent event, data_t *data);
 
+// Map functions
+int **init_map_collision(void);
+
 // HUD Display
 void pause_menu(data_t *data);
 void inventory_menu(data_t *data);
@@ -207,6 +213,14 @@ int player_basics(sfEvent event, data_t *data);
 
 //event function (player movements)
 void player_movement(data_t *data);
+
+// Values handler & call functions
+int dead_condition(data_t *data);
+void xp_add(int xp, data_t *data);
+void starve(int food, data_t *data);
+void eat(int food, data_t *data);
+void damage(int life, data_t *data);
+void heal(int life, data_t *data);
 
 //destroy game (free memory)
 void close_the_game(data_t *data);
