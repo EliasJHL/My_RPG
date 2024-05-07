@@ -12,7 +12,7 @@ void draw_boss(boss_t *boss)
 {
     sfTexture *boss_texture;
 
-    boss_texture = sfTexture_createFromFile("assets/human.png", NULL);
+    boss_texture = sfTexture_createFromFile("assets/boss/Shadow.png", NULL);
     boss->boss_sprite = sfSprite_create();
     sfSprite_setTexture(boss->boss_sprite, boss_texture, sfTrue);
 }
