@@ -107,7 +107,6 @@ void game_loop(data_t *data)
 
 static void starter(data_t *data)
 {
-    init_map_collision();
     data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
