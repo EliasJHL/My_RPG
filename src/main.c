@@ -94,6 +94,7 @@ void game_loop(data_t *data)
     while (sfRenderWindow_isOpen(data->window)) {
         while (sfRenderWindow_pollEvent(data->window, &event))
             event_handler(data->window, event, data);
+        dead_condition(data);
         player_movement(data);
         sfRenderWindow_clear(data->window, sfCyan);
         background(data);
@@ -109,7 +110,6 @@ static void starter(data_t *data)
     data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
-    data->player->item_selected = 0;
     data->menu = init_menu();
     data->pause = init_pause();
     data->hud = hud_init();

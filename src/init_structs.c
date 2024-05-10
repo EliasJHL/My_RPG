@@ -20,6 +20,13 @@ map_t *init_map(void)
     return map;
 }
 
+static void init_player_2(player_t *player)
+{
+    player->spawn_point = (sfVector2f){1280, 720};
+    player->player_pos = player->spawn_point;
+    sfSprite_setPosition(player->player_sprite, player->player_pos);
+}
+
 player_t *init_player(void)
 {
     player_t *player = malloc(sizeof(player_t));
@@ -27,14 +34,14 @@ player_t *init_player(void)
 
     player->zoom = 0.5;
     player->life = 200;
+    player->hungry = 100;
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
     sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
     sfSprite_setTextureRect(player->player_sprite, (sfIntRect){0, 0, 64, 64});
-    player->player_pos.x = 1280;
-    player->player_pos.y = 720;
-    sfSprite_setPosition(player->player_sprite, player->player_pos);
+    init_player_2(player);
+    player->item_selected = 0;
     player->camera = sfView_create();
     sfView_setCenter(player->camera, player->player_pos);
     sfView_setSize(player->camera, (sfVector2f){1920, 1080});
