@@ -23,7 +23,7 @@ void display_header(data_t *data, int i)
     angle += 0.5;
     effect_pos = (sfVector2f){sprite_pos.x + 240, sprite_pos.y + 30};
     sfSprite_setOrigin(data->tuto->finsish_effect,
-        sfVector2f){sprite_size.x / 2, sprite_size.y / 2});
+        (sfVector2f){sprite_size.x / 2, sprite_size.y / 2});
     sfSprite_setRotation(data->tuto->finsish_effect, angle);
     sfSprite_setPosition(data->tuto->finsish_effect, effect_pos);
     sfSprite_setPosition(data->tuto->tuto_finsished, sprite_pos);

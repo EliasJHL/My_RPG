@@ -19,7 +19,7 @@ static void display_hud(sfEvent event, data_t *data)
         data->hud_state = 6;
 }
 
-// Temporary function
+// debug function
 static void meteo_changer(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyNumpad1)
