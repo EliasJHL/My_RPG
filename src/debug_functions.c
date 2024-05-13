@@ -14,5 +14,7 @@ void debug_life(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyM))
         data->player->life -= 10;
     if (sfKeyboard_isKeyPressed(sfKeyL))
-        notification(data, 1);
+        notification(data, "New Achievement");
+    if (sfKeyboard_isKeyPressed(sfKeyK))
+        notification(data, "New Quest");
 }

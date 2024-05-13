@@ -103,7 +103,7 @@ void game_loop(data_t *data)
     sfVideoMode mode = {1920, 1080, 32};
     sfEvent event;
 
-    data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
+    data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, 0);
     sfRenderWindow_setFramerateLimit(data->window, 60);
     while (sfRenderWindow_isOpen(data->window)) {
         if (data->tuto_mode == true) {

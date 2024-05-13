@@ -26,7 +26,7 @@ void destroy_sprite(data_t *data)
     sfSprite_destroy(data->pause->exit);
     sfSprite_destroy(data->pause->options);
     sfSprite_destroy(data->pause->bg_pause);
-    sfSprite_destroy(data->notif->notif_content);
+    sfText_destroy(data->notif->text);
     sfSprite_destroy(data->notif->notif);
 }
 

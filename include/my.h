@@ -144,11 +144,11 @@ typedef struct hud_s {
 // notification system
 typedef struct notif_s {
     bool active;
-    int content;
+    char *content;
     sfClock *clock;
     sfTime elapsed_time;
-    sfSprite *notif_content;
     sfSprite *notif;
+    sfText *text;
     sfVector2f notif_pos;
     sfVector2f text_pos;
 }notif_t;
@@ -230,7 +230,7 @@ void meteo_display(data_t *data);
 void background(data_t *data);
 
 //notification system
-void notification(data_t *data, int nb);
+void notification(data_t *data, char *content);
 void notification_display(data_t *data);
 
 // Basic Functions for player

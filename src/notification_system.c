@@ -31,15 +31,6 @@ int cooldown_notif(data_t *data, sfVector2f pos, sfVector2f center)
     return i;
 }
 
-void sprite_notif(data_t *data)
-{
-    sfTexture *txt;
-
-    if (data->notif->content == 1)
-        txt = sfTexture_createFromFile("assets/notif/demo.png", NULL);
-    sfSprite_setTexture(data->notif->notif_content, txt, sfTrue);
-}
-
 /*pos.x -= */
 void notification_display(data_t *data)
 {
@@ -47,19 +38,22 @@ void notification_display(data_t *data)
     sfVector2f pos = {center.x + 300, center.y - 200};
 
     sfSprite_setScale(data->notif->notif, (sfVector2f){0.8, 0.8});
-    sfSprite_setScale(data->notif->notif_content, (sfVector2f){0.8, 0.8});
-    sprite_notif(data);
+    sfText_setCharacterSize(data->notif->text, 40);
+    sfText_setScale(data->notif->text, (sfVector2f){0.35, 0.35});
+    sfText_setString(data->notif->text, data->notif->content);
+    sfText_setColor(data->notif->text, sfBlack);
     cooldown_notif(data, pos, center);
     sfSprite_setPosition(data->notif->notif, pos);
-    sfSprite_setPosition(data->notif->notif_content, pos);
+    sfText_setPosition(data->notif->text,
+        (sfVector2f){pos.x + 40, pos.y + 38});
     sfRenderWindow_drawSprite(data->window, data->notif->notif, NULL);
-    sfRenderWindow_drawSprite(data->window, data->notif->notif_content, NULL);
+    sfRenderWindow_drawText(data->window, data->notif->text, NULL);
 }
 
-void notification(data_t *data, int nb)
+void notification(data_t *data, char *content)
 {
     if (data->notif->active == true)
         return;
-    data->notif->content = nb;
+    data->notif->content = content;
     data->notif->active = true;
 }
