@@ -39,15 +39,36 @@ static int check_slot_click(data_t *data)
     return -1;
 }
 
+sfVector2f size_item(data_t *data, int i)
+{
+    items_t *current = data->items;
+    sfFloatRect bounds;
+    sfVector2f size;
+
+    while (current != NULL) {
+        if (current->item_id == i) {
+            bounds = sfSprite_getGlobalBounds(current->item);
+            size = (sfVector2f){bounds.width, bounds.height};
+            return size;
+        }
+        current = current->next;
+    }
+    return (sfVector2f){0, 0};
+}
+
 void conditions_check_3(data_t *data, int i)
 {
     sfVector2i mouse_pos_pixel;
     sfVector2f mouse_pos;
+    sfVector2f size;
 
     if (data->inv->slots[i].selected == sfTrue) {
         mouse_pos_pixel = sfMouse_getPositionRenderWindow(data->window);
         mouse_pos = sfRenderWindow_mapPixelToCoords(data->window,
             mouse_pos_pixel, sfRenderWindow_getView(data->window));
+        size = size_item(data, data->inv->slots[i].item_id);
+        mouse_pos.x = mouse_pos.x - size.x / 2;
+        mouse_pos.y = mouse_pos.y - size.y / 2;
         display_items(data, mouse_pos, data->inv->slots[i].item_id);
         data->selected_id = data->inv->slots[i].item_id;
     }
