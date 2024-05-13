@@ -9,14 +9,12 @@
 
 collision_t *get_rectangle_above_player(data_t *data)
 {
-    sfVector2f player_pos = data->player->player_pos;
-    sfVector2f grid_pos = {player_pos.x / 16, (player_pos.y - 16) / 16};
+    sfVector2f player = data->player->player_pos;
     sfVector2f col_pos;
 
     for (int i = 0; i < 14300; i++) {
         col_pos = data->collision[i].col_pos;
-        if (col_pos.x >= grid_pos.x - 16 && col_pos.x <= grid_pos.x + 16 &&
-            col_pos.y >= grid_pos.y - 16 && col_pos.y <= grid_pos.y + 16) {
+        if (col_pos.x >= player.x + 10 && col_pos.y >= player.y - 10) {
             return &data->collision[i];
         }
     }
@@ -35,10 +33,10 @@ int collision_check(data_t *data)
     return 0;
 }
 
-static void set_data(collision_t *collision, sfVector2f pos, int y)
+static void set_data(collision_t *collision, sfVector2f pos, int y, int s)
 {
     collision[y].col_pos = pos;
-    collision[y].collision = 1;
+    collision[y].collision = s;
     collision[y].col_sprite = sfRectangleShape_create();
     sfRectangleShape_setSize(collision[y].col_sprite, (sfVector2f){16, 16});
     sfRectangleShape_setPosition(
@@ -48,12 +46,19 @@ static void set_data(collision_t *collision, sfVector2f pos, int y)
     sfRectangleShape_setOutlineColor(collision[y].col_sprite, sfRed);
 }
 
-collision_t *init_collision(void)
+char *file_content(char *buffer)
 {
-    collision_t *collision = malloc(sizeof(collision_t) * 14300);
+    FILE *fp = fopen("config_files/col_tuto.txt", "r");
+
+    fread(buffer, 1, 50000, fp);
+    return buffer;
+}
+
+static void init_collision_2(char *line, collision_t *collision)
+{
+    sfVector2f pos = (sfVector2f){0, 0};
     int x = 0;
     int h = 0;
-    sfVector2f pos = (sfVector2f){0, 0};
 
     for (int y = 0; y < 14300; y++) {
         if (x > 110) {
@@ -62,8 +67,21 @@ collision_t *init_collision(void)
         }
         pos.x = x * 16;
         pos.y = h * 16;
-        set_data(collision, pos, y);
+        set_data(collision, pos, y, atoi(line));
         x++;
+        line = strtok(NULL, ",\n");
     }
+}
+
+collision_t *init_collision(void)
+{
+    collision_t *collision = malloc(sizeof(collision_t) * 14300);
+    char *buffer = malloc(sizeof(char) * 50000);
+    char *line = NULL;
+
+    buffer = file_content(buffer);
+    line = strtok(buffer, ",\n");
+    init_collision_2(line, collision);
+    free(buffer);
     return collision;
 }
