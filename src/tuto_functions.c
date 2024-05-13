@@ -69,7 +69,7 @@ void tutorial_game(data_t *data, sfEvent event)
     while (sfRenderWindow_pollEvent(data->window, &event))
         event_handler(data->window, event, data);
     player_movement(data);
-    sfRenderWindow_clear(data->window, sfCyan);
+    sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
     draw_sprites(data->window, data);
     camera_handler(data);
     player_basics(event, data);
