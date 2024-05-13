@@ -112,7 +112,10 @@ void player_movement(data_t *data)
 {
     if ((MOVE(event) || SPACE(event)) && data->hud_state == 0) {
         data->player->animation = 1;
-        move_player(data);
+        if (!collision_check(data))
+            move_player(data);
+        else
+            data->player->animation = 0;
         if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
             data->player->animation = 0;
         if (SPACE(event)) {

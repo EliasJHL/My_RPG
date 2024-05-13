@@ -18,3 +18,11 @@ void debug_life(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyK))
         notification(data, "New Quest");
 }
+
+void debug_hitbox_collision(data_t *data)
+{
+    for (int i = 0; i < 14300; i++) {
+        sfRenderWindow_drawRectangleShape(data->window,
+            data->collision[i].col_sprite, NULL);
+    }
+}

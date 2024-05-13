@@ -56,6 +56,21 @@ sfVector2f size_item(data_t *data, int i)
     return (sfVector2f){0, 0};
 }
 
+static void item_selected_draw(data_t *data, sfVector2f mouse_pos, int i)
+{
+    items_t *current = data->items;
+
+    while (current != NULL) {
+        if (current->item_id == i) {
+            data->inv->item_selected = current->item;
+            sfSprite_setPosition(data->inv->item_selected, mouse_pos);
+            data->inv->status = true;
+            return;
+        }
+        current = current->next;
+    }
+}
+
 void conditions_check_3(data_t *data, int i)
 {
     sfVector2i mouse_pos_pixel;

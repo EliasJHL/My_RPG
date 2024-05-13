@@ -75,11 +75,15 @@ void camera_handler(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->player->player_sprite, NULL);
     hud_player(data);
     meteo_display(data);
+    debug_hitbox_collision(data);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
 {
-    sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
+    if (data->tuto_mode == true)
+        sfRenderWindow_drawSprite(window, data->tuto->tuto, NULL);
+    else
+        sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
     if (data->player->animation == 0)
         idle(data, 0);
 }
@@ -125,6 +129,7 @@ static void starter(data_t *data)
     data->hud = hud_init();
     data->inv = init_inventory();
     data->tuto = init_tuto();
+    data->collision = init_collision();
     init_items(data);
     init_life(data);
     init_notification_sprite(data);

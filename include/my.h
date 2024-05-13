@@ -77,6 +77,8 @@ typedef struct slots_s {
 } slots_t;
 
 typedef struct inventory_s {
+    bool status;
+    sfSprite *item_selected;
     sfRectangleShape *inv;
     sfSprite *inv_sprite;
     sfVector2f inv_pos;
@@ -90,6 +92,12 @@ typedef struct life_s {
     sfVector2f heart_pos;
     sfIntRect rect;
 }life_t;
+
+typedef struct collision_s {
+    sfRectangleShape *col_sprite;
+    sfVector2f col_pos;
+    int collision;
+} collision_t;
 
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
@@ -181,6 +189,7 @@ typedef struct data_s {
     items_t *items;
     notif_t *notif;
     tuto_t *tuto;
+    collision_t *collision;
 }data_t;
 
 // Init structs & data
@@ -196,6 +205,7 @@ int init_items(data_t *data);
 void display_life_hud(data_t *data);
 void init_notification_sprite(data_t *data);
 tuto_t *init_tuto(void);
+collision_t *init_collision(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
@@ -247,8 +257,12 @@ void eat(int food, data_t *data);
 void damage(int life, data_t *data);
 void heal(int life, data_t *data);
 
+//Collision Functions
+int collision_check(data_t *data);
+
 //destroy game (free memory)
 void close_the_game(data_t *data);
 
 //Temporary function (To be removed)
 void debug_life(data_t *data);
+void debug_hitbox_collision(data_t *data);

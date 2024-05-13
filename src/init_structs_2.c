@@ -95,6 +95,15 @@ void init_notification_sprite(data_t *data)
     free(txt);
 }
 
+static void init_tuto_map(tuto_t *tuto)
+{
+    sfTexture *txt = sfTexture_createFromFile("assets/tuto.png", NULL);
+
+    tuto->tuto = sfSprite_create();
+    sfSprite_setTexture(tuto->tuto, txt, sfTrue);
+    free(txt);
+}
+
 tuto_t *init_tuto(void)
 {
     tuto_t *tuto = malloc(sizeof(tuto_t));
@@ -113,6 +122,7 @@ tuto_t *init_tuto(void)
     tuto->move = false;
     tuto->attack = false;
     tuto->inventory = false;
+    init_tuto_map(tuto);
     free(txt_h);
     free(effect);
     return tuto;
