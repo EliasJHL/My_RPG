@@ -200,6 +200,7 @@ tuto_t *init_tuto(void);
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
 int is_clicked_slot(data_t *data, sfRectangleShape *slot);
+int is_hover(data_t *data, sfSprite *sprite);
 void action_menu(sfEvent event, data_t *data);
 void display_item_holder(data_t *data);
 void draw_sprites(sfRenderWindow *window, data_t *data);
