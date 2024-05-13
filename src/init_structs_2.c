@@ -41,7 +41,7 @@ static void start_slots(inventory_t *inv)
 
     inv->slots = malloc(sizeof(slots_t) * 48);
     for (int i = 0; i < 48; i++) {
-        inv->slots[i].item_id = 000;
+        inv->slots[i].item_id = 002;
         inv->slots[i].slot_id = i;
         inv->slots[i].slot = sfRectangleShape_create();
         inv->slots[i].slot_pos.x = 0;
@@ -89,4 +89,27 @@ void init_notification_sprite(data_t *data)
     sfSprite_setTexture(data->notif->notif, txt, sfTrue);
     sfSprite_setPosition(data->notif->notif, (sfVector2f){100, 100});
     free(txt);
+}
+
+tuto_t *init_tuto(void)
+{
+    tuto_t *tuto = malloc(sizeof(tuto_t));
+    sfTexture *txt_h;
+    sfTexture *effect;
+
+    txt_h = sfTexture_createFromFile("assets/headers/h_tf.png", NULL);
+    effect = sfTexture_createFromFile("assets/effects/v_e.png", NULL);
+    tuto->clock = sfClock_create();
+    tuto->finsish_effect = sfSprite_create();
+    tuto->tuto_finsished = sfSprite_create();
+    sfSprite_setTexture(tuto->tuto_finsished, txt_h, sfTrue);
+    sfSprite_setTexture(tuto->finsish_effect, effect, sfTrue);
+    sfSprite_setScale(tuto->tuto_finsished, (sfVector2f){0.8, 0.8});
+    sfSprite_setScale(tuto->finsish_effect, (sfVector2f){0.2, 0.2});
+    tuto->move = false;
+    tuto->attack = false;
+    tuto->inventory = false;
+    free(txt_h);
+    free(effect);
+    return tuto;
 }

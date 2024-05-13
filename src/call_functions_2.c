@@ -15,6 +15,7 @@ int dead_condition(data_t *data)
         pos = data->player->spawn_point;
         data->player->life = 200;
     }
+    data->player->player_pos = pos;
     sfSprite_setPosition(data->player->player_sprite, pos);
     return 0;
 }

@@ -64,7 +64,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
     action_menu(event, data);
 }
 
-static void camera_handler(data_t *data)
+void camera_handler(data_t *data)
 {
     sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
 
@@ -84,6 +84,20 @@ void draw_sprites(sfRenderWindow *window, data_t *data)
         idle(data, 0);
 }
 
+static void normal_game(data_t *data, sfEvent event)
+{
+    while (sfRenderWindow_pollEvent(data->window, &event))
+        event_handler(data->window, event, data);
+    dead_condition(data);
+    player_movement(data);
+    sfRenderWindow_clear(data->window, sfCyan);
+    background(data);
+    draw_sprites(data->window, data);
+    camera_handler(data);
+    player_basics(event, data);
+    sfRenderWindow_display(data->window);
+}
+
 void game_loop(data_t *data)
 {
     sfVideoMode mode = {1920, 1080, 32};
@@ -92,21 +106,17 @@ void game_loop(data_t *data)
     data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
     sfRenderWindow_setFramerateLimit(data->window, 60);
     while (sfRenderWindow_isOpen(data->window)) {
-        while (sfRenderWindow_pollEvent(data->window, &event))
-            event_handler(data->window, event, data);
-        dead_condition(data);
-        player_movement(data);
-        sfRenderWindow_clear(data->window, sfCyan);
-        background(data);
-        draw_sprites(data->window, data);
-        camera_handler(data);
-        player_basics(event, data);
-        sfRenderWindow_display(data->window);
+        if (data->tuto_mode == true) {
+            tutorial_game(data, event);
+        } else {
+            normal_game(data, event);
+        }
     }
 }
 
 static void starter(data_t *data)
 {
+    data->tuto_mode = true;
     data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
@@ -114,6 +124,7 @@ static void starter(data_t *data)
     data->pause = init_pause();
     data->hud = hud_init();
     data->inv = init_inventory();
+    data->tuto = init_tuto();
     init_items(data);
     init_life(data);
     init_notification_sprite(data);

@@ -151,10 +151,22 @@ typedef struct notif_s {
     sfVector2f text_pos;
 }notif_t;
 
+typedef struct tuto_s {
+    sfClock *clock;
+    sfSprite *tuto;
+    sfSprite *tuto_finsished;
+    sfSprite *finsish_effect;
+    bool move;
+    bool attack;
+    bool inventory;
+}tuto_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
+// Mode tuto → First Game → Save not loaded
 typedef struct data_s {
     int hud_state;
     int *map_data;
+    bool tuto_mode;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
@@ -165,6 +177,7 @@ typedef struct data_s {
     inventory_t *inv;
     items_t *items;
     notif_t *notif;
+    tuto_t *tuto;
 }data_t;
 
 // Init structs & data
@@ -179,11 +192,18 @@ inventory_t *init_inventory(void);
 int init_items(data_t *data);
 void display_life_hud(data_t *data);
 void init_notification_sprite(data_t *data);
+tuto_t *init_tuto(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
 void action_menu(sfEvent event, data_t *data);
 void display_item_holder(data_t *data);
+void draw_sprites(sfRenderWindow *window, data_t *data);
+void camera_handler(data_t *data);
+void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
+
+//game modes functions
+void tutorial_game(data_t *data, sfEvent event);
 
 //animations functions
 void move(data_t *data, int top);
