@@ -48,52 +48,6 @@ void pause_menu(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
 }
 
-void display_items_status(items_t *current, sfVector2f sprite_pos)
-{
-    if (!current->is_picked)
-        sfSprite_setPosition(current->item, sprite_pos);
-    else
-        sfSprite_setPosition(current->item, current->item_pos);
-}
-
-static void display_items(data_t *data, sfVector2f sprite_pos, int id)
-{
-    items_t *current = data->items;
-
-    while (current != NULL) {
-        if (current->item_id == id) {
-            display_items_status(current, sprite_pos);
-            sfRenderWindow_drawSprite(data->window, current->item, NULL);
-            return;
-        }
-        current = current->next;
-    }
-}
-
-void display_slots(data_t *data)
-{
-    sfVector2f center = sfView_getCenter(data->player->camera);
-    sfVector2f sprite_pos = {center.x - 210, center.y + 30};
-    int status = 0;
-
-    for (int i = 0; i < 48; i++) {
-        sprite_pos.x += 30;
-        if (sprite_pos.x >= center.x + 180) {
-            sprite_pos.x = center.x - 180;
-            sprite_pos.y += 30;
-        }
-        if (i >= 36 && status != 1) {
-            status = 1;
-            sprite_pos.y += 15;
-        }
-        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
-        sfRenderWindow_drawRectangleShape(data->window,
-            data->inv->slots[i].slot, NULL);
-        if (data->inv->slots[i].item_id != 0)
-            display_items(data, sprite_pos, data->inv->slots[i].item_id);
-    }
-}
-
 void inventory_menu(data_t *data)
 {
     sfVector2f center = sfView_getCenter(data->player->camera);

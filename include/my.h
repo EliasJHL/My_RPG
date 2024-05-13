@@ -55,6 +55,7 @@ typedef struct items_s {
     sfVector2f item_pos;
     sfBool in_inventory;
     sfBool is_picked;
+    sfBool selected;
     sfSprite *item;
     char *item_name;
     char *item_type;
@@ -70,6 +71,7 @@ typedef struct items_s {
 typedef struct slots_s {
     sfRectangleShape *slot;
     sfVector2f slot_pos;
+    sfBool selected;
     int item_id;
     int slot_id;
 } slots_t;
@@ -167,6 +169,8 @@ typedef struct data_s {
     int hud_state;
     int *map_data;
     bool tuto_mode;
+    int selected_id;
+    int ret;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
@@ -196,6 +200,7 @@ tuto_t *init_tuto(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
+int is_clicked_slot(data_t *data, sfRectangleShape *slot);
 void action_menu(sfEvent event, data_t *data);
 void display_item_holder(data_t *data);
 void draw_sprites(sfRenderWindow *window, data_t *data);
@@ -211,8 +216,8 @@ void idle(data_t *data, int top);
 void attack(data_t *data);
 
 // Inventory system functions
-void item_system_inventory(data_t *data);
 void item_hold_change(sfEvent event, data_t *data);
+void display_slots(data_t *data);
 
 // Map functions
 int **init_map_collision(void);

@@ -1,0 +1,170 @@
+/*
+** EPITECH PROJECT, 2024
+** My_RPG
+** File description:
+** Elias Josué HAJJAR LLAUQUEN
+*/
+
+#include "../include/my.h"
+
+static void pos_menu(data_t *data)
+{
+    sfVector2f view_center = sfView_getCenter(data->player->camera);
+    sfVector2f pos = {view_center.x - 416 / 2 + 60, view_center.y - 448 / 2};
+
+    pos.y += 70;
+    sfSprite_setPosition(data->pause->resume, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->options, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->menu, pos);
+    pos.y += 80;
+    sfSprite_setPosition(data->pause->exit, pos);
+    sfSprite_setScale(data->pause->resume, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->exit, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->menu, (sfVector2f){0.5, 0.5});
+    sfSprite_setScale(data->pause->options, (sfVector2f){0.5, 0.5});
+}
+
+static void pause_menu_sprites(data_t *data)
+{
+    pos_menu(data);
+    sfRenderWindow_drawSprite(data->window, data->pause->bg_pause, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->resume, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->exit, NULL);
+    sfRenderWindow_drawSprite(data->window, data->pause->menu, NULL);
+}
+
+void pause_menu(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - 416 / 2, center.y - 448 / 2};
+    sfVector2f bg_pos = {center.x - 1920 / 2, center.y - 1080 / 2};
+
+    sfRectangleShape_setPosition(data->inv->inv, bg_pos);
+    sfRenderWindow_drawRectangleShape(data->window, data->inv->inv, NULL);
+    sfSprite_setPosition(data->pause->bg_pause, sprite_pos);
+    pause_menu_sprites(data);
+    sfRenderWindow_drawSprite(data->window, data->pause->options, NULL);
+}
+
+void display_items_status(items_t *current, sfVector2f sprite_pos)
+{
+    if (!current->is_picked)
+        sfSprite_setPosition(current->item, sprite_pos);
+    else
+        sfSprite_setPosition(current->item, current->item_pos);
+}
+
+static void display_items(data_t *data, sfVector2f sprite_pos, int id)
+{
+    items_t *current = data->items;
+
+    while (current != NULL) {
+        if (current->item_id == id) {
+            display_items_status(current, sprite_pos);
+            sfRenderWindow_drawSprite(data->window, current->item, NULL);
+            return;
+        }
+        current = current->next;
+    }
+}
+
+int check_slot_click(data_t *data)
+{
+    for (int i = 0; i < 48; i++) {
+        if (is_clicked_slot(data, data->inv->slots[i].slot)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void display_slots(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - 210, center.y + 30};
+    int status = 0;
+    int id = 0;
+    int ret = 0;
+
+    for (int i = 0; i < 48; i++) {
+        sprite_pos.x += 30;
+        if (sprite_pos.x >= center.x + 180) {
+            sprite_pos.x = center.x - 180;
+            sprite_pos.y += 30;
+        }
+        if (i >= 36 && status != 1) {
+            status = 1;
+            sprite_pos.y += 15;
+        }
+        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
+        sfRenderWindow_drawRectangleShape(data->window,
+            data->inv->slots[i].slot, NULL);
+        if (data->inv->slots[i].item_id != 0 && data->inv->slots[i].selected != sfTrue)
+            display_items(data, sprite_pos, data->inv->slots[i].item_id);
+        if (sfMouse_isButtonPressed(sfMouseLeft) && !is_clicked_slot(data, data->inv->slots[i].slot) && data->inv->slots[i].selected == sfTrue) {
+            data->selected_id = data->inv->slots[i].item_id;
+            if (check_slot_click(data) == -1) {
+                data->inv->slots[i].selected = sfFalse;
+                data->inv->slots[i].item_id = data->selected_id;
+            } else {
+                id = check_slot_click(data);
+                data->inv->slots[i].item_id = data->inv->slots[id].item_id;
+                data->inv->slots[id].item_id = data->selected_id;
+                data->inv->slots[i].selected = sfFalse;
+                data->inv->slots[id].selected = sfFalse;
+                ret = 1;
+            }
+        }
+        if (sfMouse_isButtonPressed(sfMouseLeft) && is_clicked_slot(data, data->inv->slots[i].slot) && ret != 1) {
+            if (data->inv->slots[i].item_id != 0) {
+                printf("selected 1\n");
+                data->inv->slots[i].selected = sfTrue;
+            }
+            sfRectangleShape_setOutlineThickness(data->inv->slots[i].slot, 1.5);
+        } else {
+            sfRectangleShape_setOutlineThickness(data->inv->slots[i].slot, 1);
+        }
+        if (data->inv->slots[i].selected == sfTrue) {
+            sfVector2i mouse_pos_pixel = sfMouse_getPositionRenderWindow(data->window);
+            sfVector2f mouse_pos = sfRenderWindow_mapPixelToCoords(data->window,
+                                                                   mouse_pos_pixel, sfRenderWindow_getView(data->window));
+            display_items(data, mouse_pos, data->inv->slots[i].item_id);
+            data->selected_id = data->inv->slots[i].item_id;
+        }
+        data->selected_id = 0;
+    }
+    ret = 0;
+}
+
+void inventory_menu(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f bg_pos = {center.x - 1920 / 2, center.y - 1080 / 2};
+    sfVector2f s = {(656 * 0.7), (544 * 0.9)};
+    sfVector2f sprite_pos = {center.x - s.x / 2, center.y - s.y / 2};
+
+    sfRectangleShape_setPosition(data->inv->inv, bg_pos);
+    sfSprite_setPosition(data->inv->inv_sprite, sprite_pos);
+    sfSprite_setScale(data->inv->inv_sprite, (sfVector2f){0.7, 0.9});
+    sfRenderWindow_drawRectangleShape(data->window, data->inv->inv, NULL);
+    sfRenderWindow_drawSprite(data->window, data->inv->inv_sprite, NULL);
+    display_slots(data);
+}
+
+// A REFAIRE POUR NE PAS HARDCODE LES POSITIONS
+void hud_player(data_t *data)
+{
+    int x = 470;
+    int y = 270;
+    float zoom = data->player->zoom + 0.3;
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - x, center.y - y};
+
+    sfSprite_setScale(data->hud->hud_holder, (sfVector2f){zoom, zoom});
+    sfSprite_setPosition(data->hud->hud_holder, sprite_pos);
+    sfRenderWindow_drawSprite(data->window, data->hud->hud_holder, NULL);
+    display_life_hud(data);
+    display_item_holder(data);
+}

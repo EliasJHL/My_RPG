@@ -7,13 +7,110 @@
 
 #include "../include/my.h"
 
-void item_system_inventory(data_t *data)
+static void display_items_status(items_t *current, sfVector2f sprite_pos)
+{
+    if (!current->is_picked)
+        sfSprite_setPosition(current->item, sprite_pos);
+    else
+        sfSprite_setPosition(current->item, current->item_pos);
+}
+
+static void display_items(data_t *data, sfVector2f sprite_pos, int id)
 {
     items_t *current = data->items;
 
     while (current != NULL) {
-        if (is_clicked(data, current->item))
-            printf("Item clicked\n");
+        if (current->item_id == id) {
+            display_items_status(current, sprite_pos);
+            sfRenderWindow_drawSprite(data->window, current->item, NULL);
+            return;
+        }
         current = current->next;
+    }
+}
+
+static int check_slot_click(data_t *data)
+{
+    for (int i = 0; i < 48; i++) {
+        if (is_clicked_slot(data, data->inv->slots[i].slot)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void conditions_check_3(data_t *data, int i)
+{
+    sfVector2i mouse_pos_pixel;
+    sfVector2f mouse_pos;
+
+    if (data->inv->slots[i].selected == sfTrue) {
+        mouse_pos_pixel = sfMouse_getPositionRenderWindow(data->window);
+        mouse_pos = sfRenderWindow_mapPixelToCoords(data->window,
+            mouse_pos_pixel, sfRenderWindow_getView(data->window));
+        display_items(data, mouse_pos, data->inv->slots[i].item_id);
+        data->selected_id = data->inv->slots[i].item_id;
+    }
+}
+
+void conditions_check_2(data_t *data, int i)
+{
+    int id = 0;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft) &&
+        !is_clicked_slot(data, data->inv->slots[i].slot)
+        && data->inv->slots[i].selected == sfTrue) {
+        data->selected_id = data->inv->slots[i].item_id;
+        if (check_slot_click(data) == -1) {
+            data->inv->slots[i].selected = sfFalse;
+            data->inv->slots[i].item_id = data->selected_id;
+        } else {
+            id = check_slot_click(data);
+            data->inv->slots[i].item_id = data->inv->slots[id].item_id;
+            data->inv->slots[id].item_id = data->selected_id;
+            data->inv->slots[i].selected = sfFalse;
+            data->inv->slots[id].selected = sfFalse;
+        }
+    }
+    conditions_check_3(data, i);
+}
+
+void conditions_check_1(data_t *data, int i, sfVector2f sprite_pos)
+{
+    if (sfMouse_isButtonPressed(sfMouseLeft) &&
+        is_clicked_slot(data, data->inv->slots[i].slot)) {
+        if (data->inv->slots[i].item_id != 0)
+            data->inv->slots[i].selected = sfTrue;
+        sfRectangleShape_setOutlineThickness(data->inv->slots[i].slot, 1.5);
+    } else {
+        sfRectangleShape_setOutlineThickness(data->inv->slots[i].slot, 1);
+    }
+    sfRenderWindow_drawRectangleShape(data->window,
+        data->inv->slots[i].slot, NULL);
+    if (data->inv->slots[i].item_id != 0 &&
+        data->inv->slots[i].selected != sfTrue)
+        display_items(data, sprite_pos, data->inv->slots[i].item_id);
+    conditions_check_2(data, i);
+}
+
+void display_slots(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - 210, center.y + 30};
+    int status = 0;
+
+    for (int i = 0; i < 48; i++) {
+        sprite_pos.x += 30;
+        if (sprite_pos.x >= center.x + 180) {
+            sprite_pos.x = center.x - 180;
+            sprite_pos.y += 30;
+        }
+        if (i >= 36 && status != 1) {
+            status = 1;
+            sprite_pos.y += 15;
+        }
+        sfRectangleShape_setPosition(data->inv->slots[i].slot, sprite_pos);
+        conditions_check_1(data, i, sprite_pos);
+        data->selected_id = 0;
     }
 }
