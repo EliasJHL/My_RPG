@@ -258,7 +258,14 @@ void damage(int life, data_t *data);
 void heal(int life, data_t *data);
 
 //Collision Functions
-int collision_check(data_t *data);
+collision_t *get_rectangle_above_player(data_t *data);
+collision_t *get_rectangle_under_player(data_t *data);
+collision_t *get_rectangle_left_player(data_t *data);
+collision_t *get_rectangle_right_player(data_t *data);
+int collision_check_up(data_t *data);
+int collision_check_down(data_t *data);
+int collision_check_left(data_t *data);
+int collision_check_right(data_t *data);
 
 //destroy game (free memory)
 void close_the_game(data_t *data);

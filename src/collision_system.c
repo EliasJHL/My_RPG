@@ -7,32 +7,6 @@
 
 #include "../include/my.h"
 
-collision_t *get_rectangle_above_player(data_t *data)
-{
-    sfVector2f player = data->player->player_pos;
-    sfVector2f col_pos;
-
-    for (int i = 0; i < 14300; i++) {
-        col_pos = data->collision[i].col_pos;
-        if (col_pos.x >= player.x + 10 && col_pos.y >= player.y - 10) {
-            return &data->collision[i];
-        }
-    }
-    return NULL;
-}
-
-int collision_check(data_t *data)
-{
-    collision_t *rectangle = NULL;
-
-    rectangle = get_rectangle_above_player(data);
-    if (UP(event) && rectangle != NULL) {
-        if (rectangle->collision != 0)
-            return 1;
-    }
-    return 0;
-}
-
 static void set_data(collision_t *collision, sfVector2f pos, int y, int s)
 {
     collision[y].col_pos = pos;
@@ -61,12 +35,12 @@ static void init_collision_2(char *line, collision_t *collision)
     int h = 0;
 
     for (int y = 0; y < 14300; y++) {
-        if (x > 110) {
+        if (x >= 130) {
             x = 0;
             h++;
         }
         pos.x = x * 16;
-        pos.y = h * 16;
+        pos.y = (h * 16) - 16;
         set_data(collision, pos, y, atoi(line));
         x++;
         line = strtok(NULL, ",\n");

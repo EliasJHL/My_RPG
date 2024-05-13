@@ -75,7 +75,6 @@ void camera_handler(data_t *data)
     sfRenderWindow_drawSprite(data->window, data->player->player_sprite, NULL);
     hud_player(data);
     meteo_display(data);
-    debug_hitbox_collision(data);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
@@ -141,6 +140,9 @@ int main(void)
     data_t *data = malloc(sizeof(data_t));
 
     starter(data);
+    if (data->tuto_mode == true)
+        sfSprite_setPosition(data->player->player_sprite,
+            (sfVector2f){855, 1005});
     game_loop(data);
     close_the_game(data);
     return 0;
