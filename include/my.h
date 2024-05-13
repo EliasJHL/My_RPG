@@ -170,7 +170,6 @@ typedef struct data_s {
     int *map_data;
     bool tuto_mode;
     int selected_id;
-    int ret;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
