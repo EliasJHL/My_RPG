@@ -22,6 +22,8 @@ Le jeu est intitulé [NAME], il a été fait dans le cadre du projet de fin d'an
  - N : stats of player (inactive)
  - Z, Q, S, D : player movements
 
+### Screenshots
+
 ## Technologies Utilisées
 
 Le jeu a été développé en utilisant les technologies suivantes :
