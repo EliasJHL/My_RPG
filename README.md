@@ -25,8 +25,7 @@ Le jeu est intitulé [NAME], il a été fait dans le cadre du projet de fin d'an
 ### Screenshots
 
 ![image](https://github.com/EliasJHL/My_RPG/assets/145333474/2293e228-4144-49ac-891a-5bb995ed2424)
-
-![image](https://github.com/EliasJHL/My_RPG/assets/145333474/9e746743-c71b-4357-8a9a-6b755d494945)
+![image](https://github.com/EliasJHL/My_RPG/assets/145333474/f160c046-3430-47e3-8a4a-2dd37ec1c935)
 
 ## Technologies Utilisées
 
