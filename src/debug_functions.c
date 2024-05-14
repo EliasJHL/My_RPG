@@ -14,9 +14,9 @@ void debug_life(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyM))
         data->player->life -= 10;
     if (sfKeyboard_isKeyPressed(sfKeyL))
-        notification(data, "New Achievement");
+        notification(data, "New Achievement", 1);
     if (sfKeyboard_isKeyPressed(sfKeyK))
-        notification(data, "New Quest");
+        notification(data, "New Quest", 0);
 }
 
 void debug_hitbox_collision(data_t *data)

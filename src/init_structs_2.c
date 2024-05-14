@@ -82,17 +82,23 @@ void init_notification_sprite(data_t *data)
 {
     sfTexture *txt = sfTexture_createFromFile("assets/notif/notif.png", NULL);
     sfFont *font = sfFont_createFromFile("assets/font.ttf");
+    sfTexture *vic = sfTexture_createFromFile("assets/effects/v_e.png", NULL);
 
     data->notif = malloc(sizeof(notif_t));
     data->notif->notif = sfSprite_create();
     data->notif->text = sfText_create();
+    data->notif->victory_effect = sfSprite_create();
     data->notif->active = false;
     data->notif->clock = sfClock_create();
     data->notif->notif = sfSprite_create();
+    sfSprite_setScale(data->notif->victory_effect, (sfVector2f){0.03, 0.03});
     sfText_setFont(data->notif->text, font);
+    sfSprite_setTexture(data->notif->victory_effect, vic, sfTrue);
     sfSprite_setTexture(data->notif->notif, txt, sfTrue);
     sfSprite_setPosition(data->notif->notif, (sfVector2f){100, 100});
+    sfSprite_setPosition(data->notif->victory_effect, (sfVector2f){100, 100});
     free(txt);
+    free(vic);
 }
 
 static void init_tuto_map(tuto_t *tuto)

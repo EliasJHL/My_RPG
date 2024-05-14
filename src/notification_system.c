@@ -7,6 +7,20 @@
 
 #include "../include/my.h"
 
+void display_legendary_effect(data_t *data, sfVector2f pos)
+{
+    static float angle = 0;
+    sfVector2f pos_sprite = (sfVector2f){pos.x + 17, pos.y + 30};
+    sfVector2f scale = (sfVector2f){1628, 1628};
+
+    if (angle >= 360)
+        angle = 0;
+    sfSprite_setOrigin(data->notif->victory_effect, scale);
+    sfSprite_setRotation(data->notif->victory_effect, angle);
+    sfSprite_setPosition(data->notif->victory_effect, pos_sprite);
+    angle++;
+}
+
 void cooldown_notif(data_t *data, sfVector2f pos, sfVector2f center)
 {
     double seconds;
@@ -26,6 +40,8 @@ void cooldown_notif(data_t *data, sfVector2f pos, sfVector2f center)
     sfSprite_setPosition(data->notif->notif, pos);
     sfText_setPosition(data->notif->text,
         (sfVector2f){pos.x + 40, pos.y + 38});
+    if (data->notif->legendary)
+        display_legendary_effect(data, pos);
 }
 
 void notification_display(data_t *data)
@@ -41,12 +57,19 @@ void notification_display(data_t *data)
     cooldown_notif(data, pos, center);
     sfRenderWindow_drawSprite(data->window, data->notif->notif, NULL);
     sfRenderWindow_drawText(data->window, data->notif->text, NULL);
+    if (data->notif->legendary)
+        sfRenderWindow_drawSprite(data->window,
+            data->notif->victory_effect, NULL);
 }
 
-void notification(data_t *data, char *content)
+void notification(data_t *data, char *content, int legendary)
 {
     if (data->notif->active == true)
         return;
+    if (legendary == 1)
+        data->notif->legendary = true;
+    else
+        data->notif->legendary = false;
     data->notif->content = content;
     data->notif->active = true;
 }
