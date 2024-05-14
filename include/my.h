@@ -220,6 +220,11 @@ void draw_sprites(sfRenderWindow *window, data_t *data);
 void camera_handler(data_t *data);
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 
+//attack functions
+void reset_hit(data_t *data);
+void hit_right_player(data_t *data);
+void hit_up_player(data_t *data);
+
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);
 
