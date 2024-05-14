@@ -1,19 +1,3 @@
-# My_RPG
-My_RPG project for Epitech - Make a game in CSFML
-
-## Key Binding
-
- - B : quest menu
- - E : inventory menu
- - Escape : pause menu
- - N : stats of player
- - Z : move
- - Q : left
- - D : right
- - S : back
-
-Il y a des menus avec le status ( 1 → Menu & 2 → Options ) non accessibles via une touche
-
 # My_RPG - Projet {EPITECH} 🎉
 
 Bienvenue dans le projet de fin d'année d'{EPITECH}
@@ -32,14 +16,11 @@ Principales contraintes :
 Le jeu est intitulé [NAME], il a été fait dans le cadre du projet de fin d'année de Tek1.
 
 ### KeyBinding
- - B : quest menu (
+ - B : quest menu (inactive)
  - E : inventory menu
  - Escape : pause menu
- - N : stats of player
- - Z : move
- - Q : left
- - D : right
- - S : back
+ - N : stats of player (inactive)
+ - Z, Q, S, D : player movements
 
 ## Technologies Utilisées
 
