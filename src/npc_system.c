@@ -49,6 +49,8 @@ void priority_display_npc(data_t *data)
 void display_npc(data_t *data)
 {
     npc_t *node = data->npc;
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f sprite_pos = {center.x - 180, center.y + 170};
 
     while (node != NULL) {
         if (node->active) {
@@ -57,4 +59,7 @@ void display_npc(data_t *data)
         }
         node = node->next;
     }
+    sfText_setString(data->text->talk, "Press E to talk");
+    sfText_setPosition(data->text->talk, sprite_pos);
+    sfRenderWindow_drawText(data->window, data->text->talk, NULL);
 }

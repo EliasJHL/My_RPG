@@ -16,6 +16,7 @@ void set_npc_info_2(npc_t *newNode, char *name, sfVector2f pos, int nb)
     newNode->active = true;
     newNode->clock = sfClock_create();
     newNode->next = NULL;
+    newNode->to_talk = true;
 }
 
 npc_t *set_npc_info(char *name, sfVector2f pos, int nb)
@@ -56,7 +57,44 @@ void add_npc(data_t *data, char *name, sfVector2f pos, int nb_frames)
     }
 }
 
+static void config_txt(char *path, npc_t *newNode)
+{
+    sfTexture *txt = NULL;
+
+    txt = sfTexture_createFromFile(path, NULL);
+    if (txt == NULL) {
+        txt = sfTexture_createFromFile("assets/npcs/none_talk.png", NULL);
+        sfSprite_setTexture(newNode->talk_sprite, txt, sfTrue);
+    } else {
+        sfSprite_setTexture(newNode->talk_sprite, txt, sfTrue);
+    }
+}
+
+static void config_npc(char *name, data_t *data)
+{
+    char *path = malloc(sizeof("assets/npcs/") + sizeof(name) + 10);
+    npc_t *node = data->npc;
+
+    strcpy(path, "assets/npcs/");
+    strcat(path, name);
+    strcat(path, "_talk.png");
+    while (node != NULL) {
+        if (strcmp(node->npc_name, name) == 0) {
+            node->talk_sprite = sfSprite_create();
+            config_txt(path, node);
+            node->to_talk = true;
+        }
+        node = node->next;
+    }
+}
+
+void init_npc_2(data_t *data)
+{
+    config_npc("jean", data);
+}
+
 void init_npc(data_t *data)
 {
     add_npc(data, "jean", (sfVector2f){855, 900}, 6);
+    init_npc_2(data);
 }

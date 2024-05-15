@@ -177,10 +177,13 @@ typedef struct tuto_s {
     bool inventory;
 }tuto_t;
 
+// NPC sprite → name.png | talk sprite → name_talk.png
 typedef struct npc_s {
     char *npc_name;
     bool active;
+    bool to_talk;
     sfSprite *sprite;
+    sfSprite *talk_sprite;
     sfClock *clock;
     sfTime elapsed_time;
     sfVector2f pos;
@@ -188,6 +191,11 @@ typedef struct npc_s {
     int nb_frames;
     struct npc_s *next;
 }npc_t;
+
+typedef struct text_hud_s {
+    sfText *talk;
+    sfText *open_chest;
+}text_t;
 
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
@@ -209,6 +217,7 @@ typedef struct data_s {
     tuto_t *tuto;
     collision_t *collision;
     npc_t *npc;
+    text_t *text;
 }data_t;
 
 // Init structs & data
@@ -225,6 +234,7 @@ void display_life_hud(data_t *data);
 void init_notification_sprite(data_t *data);
 tuto_t *init_tuto(void);
 collision_t *init_collision(void);
+void init_text(data_t *data);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
