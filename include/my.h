@@ -174,6 +174,15 @@ typedef struct tuto_s {
     bool inventory;
 }tuto_t;
 
+typedef struct npc_s {
+    char *npc_name;
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect rect;
+    int nb_frames;
+    struct npc_s *next;
+}npc_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
 typedef struct data_s {
@@ -193,6 +202,7 @@ typedef struct data_s {
     notif_t *notif;
     tuto_t *tuto;
     collision_t *collision;
+    npc_t *npc;
 }data_t;
 
 // Init structs & data
@@ -236,6 +246,9 @@ void attack(data_t *data);
 // Inventory system functions
 void item_hold_change(sfEvent event, data_t *data);
 void display_slots(data_t *data);
+
+//NPC System
+void init_npc(data_t *data);
 
 // Map functions
 int **init_map_collision(void);

@@ -133,6 +133,7 @@ static void starter(data_t *data)
     init_items(data);
     init_life(data);
     init_notification_sprite(data);
+    init_npc(data);
     start_meteo(data);
 }
 
