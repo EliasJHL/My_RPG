@@ -27,13 +27,32 @@ void npc_animation(npc_t *npc)
     }
 }
 
+void priority_display_npc(data_t *data)
+{
+    npc_t *node = data->npc;
+    npc_t *node_2 = data->npc;
+
+    while (node != NULL) {
+        if (node->pos.y < data->player->player_pos.y)
+            sfRenderWindow_drawSprite(data->window, node->sprite, NULL);
+        node = node->next;
+    }
+    sfRenderWindow_drawSprite(data->window,
+        data->player->player_sprite, NULL);
+    while (node_2 != NULL) {
+        if (node_2->pos.y >= data->player->player_pos.y)
+            sfRenderWindow_drawSprite(data->window, node_2->sprite, NULL);
+        node_2 = node_2->next;
+    }
+}
+
 void display_npc(data_t *data)
 {
     npc_t *node = data->npc;
 
     while (node != NULL) {
         if (node->active) {
-            sfRenderWindow_drawSprite(data->window, node->sprite, NULL);
+            priority_display_npc(data);
             npc_animation(node);
         }
         node = node->next;
