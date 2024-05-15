@@ -36,45 +36,6 @@ void idle(data_t *data, int top)
     }
 }
 
-static void move_player_2(data_t *data)
-{
-    if (LEFT(event) && !collision_check_left(data)) {
-        move(data, 528);
-        sfSprite_move(data->player->player_sprite, (sfVector2f){-1.2, 0});
-        data->player->player_pos = sfSprite_getPosition(
-            data->player->player_sprite);
-        data->player->direction = 2;
-    }
-    if (RIGHT(event) && !collision_check_right(data)) {
-        move(data, 192);
-        sfSprite_move(data->player->player_sprite, (sfVector2f){1.2, 0});
-        data->player->player_pos = sfSprite_getPosition(
-                data->player->player_sprite);
-        data->player->direction = 3;
-    }
-}
-
-void move_player(data_t *data)
-{
-    if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
-        data->player->animation = 1;
-    if (UP(event) && !collision_check_up(data)) {
-        move(data, 240);
-        sfSprite_move(data->player->player_sprite, (sfVector2f){0, -1.2});
-        data->player->player_pos = sfSprite_getPosition(
-                data->player->player_sprite);
-        data->player->direction = 0;
-    }
-    if (DOWN(event) && !collision_check_down(data)) {
-        move(data, 144);
-        sfSprite_move(data->player->player_sprite, (sfVector2f){0, 1.2});
-        data->player->player_pos = sfSprite_getPosition(
-                data->player->player_sprite);
-        data->player->direction = 1;
-    }
-    move_player_2(data);
-}
-
 static void item_hold_change_2(sfEvent event, data_t *data)
 {
     if (sfKeyboard_isKeyPressed(sfKeyNum6))

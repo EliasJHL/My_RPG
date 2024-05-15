@@ -26,6 +26,9 @@
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
+#define CHECK_X_NPC(pos, npc) (pos.x >= npc.x - 10 && pos.x <= npc.x + 10)
+#define CHECK_Y_NPC(pos, npc) (pos.y >= npc.y - 10 && pos.y <= npc.y + 10)
+#define CHECK_NPC(pos, npc) (CHECK_X_NPC(pos, npc) && CHECK_Y_NPC(pos, npc))
 #define TILE 16
 #define MAP_SIZE_X 3200
 #define MAP_SIZE_Y 3200
@@ -273,6 +276,7 @@ int player_basics(sfEvent event, data_t *data);
 
 //event function (player movements)
 void player_movement(data_t *data);
+void move_player(data_t *data);
 
 // Values handler & call functions
 int dead_condition(data_t *data);
