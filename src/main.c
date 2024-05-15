@@ -73,9 +73,10 @@ void camera_handler(data_t *data)
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
     sfRenderWindow_drawSprite(data->window, data->player->player_sprite, NULL);
+    display_npc(data);
+    debug_hitbox_collision(data);
     hud_player(data);
     meteo_display(data);
-    debug_hitbox_collision(data);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)

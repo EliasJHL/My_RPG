@@ -13,6 +13,8 @@ void set_npc_info_2(npc_t *newNode, char *name, sfVector2f pos, int nb)
     newNode->npc_name = name;
     newNode->pos = pos;
     newNode->nb_frames = nb;
+    newNode->active = true;
+    newNode->clock = sfClock_create();
     newNode->next = NULL;
 }
 
@@ -26,7 +28,7 @@ npc_t *set_npc_info(char *name, sfVector2f pos, int nb)
     strcat(path, name);
     strcat(path, ".png");
     newNode->sprite = sfSprite_create();
-    txt = sfTexture_createFromFile("assets/npcs/jean.png", NULL);
+    txt = sfTexture_createFromFile(path, NULL);
     if (txt == NULL) {
         txt = sfTexture_createFromFile("assets/npcs/none.png", NULL);
         sfSprite_setTexture(newNode->sprite, txt, sfTrue);
@@ -56,6 +58,5 @@ void add_npc(data_t *data, char *name, sfVector2f pos, int nb_frames)
 
 void init_npc(data_t *data)
 {
-    add_npc(data, "jean", (sfVector2f){100, 100}, 4);
-    add_npc(data, "sus", (sfVector2f){200, 200}, 4);
+    add_npc(data, "jean", (sfVector2f){855, 900}, 6);
 }

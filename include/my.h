@@ -176,7 +176,10 @@ typedef struct tuto_s {
 
 typedef struct npc_s {
     char *npc_name;
+    bool active;
     sfSprite *sprite;
+    sfClock *clock;
+    sfTime elapsed_time;
     sfVector2f pos;
     sfIntRect rect;
     int nb_frames;
@@ -249,6 +252,7 @@ void display_slots(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);
+void display_npc(data_t *data);
 
 // Map functions
 int **init_map_collision(void);
