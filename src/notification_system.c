@@ -11,7 +11,7 @@ void display_legendary_effect(data_t *data, sfVector2f pos)
 {
     static float angle = 0;
     sfVector2f pos_sprite = (sfVector2f){pos.x + 17, pos.y + 30};
-    sfVector2f scale = (sfVector2f){1628, 1628};
+    sfVector2f scale = (sfVector2f){1628 / 2, 1628 / 2};
 
     if (angle >= 360)
         angle = 0;

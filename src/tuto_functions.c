@@ -49,6 +49,7 @@ static void tuto_finished(data_t *data)
     static int i = 0;
 
     if (data->tuto->attack == true) {
+        notification(data, "New Achievement !", 1);
         time = sfClock_getElapsedTime(data->tuto->clock);
         seconds = sfTime_asSeconds(time);
         display_header(data, i);

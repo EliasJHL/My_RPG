@@ -31,12 +31,10 @@ void attack_right(data_t *data)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left == data->player->rect.width * 3) {
+        if (data->player->rect.left == data->player->rect.width * 3)
             attack_hit(data, 3);
-        }
-        if (data->player->rect.left >= data->player->rect.width * 4) {
+        if (data->player->rect.left >= data->player->rect.width * 4)
             data->player->rect.left = 0;
-        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -75,9 +73,8 @@ void attack_down(data_t *data)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left >= data->player->rect.width * 4) {
+        if (data->player->rect.left >= data->player->rect.width * 4)
             data->player->rect.left = 0;
-        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -95,9 +92,8 @@ void attack_left(data_t *data)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left >= data->player->rect.width * 4) {
+        if (data->player->rect.left >= data->player->rect.width * 4)
             data->player->rect.left = 0;
-        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -112,7 +108,6 @@ void attack(data_t *data)
         reset_hit(data);
         i = 0;
     }
-    printf("%d\n", i);
     if (data->player->direction == 0)
         attack_up(data);
     if (data->player->direction == 1)
