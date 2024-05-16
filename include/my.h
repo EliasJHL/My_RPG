@@ -182,6 +182,7 @@ typedef struct npc_s {
     char *npc_name;
     bool active;
     bool to_talk;
+    bool is_tuto;
     sfSprite *sprite;
     sfSprite *talk_sprite;
     sfClock *clock;

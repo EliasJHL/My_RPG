@@ -68,9 +68,10 @@ static void config_txt(char *path, npc_t *newNode)
     } else {
         sfSprite_setTexture(newNode->talk_sprite, txt, sfTrue);
     }
+    free(txt);
 }
 
-static void config_npc(char *name, data_t *data)
+static void config_npc(char *name, data_t *data, bool is_tuto)
 {
     char *path = malloc(sizeof("assets/npcs/") + sizeof(name) + 10);
     npc_t *node = data->npc;
@@ -83,14 +84,16 @@ static void config_npc(char *name, data_t *data)
             node->talk_sprite = sfSprite_create();
             config_txt(path, node);
             node->to_talk = true;
+            node->is_tuto = is_tuto;
         }
         node = node->next;
     }
+    free(path);
 }
 
 void init_npc_2(data_t *data)
 {
-    config_npc("jean", data);
+    config_npc("jean", data, true);
 }
 
 void init_npc(data_t *data)

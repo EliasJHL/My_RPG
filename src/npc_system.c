@@ -33,14 +33,16 @@ void priority_display_npc(data_t *data)
     npc_t *node_2 = data->npc;
 
     while (node != NULL) {
-        if (node->pos.y < data->player->player_pos.y)
+        if (node->pos.y < data->player->player_pos.y && data->tuto_mode ==
+            node->is_tuto)
             sfRenderWindow_drawSprite(data->window, node->sprite, NULL);
         node = node->next;
     }
     sfRenderWindow_drawSprite(data->window,
         data->player->player_sprite, NULL);
     while (node_2 != NULL) {
-        if (node_2->pos.y >= data->player->player_pos.y)
+        if (node_2->pos.y >= data->player->player_pos.y && data->tuto_mode ==
+            node_2->is_tuto)
             sfRenderWindow_drawSprite(data->window, node_2->sprite, NULL);
         node_2 = node_2->next;
     }

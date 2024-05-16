@@ -18,7 +18,8 @@ int collision_check_up(data_t *data)
             return 1;
     }
     while (npc != NULL) {
-        if (CHECK_NPC(npc->pos, data->player->player_pos))
+        if (CHECK_NPC(npc->pos, data->player->player_pos) &&
+            data->tuto_mode == npc->is_tuto)
             return 1;
         npc = npc->next;
     }
@@ -36,7 +37,8 @@ int collision_check_down(data_t *data)
             return 1;
     }
     while (npc != NULL) {
-        if (CHECK_NPC(npc->pos, data->player->player_pos))
+        if (CHECK_NPC(npc->pos, data->player->player_pos) &&
+            data->tuto_mode == npc->is_tuto)
             return 1;
         npc = npc->next;
     }
@@ -54,7 +56,8 @@ int collision_check_left(data_t *data)
             return 1;
     }
     while (npc != NULL) {
-        if (CHECK_NPC(npc->pos, data->player->player_pos))
+        if (CHECK_NPC(npc->pos, data->player->player_pos) &&
+            data->tuto_mode == npc->is_tuto)
             return 1;
         npc = npc->next;
     }
@@ -72,7 +75,8 @@ int collision_check_right(data_t *data)
             return 1;
     }
     while (npc != NULL) {
-        if (CHECK_NPC(npc->pos, data->player->player_pos))
+        if (CHECK_NPC(npc->pos, data->player->player_pos) &&
+            data->tuto_mode == npc->is_tuto)
             return 1;
         npc = npc->next;
     }
