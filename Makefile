@@ -34,6 +34,6 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) *~
 	@$(RM) $(CODINGSTYLE)
-	@echo "\033[31m= = = = = =  CLEAR COMPLETED  = = = = = =\033[0m"
+	@echo "\033[31m= = = = = =   CLEAR COMPLETED   = = = = = =\033[0m"
 
 re: fclean all

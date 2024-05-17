@@ -45,12 +45,16 @@ void display_text(data_t *data, npc_t *npc)
     sfVector2f center = sfView_getCenter(data->player->camera);
     sfVector2f pos = {center.x, center.y + 100};
     sfVector2f dialogue_pos = {center.x - 140, center.y + 110};
+    sfVector2f name_pos = {center.x - 140, center.y + 80};
 
     sfRectangleShape_setPosition(data->bubble_text->bubble,
         (sfVector2f){pos.x - 150, pos.y});
     sfRenderWindow_drawRectangleShape(data->window,
         data->bubble_text->bubble, NULL);
     sfText_setPosition(data->bubble_text->text, dialogue_pos);
+    sfText_setPosition(data->bubble_text->name, name_pos);
+    sfText_setString(data->bubble_text->name, npc->npc_name);
+    sfRenderWindow_drawText(data->window, data->bubble_text->name, NULL);
     data->bubble_text->elapsed_time = sfClock_getElapsedTime(
             data->bubble_text->clock);
     text_writer(data, "Hey welcome in the pixel world\nadventurer!");
