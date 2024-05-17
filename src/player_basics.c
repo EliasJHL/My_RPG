@@ -88,6 +88,7 @@ void player_movement(data_t *data)
 int player_basics(sfEvent event, data_t *data)
 {
     type_hud(data);
+    detect_npc(data);
     if (data->player->life > 200)
         data->player->life = 200;
     if (data->player->life < 0)

@@ -26,9 +26,9 @@
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
-#define CHECK_X_NPC(pos, npc) (pos.x >= npc.x - 10 && pos.x <= npc.x + 10)
-#define CHECK_Y_NPC(pos, npc) (pos.y >= npc.y - 10 && pos.y <= npc.y + 10)
-#define CHECK_NPC(pos, npc) (CHECK_X_NPC(pos, npc) && CHECK_Y_NPC(pos, npc))
+#define CHECK_X_NPC(pos, npc, n) (pos.x >= npc.x - n && pos.x <= npc.x + n)
+#define CHECK_Y_NPC(pos, npc, n) (pos.y >= npc.y - n && pos.y <= npc.y + n)
+#define CHECK_NPC(p, n, nb) (CHECK_X_NPC(p, n, nb) && CHECK_Y_NPC(p, n, nb))
 #define TILE 16
 #define MAP_SIZE_X 3200
 #define MAP_SIZE_Y 3200
@@ -112,6 +112,7 @@ typedef struct player_s {
     int xp;
     int level;
     float zoom;
+    bool is_talking;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;
@@ -198,6 +199,15 @@ typedef struct text_hud_s {
     sfText *open_chest;
 }text_t;
 
+typedef struct bubble_text_s {
+    sfText *name;
+    sfText *text;
+    sfRectangleShape *bubble;
+    sfVector2f name_pos;
+    sfVector2f bubble_pos;
+    sfVector2f text_pos;
+}bubble_text_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
 typedef struct data_s {
@@ -219,6 +229,7 @@ typedef struct data_s {
     collision_t *collision;
     npc_t *npc;
     text_t *text;
+    bubble_text_t *bubble_text;
 }data_t;
 
 // Init structs & data
@@ -236,6 +247,7 @@ void init_notification_sprite(data_t *data);
 tuto_t *init_tuto(void);
 collision_t *init_collision(void);
 void init_text(data_t *data);
+void init_bubble_text(data_t *data);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
@@ -267,6 +279,7 @@ void display_slots(data_t *data);
 //NPC System
 void init_npc(data_t *data);
 void display_npc(data_t *data);
+void detect_npc(data_t *data);
 
 // Map functions
 int **init_map_collision(void);

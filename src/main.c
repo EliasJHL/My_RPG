@@ -135,6 +135,7 @@ static void starter(data_t *data)
     init_notification_sprite(data);
     init_npc(data);
     init_text(data);
+    init_bubble_text(data);
     start_meteo(data);
 }
 
