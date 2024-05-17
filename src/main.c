@@ -64,6 +64,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
     action_menu(event, data);
 }
 
+// U can add debug_hitbox_collision(data);
 void camera_handler(data_t *data)
 {
     sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
@@ -73,7 +74,6 @@ void camera_handler(data_t *data)
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
     display_npc(data);
-    debug_hitbox_collision(data);
     hud_player(data);
     meteo_display(data);
 }

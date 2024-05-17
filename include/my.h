@@ -200,6 +200,9 @@ typedef struct text_hud_s {
 }text_t;
 
 typedef struct bubble_text_s {
+    bool writing;
+    sfClock *clock;
+    sfTime elapsed_time;
     sfText *name;
     sfText *text;
     sfRectangleShape *bubble;
