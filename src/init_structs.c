@@ -25,6 +25,7 @@ static void init_player_2(player_t *player)
     player->spawn_point = (sfVector2f){1280, 720};
     player->player_pos = player->spawn_point;
     sfSprite_setPosition(player->player_sprite, player->player_pos);
+    player->available = true;
 }
 
 player_t *init_player(void)

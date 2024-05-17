@@ -9,7 +9,12 @@
 
 void set_npc_info_2(npc_t *newNode, char *name, sfVector2f pos, int nb)
 {
-    sfSprite_setPosition(newNode->sprite, pos);
+    sfFloatRect size = sfSprite_getGlobalBounds(newNode->sprite);
+
+    sfSprite_setOrigin(newNode->sprite,
+        (sfVector2f){(size.width / nb) / 2, size.height / 2});
+    sfSprite_setPosition(newNode->sprite, (sfVector2f)
+        {pos.x + (size.width / nb) / 2, pos.y + 25});
     newNode->npc_name = name;
     newNode->pos = pos;
     newNode->nb_frames = nb;
@@ -78,7 +83,7 @@ static void config_txt(char *path, npc_t *newNode, char *text)
     free(txt);
 }
 
-static void config_npc(char *name, data_t *data, bool is_tuto, char *text)
+void config_npc(char *name, data_t *data, bool is_tuto, char *text)
 {
     char *path = malloc(sizeof("assets/npcs/") + sizeof(name) + 10);
     npc_t *node = data->npc;
@@ -99,13 +104,19 @@ static void config_npc(char *name, data_t *data, bool is_tuto, char *text)
 }
 
 //give txt if it's only a sign else send "NULL"
-void init_npc_2(data_t *data)
+//if u want to set some signs u need to call him "sign_1" ; "sign_2" ; ...
+// And create the sprite sign_1.png ; sign_2.png ; ...
+static void init_npc_2(data_t *data)
 {
-    config_npc("jean", data, true, "NULL");
+    config_npc("sign", data, true, "Hey welcome in the pixel"
+        " world\nadventurer !");
+    config_npc("sign_1", data, true, "This is a tutorial map\n"
+        "you interact with 'F'");
 }
 
 void init_npc(data_t *data)
 {
-    add_npc(data, "jean", (sfVector2f){855, 900}, 6);
+    add_npc(data, "sign", (sfVector2f){855, 900}, 1);
+    add_npc(data, "sign_1", (sfVector2f){855, 800}, 1);
     init_npc_2(data);
 }

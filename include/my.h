@@ -113,6 +113,7 @@ typedef struct player_s {
     int level;
     float zoom;
     bool is_talking;
+    bool available;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;
@@ -178,6 +179,11 @@ typedef struct tuto_s {
     bool inventory;
 }tuto_t;
 
+typedef struct dialog_s {
+    sfText *text;
+    struct dialog_s *next;
+}dialog_t;
+
 // NPC sprite → name.png | talk sprite → name_talk.png
 typedef struct npc_s {
     char *npc_name;
@@ -194,6 +200,7 @@ typedef struct npc_s {
     sfIntRect rect;
     int nb_frames;
     struct npc_s *next;
+
 }npc_t;
 
 typedef struct text_hud_s {
@@ -219,6 +226,7 @@ typedef struct data_s {
     int hud_state;
     int *map_data;
     bool tuto_mode;
+    bool sign_display;
     int selected_id;
     sfEvent event;
     sfRenderWindow *window;

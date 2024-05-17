@@ -121,6 +121,7 @@ void game_loop(data_t *data)
 static void starter(data_t *data)
 {
     data->tuto_mode = true;
+    data->sign_display = true;
     data->hud_state = 0;
     data->map = init_map();
     data->player = init_player();
