@@ -109,9 +109,9 @@ void config_npc(char *name, data_t *data, bool is_tuto, char *text)
 static void init_npc_2(data_t *data)
 {
     config_npc("sign", data, true, "Hey welcome in the pixel"
-        " world\nadventurer !");
+        " world\nadventurer !       ");
     config_npc("sign_1", data, true, "This is a tutorial map\n"
-        "you interact with 'F'");
+        "you interact with 'F'       ");
 }
 
 void init_npc(data_t *data)

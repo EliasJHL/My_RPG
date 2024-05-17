@@ -87,6 +87,8 @@ static void display_life(data_t *data, sfVector2f center)
     }
     if (data->player->life_hud->rect.left > 288)
         data->player->life_hud->rect.left = 288;
+    if (data->player->life_hud->rect.left < 96)
+        data->player->life_hud->rect.left = 48;
     sfSprite_setTextureRect(data->player->life_hud->heart,
         data->player->life_hud->rect);
     sfSprite_setScale(data->player->life_hud->heart, (sfVector2f){1.8, 1.8});
