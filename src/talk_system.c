@@ -7,12 +7,16 @@
 
 #include "../include/my.h"
 
-void draw_talk_text(data_t *data)
+void draw_talk_text(data_t *data, npc_t *npc)
 {
     sfVector2f center = sfView_getCenter(data->player->camera);
     sfVector2f sprite_pos = {center.x - 180, center.y + 170};
 
-    sfText_setString(data->text->talk, "Press F to talk");
+    printf("npc->is_sign = %s\n", npc->is_sign ? "true" : "false");
+    if (npc->is_sign == true)
+        sfText_setString(data->text->talk, "Press F to read");
+    else
+        sfText_setString(data->text->talk, "Press F to talk");
     sfText_setPosition(data->text->talk, sprite_pos);
     sfRenderWindow_drawText(data->window, data->text->talk, NULL);
 }
@@ -63,7 +67,7 @@ void display_text(data_t *data, npc_t *npc)
 void detect_process(data_t *data, npc_t *npc)
 {
     if (data->player->is_talking == false)
-        draw_talk_text(data);
+        draw_talk_text(data, npc);
     if (sfKeyboard_isKeyPressed(sfKeyF) && data->tuto_mode == npc->is_tuto)
         data->player->is_talking = true;
     if (data->player->is_talking == true)

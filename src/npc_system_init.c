@@ -17,6 +17,8 @@ void set_npc_info_2(npc_t *newNode, char *name, sfVector2f pos, int nb)
     newNode->clock = sfClock_create();
     newNode->next = NULL;
     newNode->to_talk = true;
+    newNode->is_sign = false;
+    newNode->txt_sign = NULL;
 }
 
 npc_t *set_npc_info(char *name, sfVector2f pos, int nb)
@@ -57,7 +59,7 @@ void add_npc(data_t *data, char *name, sfVector2f pos, int nb_frames)
     }
 }
 
-static void config_txt(char *path, npc_t *newNode)
+static void config_txt(char *path, npc_t *newNode, char *text)
 {
     sfTexture *txt = NULL;
 
@@ -68,10 +70,15 @@ static void config_txt(char *path, npc_t *newNode)
     } else {
         sfSprite_setTexture(newNode->talk_sprite, txt, sfTrue);
     }
+    if (strcmp(text, "NULL") != 0)
+        newNode->is_sign = true;
+    else
+        newNode->is_sign = false;
+    newNode->txt_sign = text;
     free(txt);
 }
 
-static void config_npc(char *name, data_t *data, bool is_tuto)
+static void config_npc(char *name, data_t *data, bool is_tuto, char *text)
 {
     char *path = malloc(sizeof("assets/npcs/") + sizeof(name) + 10);
     npc_t *node = data->npc;
@@ -82,7 +89,7 @@ static void config_npc(char *name, data_t *data, bool is_tuto)
     while (node != NULL) {
         if (strcmp(node->npc_name, name) == 0) {
             node->talk_sprite = sfSprite_create();
-            config_txt(path, node);
+            config_txt(path, node, text);
             node->to_talk = true;
             node->is_tuto = is_tuto;
         }
@@ -91,9 +98,10 @@ static void config_npc(char *name, data_t *data, bool is_tuto)
     free(path);
 }
 
+//give txt if it's only a sign else send "NULL"
 void init_npc_2(data_t *data)
 {
-    config_npc("jean", data, true);
+    config_npc("jean", data, true, "NULL");
 }
 
 void init_npc(data_t *data)

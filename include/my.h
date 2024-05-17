@@ -184,6 +184,8 @@ typedef struct npc_s {
     bool active;
     bool to_talk;
     bool is_tuto;
+    bool is_sign;
+    char *txt_sign;
     sfSprite *sprite;
     sfSprite *talk_sprite;
     sfClock *clock;
