@@ -77,6 +77,7 @@ void camera_handler(data_t *data)
     display_npc(data);
     hud_player(data);
     meteo_display(data);
+    //debug_hitbox_collision(data);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
@@ -93,7 +94,7 @@ static void normal_game(data_t *data, sfEvent event)
 {
     while (sfRenderWindow_pollEvent(data->window, &event))
         event_handler(data->window, event, data);
-    dead_condition(data);
+    //dead_condition(data);
     player_movement(data);
     sfRenderWindow_clear(data->window, sfCyan);
     background(data);

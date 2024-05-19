@@ -23,7 +23,7 @@ static void attack_hit(data_t *data, int direction)
 void attack_right(data_t *data)
 {
     double seconds;
-
+    
     data->player->elapsed_time = sfClock_getElapsedTime(data->player->clock);
     seconds = sfTime_asSeconds(data->player->elapsed_time);
     if (seconds >= 0.15) {
@@ -33,8 +33,11 @@ void attack_right(data_t *data)
         data->player->rect.width = 48;
         if (data->player->rect.left == data->player->rect.width * 3)
             attack_hit(data, 3);
-        if (data->player->rect.left >= data->player->rect.width * 4)
+        if (data->player->rect.left >= data->player->rect.width * 4) {
             data->player->rect.left = 0;
+            data->player->is_attacking = false;
+            printf("attack right\n");
+        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -54,8 +57,11 @@ void attack_up(data_t *data)
         data->player->rect.width = 48;
         if (data->player->rect.left == data->player->rect.width * 3)
             attack_hit(data, 0);
-        if (data->player->rect.left >= data->player->rect.width * 4)
+        if (data->player->rect.left >= data->player->rect.width * 4) {
             data->player->rect.left = 0;
+            data->player->is_attacking = false;
+            printf("attack up\n");
+        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -73,8 +79,11 @@ void attack_down(data_t *data)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left >= data->player->rect.width * 4)
+        if (data->player->rect.left >= data->player->rect.width * 4) {
             data->player->rect.left = 0;
+            data->player->is_attacking = false;
+            printf("attack down\n");
+        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);
@@ -92,8 +101,11 @@ void attack_left(data_t *data)
         data->player->rect.left += 48;
         data->player->rect.height = 48;
         data->player->rect.width = 48;
-        if (data->player->rect.left >= data->player->rect.width * 4)
+        if (data->player->rect.left >= data->player->rect.width * 4) {
             data->player->rect.left = 0;
+            data->player->is_attacking = false;
+            printf("attack left\n");
+        }
         sfClock_restart(data->player->clock);
         sfSprite_setTextureRect(data->player->player_sprite,
             data->player->rect);

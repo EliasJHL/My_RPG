@@ -70,19 +70,18 @@ void item_hold_change(sfEvent event, data_t *data)
 }
 
 void player_movement(data_t *data)
-{
-    if ((MOVE(event) || SPACE(event)) && data->hud_state == 0) {
+{   
+    if (data->player->is_attacking && data->hud_state == 0 || SPACE(event) && data->hud_state == 0) {
+        data->player->is_attacking = true;
+        data->player->animation = 1;
+        attack(data);
+    } else if (!data->player->is_attacking && MOVE(event) && data->hud_state == 0) {
         data->player->animation = 1;
         move_player(data);
         if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
             data->player->animation = 0;
-        if (SPACE(event)) {
-            data->player->animation = 1;
-            attack(data);
-        }
-    } else {
+    } else if (!data->player->is_attacking)
         data->player->animation = 0;
-    }
 }
 
 int player_basics(sfEvent event, data_t *data)

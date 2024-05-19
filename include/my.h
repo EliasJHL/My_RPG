@@ -115,6 +115,7 @@ typedef struct player_s {
     float zoom;
     bool is_talking;
     bool available;
+    bool is_attacking;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;

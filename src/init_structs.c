@@ -26,6 +26,7 @@ static void init_player_2(player_t *player)
     player->player_pos = player->spawn_point;
     sfSprite_setPosition(player->player_sprite, player->player_pos);
     player->available = true;
+    player->is_attacking = false;
 }
 
 player_t *init_player(void)
