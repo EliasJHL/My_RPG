@@ -94,7 +94,7 @@ typedef struct life_s {
     sfSprite *heart;
     sfVector2f heart_pos;
     sfIntRect rect;
-}life_t;
+} life_t;
 
 typedef struct collision_s {
     sfRectangleShape *col_sprite;
@@ -200,8 +200,7 @@ typedef struct npc_s {
     sfIntRect rect;
     int nb_frames;
     struct npc_s *next;
-
-}npc_t;
+} npc_t;
 
 typedef struct text_hud_s {
     sfText *talk;
@@ -219,6 +218,15 @@ typedef struct bubble_text_s {
     sfVector2f bubble_pos;
     sfVector2f text_pos;
 }bubble_text_t;
+
+typedef struct drop_items_s {
+    int id;
+    bool is_recoverable;
+    sfClock *clock;
+    sfTime elapsed_time;
+    sfVector2f pos;
+    struct drop_items_s *next;
+}drop_items_t;
 
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
@@ -244,6 +252,7 @@ typedef struct data_s {
     npc_t *npc;
     text_t *text;
     bubble_text_t *bubble_text;
+    drop_items_t *drop_items;
 }data_t;
 
 // Init structs & data
@@ -290,6 +299,8 @@ void attack(data_t *data);
 // Inventory system functions
 void item_hold_change(sfEvent event, data_t *data);
 void display_slots(data_t *data);
+void drop_item(data_t *data, int id);
+void display_drop_item(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);

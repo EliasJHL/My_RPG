@@ -17,6 +17,8 @@ void debug_life(data_t *data)
         notification(data, "New Achievement", 1);
     if (sfKeyboard_isKeyPressed(sfKeyK))
         notification(data, "New Quest", 0);
+    if (sfKeyboard_isKeyPressed(sfKeyJ))
+        drop_item(data, 002);
 }
 
 void debug_hitbox_collision(data_t *data)

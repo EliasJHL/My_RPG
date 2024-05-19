@@ -73,6 +73,7 @@ void camera_handler(data_t *data)
     pos.y += 48 / 2;
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
+    display_drop_item(data);
     display_npc(data);
     hud_player(data);
     meteo_display(data);
