@@ -21,8 +21,15 @@ void debug_life(data_t *data)
 
 void debug_hitbox_collision(data_t *data)
 {
-    for (int i = 0; i < 14300; i++) {
-        sfRenderWindow_drawRectangleShape(data->window,
-            data->collision[i].col_sprite, NULL);
+    int nb = 0;
+
+    nb = data->tuto_mode ? 14300 : 87039;
+    for (int i = 0; i < nb; i++) {
+        if (data->tuto_mode)
+            sfRenderWindow_drawRectangleShape(data->window,
+                data->collision[i].col_sprite, NULL);
+        else
+            sfRenderWindow_drawRectangleShape(data->window,
+                data->col_map[i].col_sprite, NULL);
     }
 }

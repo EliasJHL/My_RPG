@@ -131,6 +131,7 @@ static void starter(data_t *data)
     data->inv = init_inventory();
     data->tuto = init_tuto();
     data->collision = init_collision();
+    data->col_map = init_collision_map();
     init_items(data);
     init_life(data);
     init_notification_sprite(data);

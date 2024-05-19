@@ -112,6 +112,7 @@ static void init_npc_2(data_t *data)
         " world\nadventurer !       ");
     config_npc("sign_1", data, true, "This is a tutorial map\n"
         "you interact with 'F'       ");
+    config_npc("sign_2", data, true, "NULL");
 }
 
 void init_npc(data_t *data)

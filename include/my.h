@@ -240,6 +240,7 @@ typedef struct data_s {
     notif_t *notif;
     tuto_t *tuto;
     collision_t *collision;
+    collision_t *col_map;
     npc_t *npc;
     text_t *text;
     bubble_text_t *bubble_text;
@@ -261,6 +262,7 @@ tuto_t *init_tuto(void);
 collision_t *init_collision(void);
 void init_text(data_t *data);
 void init_bubble_text(data_t *data);
+collision_t *init_collision_map(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
