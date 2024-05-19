@@ -11,7 +11,7 @@ NAME = my_rpg
 
 CODINGSTYLE	=	coding-style-reports.log
 
-CSFML	=	-lcsfml-system -lcsfml-graphics -lcsfml-window -lcsfml-audio
+CSFML	=	-lcsfml-system -lcsfml-graphics -lcsfml-window -lcsfml-audio -lm
 
 CPPFLAGS = -I./include
 

@@ -100,6 +100,7 @@ static void normal_game(data_t *data, sfEvent event)
     draw_sprites(data->window, data);
     camera_handler(data);
     player_basics(event, data);
+    recover_item(data);
     sfRenderWindow_display(data->window);
 }
 

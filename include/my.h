@@ -16,6 +16,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <math.h>
 #define UP_KEY(e) (sfKeyboard_isKeyPressed(sfKeyZ))
 #define UP(e) (sfKeyboard_isKeyPressed(sfKeyUp) || UP_KEY(e))
 #define DOWN_KEY(e) (sfKeyboard_isKeyPressed(sfKeyS))
@@ -301,6 +302,7 @@ void item_hold_change(sfEvent event, data_t *data);
 void display_slots(data_t *data);
 void drop_item(data_t *data, int id);
 void display_drop_item(data_t *data);
+void recover_item(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);
