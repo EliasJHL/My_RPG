@@ -62,10 +62,12 @@ void drop_item(data_t *data, int id)
     drop_items_t *new = malloc(sizeof(drop_items_t));
     drop_items_t *current = data->drop_items;
     sfVector2f pos = data->player->player_pos;
+    int rand_x = (rand() % 30) + 10;
+    int rand_y = (rand() % 30) + 10;
 
     new->id = id;
     new->clock = sfClock_create();
-    new->pos = (sfVector2f){pos.x + 20, pos.y + 20};
+    new->pos = (sfVector2f){pos.x + rand_x, pos.y + rand_y};
     new->is_recoverable = false;
     new->next = NULL;
     if (current == NULL) {
