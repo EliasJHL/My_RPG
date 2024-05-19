@@ -99,10 +99,8 @@ static int drop_item_check(data_t *data, int i)
     if (sfFloatRect_contains(&bound, mouse_pos.x, mouse_pos.y) &&
         !is_clicked(data, data->inv->inv_sprite)) {
         drop_item(data, data->selected_id);
-        printf("id: %d\n", data->selected_id);
         data->inv->slots[i].item_id = 0;
         data->inv->slots[i].selected = sfFalse;
-        printf("Dropped item\n");
         return 1;
     } else {
         return 0;
