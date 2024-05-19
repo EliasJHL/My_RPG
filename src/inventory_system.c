@@ -89,6 +89,26 @@ void conditions_check_3(data_t *data, int i)
     }
 }
 
+static int drop_item_check(data_t *data, int i)
+{
+    sfFloatRect bound = sfRectangleShape_getGlobalBounds(data->inv->inv);
+    sfVector2i mouse_pos_pix = sfMouse_getPositionRenderWindow(data->window);
+    sfVector2f mouse_pos = sfRenderWindow_mapPixelToCoords(data->window,
+        mouse_pos_pix, sfRenderWindow_getView(data->window));
+
+    if (sfFloatRect_contains(&bound, mouse_pos.x, mouse_pos.y) &&
+        !is_clicked(data, data->inv->inv_sprite)) {
+        drop_item(data, data->selected_id);
+        printf("id: %d\n", data->selected_id);
+        data->inv->slots[i].item_id = 0;
+        data->inv->slots[i].selected = sfFalse;
+        printf("Dropped item\n");
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 void conditions_check_2(data_t *data, int i)
 {
     int id = 0;
@@ -97,6 +117,8 @@ void conditions_check_2(data_t *data, int i)
         !is_clicked_slot(data, data->inv->slots[i].slot)
         && data->inv->slots[i].selected == sfTrue) {
         data->selected_id = data->inv->slots[i].item_id;
+        if (drop_item_check(data, i))
+            return;
         if (check_slot_click(data) == -1) {
             data->inv->slots[i].selected = sfFalse;
             data->inv->slots[i].item_id = data->selected_id;

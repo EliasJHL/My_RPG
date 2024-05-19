@@ -9,8 +9,6 @@
 
 void debug_life(data_t *data)
 {
-    int status = 0;
-
     if (sfKeyboard_isKeyPressed(sfKeyP))
         data->player->life += 10;
     if (sfKeyboard_isKeyPressed(sfKeyM))

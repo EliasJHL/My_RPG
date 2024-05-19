@@ -35,7 +35,8 @@ static void tuto_progress(data_t *data)
 {
     if (UP(event) || DOWN(event) || LEFT(event) || RIGHT(event))
         data->tuto->move = true;
-    if (data->tuto->move == true && sfKeyboard_isKeyPressed(sfKeyE))
+    if (data->tuto->move == true && sfKeyboard_isKeyPressed(sfKeyE)
+        && data->hud_state == 0)
         data->tuto->inventory = true;
     if (data->tuto->inventory == true && data->tuto->move == true &&
         sfMouse_isButtonPressed(sfMouseLeft) && data->hud_state == 0)
