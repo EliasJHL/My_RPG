@@ -98,6 +98,7 @@ typedef struct life_s {
 } life_t;
 
 typedef struct collision_s {
+    sfRectangleShape *hitbox;
     sfRectangleShape *col_sprite;
     sfVector2f col_pos;
     int collision;
@@ -289,6 +290,8 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 void reset_hit(data_t *data);
 void hit_right_player(data_t *data);
 void hit_up_player(data_t *data);
+void hit_down_player(data_t *data);
+void hit_left_player(data_t *data);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);

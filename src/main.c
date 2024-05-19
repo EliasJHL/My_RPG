@@ -77,6 +77,7 @@ void camera_handler(data_t *data)
     display_npc(data);
     hud_player(data);
     meteo_display(data);
+    sfRenderWindow_drawRectangleShape(data->window, data->collision->hitbox, NULL);
     //debug_hitbox_collision(data);
 }
 
@@ -94,14 +95,14 @@ static void normal_game(data_t *data, sfEvent event)
 {
     while (sfRenderWindow_pollEvent(data->window, &event))
         event_handler(data->window, event, data);
-    //dead_condition(data);
+    dead_condition(data);
     player_movement(data);
-    sfRenderWindow_clear(data->window, sfCyan);
     background(data);
     draw_sprites(data->window, data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
+    sfRenderWindow_clear(data->window, sfCyan);
     sfRenderWindow_display(data->window);
 }
 
