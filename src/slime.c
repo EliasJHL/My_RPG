@@ -26,6 +26,9 @@ void init_slime(sfTexture *txt, ennemies_t *ennemies)
     }
 }
 
+//sfRenderWindow_drawRectangleShape(data->window, data->player->hitbox, NULL);
+//sfRenderWindow_drawRectangleShape(data->window,
+//data->ennemies->slime[i]->hitbox, NULL);
 void display_slime(data_t *data)
 {
     sfVector2f pos = {0, 0};
@@ -41,12 +44,8 @@ void display_slime(data_t *data)
             pos.x += 9;
             sfRectangleShape_setPosition(data->ennemies->slime[i]->hitbox,
                 pos);
-            sfRenderWindow_drawRectangleShape(data->window,
-                data->ennemies->slime[i]->hitbox, NULL);
         }
     }
-    sfRenderWindow_drawRectangleShape(data->window,
-        data->player->hitbox, NULL);
 }
 
 static void move_slime_player2(data_t *data, int i)
