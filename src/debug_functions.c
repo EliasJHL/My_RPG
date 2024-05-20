@@ -17,8 +17,7 @@ void debug_life(data_t *data)
         notification(data, "New Achievement", 1);
     if (sfKeyboard_isKeyPressed(sfKeyK))
         notification(data, "New Quest", 0);
-    if (sfKeyboard_isKeyPressed(sfKeyJ)) {
-        for (int i = 0; i < 100; i++)
+    if (sfKeyboard_isKeyPressed(sfKeyJ))
             drop_item(data, 002);
     }
 }
