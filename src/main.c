@@ -98,7 +98,7 @@ static void normal_game(data_t *data, sfEvent event)
     dead_condition(data);
     player_movement(data);
     background(data);
-    draw_sprites(data->window, data);
+    draw_sprites(data->window, data);   
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
@@ -136,6 +136,7 @@ static void starter(data_t *data)
     data->tuto = init_tuto();
     data->collision = init_collision();
     data->col_map = init_collision_map();
+    data->ennemies = init_ennemies();
     init_items(data);
     init_life(data);
     init_notification_sprite(data);

@@ -125,6 +125,7 @@ typedef struct player_s {
     sfIntRect rect;
     sfView *camera;
     life_t *life_hud;
+    sfRectangleShape *hitbox;
 } player_t;
 
 typedef struct boss_s {
@@ -137,7 +138,21 @@ typedef struct boss_s {
     sfIntRect rectb;
 } boss_t;
 
-// Map struct
+typedef struct slime_s {
+    int life;
+    bool is_alive;
+    sfClock *clock;
+    sfTime elapsed_times;
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect rect;
+    sfRectangleShape *hitbox;
+} slime_t;
+
+typedef struct ennemies_s {
+    slime_t **slime;
+} ennemies_t;
+
 typedef struct map_s {
     sfSprite *map_sprite;
     sfVector2f map_pos;
@@ -256,6 +271,7 @@ typedef struct data_s {
     text_t *text;
     bubble_text_t *bubble_text;
     drop_items_t *drop_items;
+    ennemies_t *ennemies;
 }data_t;
 
 // Init structs & data
@@ -275,6 +291,7 @@ collision_t *init_collision(void);
 void init_text(data_t *data);
 void init_bubble_text(data_t *data);
 collision_t *init_collision_map(void);
+ennemies_t *init_ennemies(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
@@ -292,6 +309,11 @@ void hit_right_player(data_t *data);
 void hit_up_player(data_t *data);
 void hit_down_player(data_t *data);
 void hit_left_player(data_t *data);
+
+//ennemies functions
+void spawn_slime(data_t *data, sfVector2f pos);
+void display_slime(data_t *data);
+void move_slime(data_t *data);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);
