@@ -52,6 +52,8 @@ void move_down(data_t *data)
 {
     sfVector2f old_position;
 
+    if (!data->player->is_attacking)
+        data->player->animation = 0;
     if (DOWN(event)) {
         old_position = data->player->player_pos;
         sfSprite_move(data->player->player_sprite, (sfVector2f){0, 1.2});
@@ -73,6 +75,8 @@ void move_player(data_t *data)
 {
     sfVector2f old_position;
 
+    if (!UP(event) && !DOWN(event) && !LEFT(event) && !RIGHT(event))
+            data->player->animation = 0;
     if (UP(event)) {
         old_position = data->player->player_pos;
         sfSprite_move(data->player->player_sprite, (sfVector2f){0, -1.2});

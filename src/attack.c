@@ -31,7 +31,7 @@ static void attack_hit(data_t *data, int direction)
 void attack_right(data_t *data)
 {
     double seconds;
-    
+
     data->player->elapsed_time = sfClock_getElapsedTime(data->player->clock);
     seconds = sfTime_asSeconds(data->player->elapsed_time);
     if (seconds >= 0.15) {

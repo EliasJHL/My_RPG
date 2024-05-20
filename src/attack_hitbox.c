@@ -9,8 +9,8 @@
 
 void check_hit(data_t *data)
 {
-    sfFloatRect rect1 = sfRectangleShape_getGlobalBounds(data->collision->hitbox);
-    sfFloatRect rect2 = sfRectangleShape_getGlobalBounds(data->ennemies->slime[0]->hitbox);
+    sfFloatRect rect1 = GLOBAL(data->collision->hitbox);
+    sfFloatRect rect2 = GLOBAL(data->ennemies->slime[0]->hitbox);
     sfFloatRect intersection;
 
     if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
@@ -26,8 +26,6 @@ void check_hit(data_t *data)
             data->ennemies->slime[0]->pos.x -= 10;
         if (data->player->direction == 3)
             data->ennemies->slime[0]->pos.x += 10;
-    } else {
-        printf("No hit\n");
     }
 }
 
@@ -62,7 +60,7 @@ void hit_left_player(data_t *data)
 {
     sfVector2f player = data->player->player_pos;
     sfVector2f position = {player.x + 6, player.y + 28};
-    
+
     sfRectangleShape_setPosition(data->collision->hitbox, position);
     check_hit(data);
 }

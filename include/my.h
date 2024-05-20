@@ -27,6 +27,13 @@
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
+#define GLOBAL sfRectangleShape_getGlobalBounds
+#define TEXT_SLIME "assets/characters/slime.png"
+#define SLIME ennemies->slime[i]
+#define SLIME_X data->ennemies->slime[i]->pos.x
+#define SLIME_Y data->ennemies->slime[i]->pos.y
+#define PLAYER_X data->player->player_pos.x
+#define PLAYER_Y data->player->player_pos.y
 #define CHECK_X_NPC(pos, npc, n) (pos.x >= npc.x - n && pos.x <= npc.x + n)
 #define CHECK_Y_NPC(pos, npc, n) (pos.y >= npc.y - n && pos.y <= npc.y + n)
 #define CHECK_NPC(p, n, nb) (CHECK_X_NPC(p, n, nb) && CHECK_Y_NPC(p, n, nb))
@@ -141,6 +148,7 @@ typedef struct boss_s {
 typedef struct slime_s {
     int life;
     bool is_alive;
+    bool is_mooving;
     sfClock *clock;
     sfTime elapsed_times;
     sfSprite *sprite;
@@ -292,6 +300,7 @@ void init_text(data_t *data);
 void init_bubble_text(data_t *data);
 collision_t *init_collision_map(void);
 ennemies_t *init_ennemies(void);
+void init_slime(sfTexture *txt, ennemies_t *ennemies);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);

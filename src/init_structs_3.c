@@ -50,24 +50,10 @@ void init_bubble_text(data_t *data)
 ennemies_t *init_ennemies(void)
 {
     ennemies_t *ennemies = malloc(sizeof(ennemies_t));
-    sfTexture *txt = sfTexture_createFromFile("assets/characters/slime.png", NULL);
+    sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
 
     ennemies->slime = malloc(sizeof(slime_t *) * 10);
-    for (int i = 0; i < 10; i++) {
-        ennemies->slime[i] = malloc(sizeof(slime_t));
-        ennemies->slime[i]->life = 100;
-        ennemies->slime[i]->clock = sfClock_create();
-        ennemies->slime[i]->sprite = sfSprite_create();
-        sfSprite_setTexture(ennemies->slime[i]->sprite, txt, sfTrue);
-        sfSprite_setTextureRect(ennemies->slime[i]->sprite, (sfIntRect){0, 0, 32, 32});
-        sfSprite_setScale(ennemies->slime[i]->sprite, (sfVector2f){1, 1});
-        ennemies->slime[i]->is_alive = false;
-        ennemies->slime[i]->hitbox = sfRectangleShape_create();
-        sfRectangleShape_setSize(ennemies->slime[i]->hitbox, (sfVector2f){14, 14});
-        sfRectangleShape_setFillColor(ennemies->slime[i]->hitbox, sfTransparent);
-        sfRectangleShape_setOutlineThickness(ennemies->slime[i]->hitbox, 1);
-        sfRectangleShape_setOutlineColor(ennemies->slime[i]->hitbox, sfRed);
-    }
+    init_slime(txt, ennemies);
     free(txt);
     return ennemies;
 }
