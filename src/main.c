@@ -93,6 +93,7 @@ void draw_sprites(sfRenderWindow *window, data_t *data)
 
 static void normal_game(data_t *data, sfEvent event)
 {
+    sfRenderWindow_clear(data->window, sfCyan);
     while (sfRenderWindow_pollEvent(data->window, &event))
         event_handler(data->window, event, data);
     dead_condition(data);
@@ -102,7 +103,6 @@ static void normal_game(data_t *data, sfEvent event)
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
-    sfRenderWindow_clear(data->window, sfCyan);
     sfRenderWindow_display(data->window);
 }
 
@@ -157,8 +157,7 @@ int main(void)
         sfSprite_setPosition(data->player->player_sprite,
             (sfVector2f){855, 1005});
     menu(data);
-    if (data->is_on_menu == false)
-        game_loop(data);
+    game_loop(data);
     close_the_game(data);
     return 0;
 }
