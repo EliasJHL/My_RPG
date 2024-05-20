@@ -26,6 +26,7 @@ void display_slime(data_t *data)
                 NULL);
         }
     }
+    sfRenderWindow_drawRectangleShape(data->window, data->player->hitbox, NULL);
 }
 
 void move_slime(data_t *data)
@@ -60,6 +61,15 @@ void move_slime(data_t *data)
             if (dir == 4)
                 data->ennemies->slime[i]->pos.y -= 0.3;
         }
+    }
+    pos.x = data->player->player_pos.x + 20;
+    pos.y = data->player->player_pos.y + 31;
+    sfRectangleShape_setPosition(data->player->hitbox, pos);
+    sfFloatRect rect1 = sfRectangleShape_getGlobalBounds(data->player->hitbox);
+    sfFloatRect rect2 = sfRectangleShape_getGlobalBounds(data->ennemies->slime[0]->hitbox);
+    sfFloatRect intersection;
+    if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
+        data->player->life -= 10;
     }
 }
 

@@ -18,14 +18,14 @@ void check_hit(data_t *data)
         if (data->ennemies->slime[0]->life <= 0) {
             data->ennemies->slime[0]->is_alive = false;
         }
+        if (data->player->direction == 0)
+            data->ennemies->slime[0]->pos.y -= 10;
         if (data->player->direction == 1)
             data->ennemies->slime[0]->pos.y += 10;
         if (data->player->direction == 2)
             data->ennemies->slime[0]->pos.x -= 10;
         if (data->player->direction == 3)
             data->ennemies->slime[0]->pos.x += 10;
-        if (data->player->direction == 0)
-            data->ennemies->slime[0]->pos.y -= 10;
     } else {
         printf("No hit\n");
     }
