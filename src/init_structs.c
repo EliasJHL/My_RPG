@@ -10,13 +10,21 @@
 map_t *init_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
-    sfTexture *txt = sfTexture_createFromFile("assets/Map.png", NULL);
+    sfTexture *txt = sfTexture_createFromFile("assets/Mapss.png", NULL);
+    sfTexture *txt2 = sfTexture_createFromFile("assets/Maps_top.png", NULL);
 
+    map->map_top = sfSprite_create();
     map->map_sprite = sfSprite_create();
     sfSprite_setTexture(map->map_sprite, txt, sfTrue);
+    sfSprite_setTexture(map->map_top, txt2, sfTrue);
     map->map_pos.x = 0;
     map->map_pos.y = 0;
+    sfSprite_setPosition(map->map_sprite, map->map_pos);
+    map->map_top_pos.x = 0;
+    map->map_top_pos.y = 0;
+    sfSprite_setPosition(map->map_top, map->map_top_pos);
     free(txt);
+    free(txt2);
     return map;
 }
 

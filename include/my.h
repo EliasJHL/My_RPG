@@ -163,6 +163,8 @@ typedef struct ennemies_s {
 
 typedef struct map_s {
     sfSprite *map_sprite;
+    sfSprite *map_top;
+    sfVector2f map_top_pos;
     sfVector2f map_pos;
 } map_t;
 
