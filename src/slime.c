@@ -78,7 +78,7 @@ void move_slime_player(data_t *data, float distance, sfVector2f pos, int i)
     }
 }
 
-void hit_slime(data_t *data, sfVector2f pos)
+static void hit_slime(data_t *data, sfVector2f pos)
 {
     sfFloatRect rect1;
     sfFloatRect rect2;
