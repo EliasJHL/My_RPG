@@ -27,6 +27,13 @@
 #define LEFT(e) (sfKeyboard_isKeyPressed(sfKeyLeft) || LEFT_KEY(e))
 #define SPACE(e) (sfKeyboard_isKeyPressed(sfKeySpace))
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
+#define GLOBAL sfRectangleShape_getGlobalBounds
+#define TEXT_SLIME "assets/characters/slime.png"
+#define SLIME ennemies->slime[i]
+#define SLIME_X data->ennemies->slime[i]->pos.x
+#define SLIME_Y data->ennemies->slime[i]->pos.y
+#define PLAYER_X data->player->player_pos.x
+#define PLAYER_Y data->player->player_pos.y
 #define CHECK_X_NPC(pos, npc, n) (pos.x >= npc.x - n && pos.x <= npc.x + n)
 #define CHECK_Y_NPC(pos, npc, n) (pos.y >= npc.y - n && pos.y <= npc.y + n)
 #define CHECK_NPC(p, n, nb) (CHECK_X_NPC(p, n, nb) && CHECK_Y_NPC(p, n, nb))
@@ -98,6 +105,7 @@ typedef struct life_s {
 } life_t;
 
 typedef struct collision_s {
+    sfRectangleShape *hitbox;
     sfRectangleShape *col_sprite;
     sfVector2f col_pos;
     int collision;
@@ -115,6 +123,7 @@ typedef struct player_s {
     float zoom;
     bool is_talking;
     bool available;
+    bool is_attacking;
     sfClock *clock;
     sfTime elapsed_time;
     sfSprite *player_sprite;
@@ -123,6 +132,7 @@ typedef struct player_s {
     sfIntRect rect;
     sfView *camera;
     life_t *life_hud;
+    sfRectangleShape *hitbox;
 } player_t;
 
 typedef struct boss_s {
@@ -135,7 +145,22 @@ typedef struct boss_s {
     sfIntRect rectb;
 } boss_t;
 
-// Map struct
+typedef struct slime_s {
+    int life;
+    bool is_alive;
+    bool is_mooving;
+    sfClock *clock;
+    sfTime elapsed_times;
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect rect;
+    sfRectangleShape *hitbox;
+} slime_t;
+
+typedef struct ennemies_s {
+    slime_t **slime;
+} ennemies_t;
+
 typedef struct map_s {
     sfSprite *map_sprite;
     sfVector2f map_pos;
@@ -278,6 +303,7 @@ typedef struct data_s {
     text_t *text;
     bubble_text_t *bubble_text;
     drop_items_t *drop_items;
+    ennemies_t *ennemies;
     menu_window_t *menu_window;
 }data_t;
 
@@ -298,6 +324,8 @@ collision_t *init_collision(void);
 void init_text(data_t *data);
 void init_bubble_text(data_t *data);
 collision_t *init_collision_map(void);
+ennemies_t *init_ennemies(void);
+void init_slime(sfTexture *txt, ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
 
 // UI functions
@@ -317,6 +345,13 @@ int menu(data_t *data);
 void reset_hit(data_t *data);
 void hit_right_player(data_t *data);
 void hit_up_player(data_t *data);
+void hit_down_player(data_t *data);
+void hit_left_player(data_t *data);
+
+//ennemies functions
+void spawn_slime(data_t *data, sfVector2f pos);
+void display_slime(data_t *data);
+void move_slime(data_t *data);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);

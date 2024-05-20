@@ -26,6 +26,12 @@ static void init_player_2(player_t *player)
     player->player_pos = player->spawn_point;
     sfSprite_setPosition(player->player_sprite, player->player_pos);
     player->available = true;
+    player->is_attacking = false;
+    player->hitbox = sfRectangleShape_create();
+    sfRectangleShape_setSize(player->hitbox, (sfVector2f){10, 10});
+    sfRectangleShape_setFillColor(player->hitbox, sfTransparent);
+    sfRectangleShape_setOutlineThickness(player->hitbox, 1);
+    sfRectangleShape_setOutlineColor(player->hitbox, sfRed);
 }
 
 player_t *init_player(void)

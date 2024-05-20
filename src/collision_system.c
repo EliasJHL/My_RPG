@@ -53,6 +53,9 @@ collision_t *init_collision(void)
     char *buffer = malloc(sizeof(char) * 50000);
     char *line = NULL;
 
+    collision->hitbox = sfRectangleShape_create();
+    sfRectangleShape_setSize(collision->hitbox, (sfVector2f){10, 10});
+    sfRectangleShape_setFillColor(collision->hitbox, sfRed);
     buffer = file_content(buffer);
     line = strtok(buffer, ",\n");
     init_collision_2(line, collision);

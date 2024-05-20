@@ -46,3 +46,14 @@ void init_bubble_text(data_t *data)
     sfText_setScale(data->bubble_text->text, (sfVector2f){0.3, 0.3});
     sfText_setScale(data->bubble_text->name, (sfVector2f){0.4, 0.4});
 }
+
+ennemies_t *init_ennemies(void)
+{
+    ennemies_t *ennemies = malloc(sizeof(ennemies_t));
+    sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
+
+    ennemies->slime = malloc(sizeof(slime_t *) * 10);
+    init_slime(txt, ennemies);
+    free(txt);
+    return ennemies;
+}

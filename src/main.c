@@ -65,6 +65,8 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data)
 }
 
 // U can add debug_hitbox_collision(data);
+// U can add sfRenderWindow_drawRectangleShape(data->window,
+//    data->collision->hitbox, NULL);
 void camera_handler(data_t *data)
 {
     sfVector2f pos = sfSprite_getPosition(data->player->player_sprite);
@@ -95,12 +97,12 @@ static void normal_game(data_t *data, sfEvent event)
         event_handler(data->window, event, data);
     dead_condition(data);
     player_movement(data);
-    sfRenderWindow_clear(data->window, sfCyan);
     background(data);
     draw_sprites(data->window, data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
+    sfRenderWindow_clear(data->window, sfCyan);
     sfRenderWindow_display(data->window);
 }
 
@@ -134,6 +136,7 @@ static void starter(data_t *data)
     data->tuto = init_tuto();
     data->collision = init_collision();
     data->col_map = init_collision_map();
+    data->ennemies = init_ennemies();
     init_items(data);
     init_life(data);
     init_notification_sprite(data);

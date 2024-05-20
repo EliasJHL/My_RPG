@@ -7,51 +7,60 @@
 
 #include "../include/my.h"
 
-void reset_hit(data_t *data)
+void check_hit(data_t *data)
 {
-    sfColor reset = sfColor_fromRGBA(0, 0, 0, 0);
+    sfFloatRect rect1 = GLOBAL(data->collision->hitbox);
+    sfFloatRect rect2 = GLOBAL(data->ennemies->slime[0]->hitbox);
+    sfFloatRect intersection;
 
-    for (int i = 0; i < 14300; i++) {
-        sfRectangleShape_setFillColor(
-            data->collision[i].col_sprite, reset);
+    if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
+        data->ennemies->slime[0]->life -= 10;
+        if (data->ennemies->slime[0]->life <= 0) {
+            data->ennemies->slime[0]->is_alive = false;
+        }
+        if (data->player->direction == 0)
+            data->ennemies->slime[0]->pos.y -= 10;
+        if (data->player->direction == 1)
+            data->ennemies->slime[0]->pos.y += 10;
+        if (data->player->direction == 2)
+            data->ennemies->slime[0]->pos.x -= 10;
+        if (data->player->direction == 3)
+            data->ennemies->slime[0]->pos.x += 10;
     }
 }
 
 void hit_up_player(data_t *data)
 {
     sfVector2f player = data->player->player_pos;
-    sfColor c = sfColor_fromRGB(255, 0, 0);
-    sfVector2f hit;
-    int u = 0;
-    int u_l = 0;
-    int u_r = 0;
+    sfVector2f position = {player.x + 20, player.y + 20};
 
-    for (int i = 0; i < 14300; i++) {
-        hit = data->collision[i].col_pos;
-        if (hit.x >= player.x + 10 && hit.y >= player.y && u == 0) {
-            sfRectangleShape_setFillColor(data->collision[i].col_sprite, c);
-            u = 1;
-        }
-    }
+    sfRectangleShape_setPosition(data->collision->hitbox, position);
+    check_hit(data);
 }
 
 void hit_right_player(data_t *data)
 {
     sfVector2f player = data->player->player_pos;
-    sfColor c = sfColor_fromRGB(255, 0, 0);
-    sfVector2f hit;
-    int r = 0;
-    int r_d = 0;
+    sfVector2f position = {player.x + 33, player.y + 28};
 
-    for (int i = 0; i < 14300; i++) {
-        hit = data->collision[i].col_pos;
-        if (hit.x >= player.x + 20 && hit.y >= player.y + 20 && r == 0) {
-            sfRectangleShape_setFillColor(data->collision[i].col_sprite, c);
-            r = 1;
-        }
-        if (hit.x >= player.x + 10 && hit.y >= player.y + 30 && r_d == 0) {
-            sfRectangleShape_setFillColor(data->collision[i].col_sprite, c);
-            r_d = 1;
-        }
-    }
+    sfRectangleShape_setPosition(data->collision->hitbox, position);
+    check_hit(data);
+}
+
+void hit_down_player(data_t *data)
+{
+    sfVector2f player = data->player->player_pos;
+    sfVector2f position = {player.x + 20, player.y + 43};
+
+    sfRectangleShape_setPosition(data->collision->hitbox, position);
+    check_hit(data);
+}
+
+void hit_left_player(data_t *data)
+{
+    sfVector2f player = data->player->player_pos;
+    sfVector2f position = {player.x + 6, player.y + 28};
+
+    sfRectangleShape_setPosition(data->collision->hitbox, position);
+    check_hit(data);
 }
