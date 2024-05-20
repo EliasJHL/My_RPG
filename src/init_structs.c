@@ -27,6 +27,7 @@ static void init_player_2(player_t *player)
     sfSprite_setPosition(player->player_sprite, player->player_pos);
     player->available = true;
     player->is_attacking = false;
+    player->damage_taken = false;
     player->hitbox = sfRectangleShape_create();
     sfRectangleShape_setSize(player->hitbox, (sfVector2f){10, 10});
     sfRectangleShape_setFillColor(player->hitbox, sfTransparent);
@@ -44,6 +45,7 @@ player_t *init_player(void)
     player->hungry = 100;
     player->player_sprite = sfSprite_create();
     player->clock = sfClock_create();
+    player->clock2 = sfClock_create();
     sfSprite_setScale(player->player_sprite, (sfVector2f){1, 1});
     sfSprite_setTexture(player->player_sprite, txt, sfTrue);
     sfSprite_setTextureRect(player->player_sprite, (sfIntRect){0, 0, 64, 64});

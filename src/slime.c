@@ -78,16 +78,26 @@ void move_slime_player(data_t *data, float distance, sfVector2f pos, int i)
     }
 }
 
-static void hit_slime(data_t *data)
+void hit_slime(data_t *data, sfVector2f pos)
 {
-    sfFloatRect rect1 = GLOBAL(data->player->hitbox);
+    sfFloatRect rect1;
     sfFloatRect rect2;
     sfFloatRect intersection;
 
+    pos.x = PLAYER_X + 20;
+    pos.y = PLAYER_Y + 31;
+    sfRectangleShape_setPosition(data->player->hitbox, pos);
+    rect1 = GLOBAL(data->player->hitbox);
     for (int i = 0; i < 10; i++) {
         rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
-        if (sfFloatRect_intersects(&rect1, &rect2, &intersection))
+        if (sfFloatRect_intersects(&rect1, &rect2, &intersection) &&
+            !data->player->damage_taken) {
+            sfClock_restart(data->player->clock2);
+            data->player->damage_taken = true;
             data->player->life -= 10;
+        } else {
+            timer_damage(data);
+        }
     }
 }
 
@@ -108,10 +118,7 @@ void move_slime(data_t *data)
             move_slime_player(data, distance, pos, i);
         }
     }
-    pos.x = PLAYER_X + 20;
-    pos.y = data->player->player_pos.y + 31;
-    sfRectangleShape_setPosition(data->player->hitbox, pos);
-    hit_slime(data);
+    hit_slime(data, pos);
 }
 
 void spawn_slime(data_t *data, sfVector2f pos)
