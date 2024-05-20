@@ -254,6 +254,29 @@ typedef struct drop_items_s {
     struct drop_items_s *next;
 }drop_items_t;
 
+typedef struct menu_window_s {
+    sfRenderWindow *window;
+    sfEvent event;
+    sfSprite *menu_bg;
+    sfSprite *newgame;
+    sfSprite *loadgame;
+    sfSprite *credits;
+    sfSprite *options;
+    sfSprite *exit;
+    sfSprite *newgame_hover;
+    sfSprite *loadgame_hover;
+    sfSprite *credits_hover;
+    sfSprite *options_hover;
+    sfSprite *exit_hover;
+    sfSprite *cursor;
+    sfSprite *cursor_hover;
+    sfSprite *container;
+    sfVector2f bg_pos;
+    sfVector2f play_pos;
+    sfVector2f options_pos;
+    sfVector2f exit_pos;
+}menu_window_t;
+
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
 typedef struct data_s {
@@ -261,6 +284,7 @@ typedef struct data_s {
     int *map_data;
     bool tuto_mode;
     bool sign_display;
+    bool is_on_menu;
     int selected_id;
     sfEvent event;
     sfRenderWindow *window;
@@ -280,6 +304,7 @@ typedef struct data_s {
     bubble_text_t *bubble_text;
     drop_items_t *drop_items;
     ennemies_t *ennemies;
+    menu_window_t *menu_window;
 }data_t;
 
 // Init structs & data
@@ -301,6 +326,7 @@ void init_bubble_text(data_t *data);
 collision_t *init_collision_map(void);
 ennemies_t *init_ennemies(void);
 void init_slime(sfTexture *txt, ennemies_t *ennemies);
+menu_window_t *init_menu_window(void);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
@@ -311,6 +337,9 @@ void display_item_holder(data_t *data);
 void draw_sprites(sfRenderWindow *window, data_t *data);
 void camera_handler(data_t *data);
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
+
+//menu functions
+int menu(data_t *data);
 
 //attack functions
 void reset_hit(data_t *data);

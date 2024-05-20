@@ -28,9 +28,9 @@ static drop_items_t *cooldown_recoverable(data_t *data, drop_items_t *current)
     float seconds = sfTime_asSeconds(time);
     drop_items_t *next = current->next;
 
-    if (seconds > 5 && seconds < 10)
+    if (seconds > 3 && seconds < 10)
         current->is_recoverable = true;
-    if (seconds > 600) {
+    if (seconds > 120) {
         delete_item(data, current);
     }
     return next;
@@ -64,15 +64,18 @@ void display_drop_item(data_t *data)
     }
 }
 
-void add_item_to_inv(data_t *data, int id)
+void add_item_to_inv(data_t *data, int id, drop_items_t *current)
 {
     for (int i = 0; i < 48; i++) {
         if (data->inv->slots[i].item_id == 0) {
             data->inv->slots[i].item_id = id;
+            delete_item(data, current);
             return;
         }
     }
-    printf("Inventory is full\n");
+    sfClock_restart(current->clock);
+    current->is_recoverable = false;
+    notification(data, "Inventory is full", 0);
 }
 
 static void recover_item_2(sfVector2f pos, data_t *data, drop_items_t *current)
@@ -91,8 +94,7 @@ static void recover_item_2(sfVector2f pos, data_t *data, drop_items_t *current)
         current->pos.x += direction.x * speed;
         current->pos.y += direction.y * speed;
         if (pos.x - current->pos.x < 0.2 && pos.y - current->pos.y < 0.2) {
-            add_item_to_inv(data, current->id);
-            delete_item(data, current);
+            add_item_to_inv(data, current->id, current);
         }
     }
 }
