@@ -101,6 +101,26 @@ static void hit_slime(data_t *data, sfVector2f pos)
     }
 }
 
+static void slime_animation(data_t *data, int i)
+{
+    double seconds;
+
+    data->ennemies->slime[i]->elapsed_times = sfClock_getElapsedTime(
+        data->ennemies->slime[i]->clock);
+    seconds = sfTime_asSeconds(data->ennemies->slime[i]->elapsed_times);
+    if (seconds > 0.15) {
+        data->ennemies->slime[i]->rect.top = 64;
+        data->ennemies->slime[i]->rect.left += 32;
+        data->ennemies->slime[i]->rect.height = 32;
+        data->ennemies->slime[i]->rect.width = 32;
+        if (data->ennemies->slime[i]->rect.left >= 32 * 6)
+            data->ennemies->slime[i]->rect.left = 0;
+        sfClock_restart(data->ennemies->slime[i]->clock);
+        sfSprite_setTextureRect(data->ennemies->slime[i]->sprite,
+            data->ennemies->slime[i]->rect);
+    }
+}
+
 void move_slime(data_t *data)
 {
     float distance;
@@ -116,6 +136,7 @@ void move_slime(data_t *data)
             distance = sqrt(pow(SLIME_X - PLAYER_X, 2) +
                             pow(SLIME_Y - PLAYER_Y, 2));
             move_slime_player(data, distance, pos, i);
+            slime_animation(data, i);
         }
     }
     hit_slime(data, pos);
