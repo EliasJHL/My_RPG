@@ -7,6 +7,20 @@
 
 #include "../include/my.h"
 
+static void check_monster(data_t *data)
+{
+    for (int i = 0; i < 10; i++)
+        if (data->ennemies->slime[i]->is_alive == true)
+            display_slime(data);
+        else
+            spawn_slime(data);
+    for (int i = 0; i < 10; i++)
+        if (data->ennemies->skeleton[i]->is_alive == true)
+            display_skeleton(data);
+        else
+            spawn_skeleton(data);
+}
+
 void display_header(data_t *data, int i)
 {
     static float angle = 0;
@@ -73,16 +87,7 @@ void tutorial_game(data_t *data, sfEvent event)
     player_movement(data);
     sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
     draw_sprites(data->window, data);
-    for (int i = 0; i < 10; i++)
-        if (data->ennemies->slime[i]->is_alive == true)
-            display_slime(data);
-        else
-            spawn_slime(data);
-    for (int i = 0; i < 10; i++)
-        if (data->ennemies->skeleton[i]->is_alive == true)
-            display_skeleton(data);
-        else
-            spawn_skeleton(data);
+    check_monster(data);
     move_slime(data);
     camera_handler(data);
     player_basics(event, data);
