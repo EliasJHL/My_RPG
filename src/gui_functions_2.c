@@ -10,7 +10,7 @@
 char *my_revstr(char *str)
 {
     int length = 0;
-    char temp = NULL;
+    char temp;
 
     if (str == NULL)
         return NULL;
