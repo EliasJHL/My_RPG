@@ -98,9 +98,10 @@ static void hit_slime(data_t *data, sfVector2f pos)
             sfClock_restart(data->player->clock2);
             data->player->damage_taken = true;
             data->player->life -= 10;
-        } else {
+            sfSprite_setColor(data->player->player_sprite,
+                sfColor_fromRGBA(255, 0, 0, 150));
+        } else
             timer_damage(data);
-        }
     }
 }
 
