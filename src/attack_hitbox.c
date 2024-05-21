@@ -7,26 +7,33 @@
 
 #include "../include/my.h"
 
-void check_hit(data_t *data)
+static void check_hit_slime(data_t *data, int i)
 {
     sfFloatRect rect1 = GLOBAL(data->collision->hitbox);
-    sfFloatRect rect2 = GLOBAL(data->ennemies->slime[0]->hitbox);
+    sfFloatRect rect2;
     sfFloatRect intersection;
 
+    rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
     if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
-        data->ennemies->slime[0]->life -= 10;
-        if (data->ennemies->slime[0]->life <= 0) {
-            data->ennemies->slime[0]->is_alive = false;
+        data->ennemies->slime[i]->life -= 10;
+        if (data->ennemies->slime[i]->life <= 0) {
+            data->ennemies->slime[i]->is_alive = false;
         }
         if (data->player->direction == 0)
-            data->ennemies->slime[0]->pos.y -= 10;
+            data->ennemies->slime[i]->pos.y -= 10;
         if (data->player->direction == 1)
-            data->ennemies->slime[0]->pos.y += 10;
+            data->ennemies->slime[i]->pos.y += 10;
         if (data->player->direction == 2)
-            data->ennemies->slime[0]->pos.x -= 10;
+            data->ennemies->slime[i]->pos.x -= 10;
         if (data->player->direction == 3)
-            data->ennemies->slime[0]->pos.x += 10;
+            data->ennemies->slime[i]->pos.x += 10;
     }
+}
+
+void check_hit(data_t *data)
+{
+    for (int i = 0; i < 10; i++)
+        check_hit_slime(data, i);
 }
 
 void hit_up_player(data_t *data)

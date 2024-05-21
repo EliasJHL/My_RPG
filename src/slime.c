@@ -7,8 +7,10 @@
 
 #include "../include/my.h"
 
-void init_slime(sfTexture *txt, ennemies_t *ennemies)
+void init_slime(ennemies_t *ennemies)
 {
+    sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
+
     for (int i = 0; i < 10; i++) {
         SLIME = malloc(sizeof(slime_t));
         SLIME->life = 100;
@@ -24,6 +26,7 @@ void init_slime(sfTexture *txt, ennemies_t *ennemies)
         sfRectangleShape_setOutlineThickness(SLIME->hitbox, 1);
         sfRectangleShape_setOutlineColor(SLIME->hitbox, sfRed);
     }
+    free(txt);
 }
 
 //sfRenderWindow_drawRectangleShape(data->window, data->player->hitbox, NULL);
@@ -125,9 +128,6 @@ void move_slime(data_t *data)
 {
     float distance;
     sfVector2f pos = data->player->player_pos;
-    sfFloatRect rect1 = GLOBAL(data->player->hitbox);
-    sfFloatRect rect2 = GLOBAL(data->ennemies->slime[0]->hitbox);
-    sfFloatRect intersection;
 
     pos.x += 9;
     pos.y += 19;
@@ -142,11 +142,17 @@ void move_slime(data_t *data)
     hit_slime(data, pos);
 }
 
-void spawn_slime(data_t *data, sfVector2f pos)
+void spawn_slime(data_t *data)
 {
-    int i = 0;
+    sfVector2f pos = {0, 0};
 
-    while (data->ennemies->slime[i]->is_alive == false) {
+    for (int i = 0; i < 10; i++) {
+        if (data->ennemies->slime[i]->is_alive == true)
+            continue;
+        pos.x = (rand() % (data->ennemies->slimex2 -
+            data->ennemies->slimex1 + 1)) + data->ennemies->slimex1;
+        pos.y = (rand() % (data->ennemies->slimey2 -
+            data->ennemies->slimey1 + 1)) + data->ennemies->slimey1;
         data->ennemies->slime[i]->is_alive = true;
         data->ennemies->slime[i]->pos = pos;
         data->ennemies->slime[i]->life = 100;

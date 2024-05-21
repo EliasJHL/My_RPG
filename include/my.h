@@ -29,7 +29,9 @@
 #define MOVE(e) (UP(e) || DOWN(e) || LEFT(e) || RIGHT(e))
 #define GLOBAL sfRectangleShape_getGlobalBounds
 #define TEXT_SLIME "assets/characters/slime.png"
+#define TEXT_SKELETON "assets/characters/skeleton.png"
 #define SLIME ennemies->slime[i]
+#define SKELETON ennemies->skeleton[i]
 #define SLIME_X data->ennemies->slime[i]->pos.x
 #define SLIME_Y data->ennemies->slime[i]->pos.y
 #define PLAYER_X data->player->player_pos.x
@@ -161,8 +163,26 @@ typedef struct slime_s {
     sfRectangleShape *hitbox;
 } slime_t;
 
+typedef struct skeleton_s {
+    int life;
+    bool is_alive;
+    bool is_mooving;
+    bool is_attacking;
+    sfClock *clock;
+    sfTime elapsed_times;
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect rect;
+    sfRectangleShape *hitbox;
+} skeleton_t;
+
 typedef struct ennemies_s {
     slime_t **slime;
+    skeleton_t **skeleton;
+    int slimex1;
+    int slimex2;
+    int slimey1;
+    int slimey2;
 } ennemies_t;
 
 typedef struct map_s {
@@ -331,7 +351,8 @@ void init_text(data_t *data);
 void init_bubble_text(data_t *data);
 collision_t *init_collision_map(void);
 ennemies_t *init_ennemies(void);
-void init_slime(sfTexture *txt, ennemies_t *ennemies);
+void init_slime(ennemies_t *ennemies);
+void init_skeleton(ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
 
 // UI functions
@@ -357,7 +378,7 @@ void hit_left_player(data_t *data);
 void timer_damage(data_t *data);
 
 //ennemies functions
-void spawn_slime(data_t *data, sfVector2f pos);
+void spawn_slime(data_t *data);
 void display_slime(data_t *data);
 void move_slime(data_t *data);
 
