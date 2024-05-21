@@ -78,16 +78,46 @@ void move_slime_player(data_t *data, float distance, sfVector2f pos, int i)
     }
 }
 
-static void hit_slime(data_t *data)
+static void hit_slime(data_t *data, sfVector2f pos)
 {
-    sfFloatRect rect1 = GLOBAL(data->player->hitbox);
+    sfFloatRect rect1;
     sfFloatRect rect2;
     sfFloatRect intersection;
 
+    pos.x = PLAYER_X + 20;
+    pos.y = PLAYER_Y + 31;
+    sfRectangleShape_setPosition(data->player->hitbox, pos);
+    rect1 = GLOBAL(data->player->hitbox);
     for (int i = 0; i < 10; i++) {
         rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
-        if (sfFloatRect_intersects(&rect1, &rect2, &intersection))
+        if (sfFloatRect_intersects(&rect1, &rect2, &intersection) &&
+            !data->player->damage_taken) {
+            sfClock_restart(data->player->clock2);
+            data->player->damage_taken = true;
             data->player->life -= 10;
+        } else {
+            timer_damage(data);
+        }
+    }
+}
+
+static void slime_animation(data_t *data, int i)
+{
+    double seconds;
+
+    data->ennemies->slime[i]->elapsed_times = sfClock_getElapsedTime(
+        data->ennemies->slime[i]->clock);
+    seconds = sfTime_asSeconds(data->ennemies->slime[i]->elapsed_times);
+    if (seconds > 0.15) {
+        data->ennemies->slime[i]->rect.top = 64;
+        data->ennemies->slime[i]->rect.left += 32;
+        data->ennemies->slime[i]->rect.height = 32;
+        data->ennemies->slime[i]->rect.width = 32;
+        if (data->ennemies->slime[i]->rect.left >= 32 * 6)
+            data->ennemies->slime[i]->rect.left = 0;
+        sfClock_restart(data->ennemies->slime[i]->clock);
+        sfSprite_setTextureRect(data->ennemies->slime[i]->sprite,
+            data->ennemies->slime[i]->rect);
     }
 }
 
@@ -106,12 +136,10 @@ void move_slime(data_t *data)
             distance = sqrt(pow(SLIME_X - PLAYER_X, 2) +
                             pow(SLIME_Y - PLAYER_Y, 2));
             move_slime_player(data, distance, pos, i);
+            slime_animation(data, i);
         }
     }
-    pos.x = PLAYER_X + 20;
-    pos.y = data->player->player_pos.y + 31;
-    sfRectangleShape_setPosition(data->player->hitbox, pos);
-    hit_slime(data);
+    hit_slime(data, pos);
 }
 
 void spawn_slime(data_t *data, sfVector2f pos)
