@@ -334,6 +334,10 @@ ennemies_t *init_ennemies(void);
 void init_slime(sfTexture *txt, ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
 
+//save system
+void save_game(data_t *data, int slot);
+void load_game(data_t *data, int slot);
+
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
 int is_clicked_slot(data_t *data, sfRectangleShape *slot);

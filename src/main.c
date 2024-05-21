@@ -17,6 +17,16 @@ static void display_hud(sfEvent event, data_t *data)
         data->hud_state = 5;
     if (event.key.code == sfKeyN)
         data->hud_state = 6;
+    if (sfKeyboard_isKeyPressed(sfKeyC)) {
+        printf("Game saved\n");
+        save_game(data, 1);
+        notification(data, "  Game saved !", 0);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyV)) {
+        printf("Game loaded\n");
+        load_game(data, 1);
+        notification(data, "  Game loaded !", 0);
+    }
 }
 
 // debug function
