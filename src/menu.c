@@ -90,6 +90,8 @@ int menu(data_t *data)
             return 1;
         sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
         sfRenderWindow_drawSprite(data->window,
+            data->menu_window->menu_bg, NULL);
+        sfRenderWindow_drawSprite(data->window,
             data->menu_window->container, NULL);
         draw_btn(data);
         sfRenderWindow_display(data->window);
