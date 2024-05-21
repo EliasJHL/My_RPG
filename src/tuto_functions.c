@@ -78,6 +78,11 @@ void tutorial_game(data_t *data, sfEvent event)
             display_slime(data);
         else
             spawn_slime(data);
+    for (int i = 0; i < 10; i++)
+        if (data->ennemies->skeleton[i]->is_alive == true)
+            display_skeleton(data);
+        else
+            spawn_skeleton(data);
     move_slime(data);
     camera_handler(data);
     player_basics(event, data);

@@ -34,6 +34,8 @@
 #define SKELETON ennemies->skeleton[i]
 #define SLIME_X data->ennemies->slime[i]->pos.x
 #define SLIME_Y data->ennemies->slime[i]->pos.y
+#define SKELETON_X data->ennemies->skeleton[i]->pos.x
+#define SKELETON_Y data->ennemies->skeleton[i]->pos.y
 #define PLAYER_X data->player->player_pos.x
 #define PLAYER_Y data->player->player_pos.y
 #define CHECK_X_NPC(pos, npc, n) (pos.x >= npc.x - n && pos.x <= npc.x + n)
@@ -183,6 +185,10 @@ typedef struct ennemies_s {
     int slimex2;
     int slimey1;
     int slimey2;
+    int skeletonx1;
+    int skeletonx2;
+    int skeletony1;
+    int skeletony2;
 } ennemies_t;
 
 typedef struct map_s {
@@ -388,6 +394,8 @@ void timer_damage(data_t *data);
 void spawn_slime(data_t *data);
 void display_slime(data_t *data);
 void move_slime(data_t *data);
+void spawn_skeleton(data_t *data);
+void display_skeleton(data_t *data);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);

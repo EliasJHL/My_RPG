@@ -57,6 +57,10 @@ ennemies_t *init_ennemies(void)
     ennemies->slimex2 = 1350;
     ennemies->slimey1 = 500;
     ennemies->slimey2 = 550;
+    ennemies->skeletonx1 = 800;
+    ennemies->skeletonx2 = 850;
+    ennemies->skeletony1 = 700;
+    ennemies->skeletony2 = 750;
     init_slime(ennemies);
     init_skeleton(ennemies);
     return ennemies;
