@@ -171,9 +171,10 @@ int main(void)
     if (data->tuto_mode == true)
         sfSprite_setPosition(data->player->player_sprite,
             (sfVector2f) {855, 1005});
-    menu(data);
-    sfMusic_play(data->tutorial_music);
-    game_loop(data);
+    if (menu(data) == 1) {
+        sfMusic_play(data->tutorial_music);
+        game_loop(data);
+    }
     close_the_game(data);
     return 0;
 }

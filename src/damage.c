@@ -13,6 +13,8 @@ void timer_damage(data_t *data)
 
     data->player->elapsed_time2 = sfClock_getElapsedTime(data->player->clock2);
     seconds = sfTime_asSeconds(data->player->elapsed_time2);
+    if (seconds >= 0.2 && seconds < 1)
+        sfSprite_setColor(data->player->player_sprite, sfWhite);
     if (seconds >= 1)
         data->player->damage_taken = false;
 }
