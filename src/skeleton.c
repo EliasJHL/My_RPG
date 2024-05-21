@@ -38,7 +38,7 @@ static void skeleton_attack(data_t *data, int i)
     data->ennemies->skeleton[i]->elapsed_times = sfClock_getElapsedTime(
         data->ennemies->skeleton[i]->clock);
     seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
-    if (seconds > 0.30) {
+    if (seconds > 0.15) {
         data->ennemies->skeleton[i]->rect.top = 128;
         data->ennemies->skeleton[i]->rect.left += 64;
         data->ennemies->skeleton[i]->rect.height = 64;
