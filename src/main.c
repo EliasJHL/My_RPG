@@ -20,9 +20,11 @@ static void display_hud(sfEvent event, data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyC)) {
         save_game(data, 1);
         notification(data, "  Game saved !", 0);
+        notification(data, "  Game saved !", 0);
     }
     if (sfKeyboard_isKeyPressed(sfKeyV)) {
         load_game(data, 1);
+        notification(data, "  Game loaded !", 0);
         notification(data, "  Game loaded !", 0);
     }
 }
