@@ -53,8 +53,6 @@ void load_game(data_t *data, int slot)
     save = fopen(name, "rb");
     fread(&data->player->life, sizeof(int), 1, save);
     fread(&data->player->player_pos, sizeof(sfVector2f), 1, save);
-    printf("player pos x: %f\n", data->player->player_pos.x);
-    printf("player pos y: %f\n", data->player->player_pos.y);
     fread(&data->selected_id, sizeof(int), 1, save);
     fread(&data->hud->item_slot_nb, sizeof(int), 1, save);
     fread(&data->hud->item_hold, sizeof(int), 1, save);
