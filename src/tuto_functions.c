@@ -73,10 +73,11 @@ void tutorial_game(data_t *data, sfEvent event)
     player_movement(data);
     sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
     draw_sprites(data->window, data);
-    if (data->ennemies->slime[0]->is_alive == true)
-        display_slime(data);
-    else
-        spawn_slime(data, (sfVector2f){1300, 500});
+    for (int i = 0; i < 10; i++)
+        if (data->ennemies->slime[i]->is_alive == true)
+            display_slime(data);
+        else
+            spawn_slime(data);
     move_slime(data);
     camera_handler(data);
     player_basics(event, data);

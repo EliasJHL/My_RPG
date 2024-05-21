@@ -50,11 +50,15 @@ void init_bubble_text(data_t *data)
 ennemies_t *init_ennemies(void)
 {
     ennemies_t *ennemies = malloc(sizeof(ennemies_t));
-    sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
 
     ennemies->slime = malloc(sizeof(slime_t *) * 10);
-    init_slime(txt, ennemies);
-    free(txt);
+    ennemies->skeleton = malloc(sizeof(skeleton_t *) * 10);
+    ennemies->slimex1 = 1300;
+    ennemies->slimex2 = 1350;
+    ennemies->slimey1 = 500;
+    ennemies->slimey2 = 550;
+    init_slime(ennemies);
+    init_skeleton(ennemies);
     return ennemies;
 }
 
