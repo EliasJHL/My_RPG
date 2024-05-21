@@ -57,3 +57,10 @@ ennemies_t *init_ennemies(void)
     free(txt);
     return ennemies;
 }
+
+void init_music(data_t *data)
+{
+    data->tutorial_music = sfMusic_createFromFile("assets/music/chill.ogg");
+    sfMusic_setVolume(data->tutorial_music, 50);
+    sfMusic_setLoop(data->tutorial_music, sfTrue);
+}

@@ -42,5 +42,6 @@ void close_the_game(data_t *data)
     free(data->map);
     free(data->inv);
     sfRenderWindow_destroy(data->window);
+    sfMusic_destroy(data->tutorial_music);
     free(data);
 }

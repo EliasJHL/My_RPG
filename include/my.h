@@ -292,6 +292,8 @@ typedef struct data_s {
     bool sign_display;
     bool is_on_menu;
     int selected_id;
+    sfMusic *menu_music;
+    sfMusic *tutorial_music;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
@@ -333,6 +335,7 @@ collision_t *init_collision_map(void);
 ennemies_t *init_ennemies(void);
 void init_slime(sfTexture *txt, ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
+void init_music(data_t *data);
 
 //save system
 void save_game(data_t *data, int slot);

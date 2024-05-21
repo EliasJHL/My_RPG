@@ -137,7 +137,6 @@ void game_loop(data_t *data)
 static void starter(data_t *data)
 {
     data->tuto_mode = true;
-    data->sign_display = true;
     data->menu_window = init_menu_window();
     data->map = init_map();
     data->player = init_player();
@@ -149,6 +148,7 @@ static void starter(data_t *data)
     data->collision = init_collision();
     data->col_map = init_collision_map();
     data->ennemies = init_ennemies();
+    init_music(data);
     init_items(data);
     init_life(data);
     init_notification_sprite(data);
@@ -163,12 +163,14 @@ int main(void)
     data_t *data = malloc(sizeof(data_t));
 
     data->is_on_menu = true;
+    data->sign_display = true;
     data->hud_state = 0;
     starter(data);
     if (data->tuto_mode == true)
         sfSprite_setPosition(data->player->player_sprite,
-            (sfVector2f){855, 1005});
+            (sfVector2f) {855, 1005});
     menu(data);
+    sfMusic_play(data->tutorial_music);
     game_loop(data);
     close_the_game(data);
     return 0;
