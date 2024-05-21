@@ -125,8 +125,11 @@ typedef struct player_s {
     bool is_talking;
     bool available;
     bool is_attacking;
+    bool damage_taken;
     sfClock *clock;
+    sfClock *clock2;
     sfTime elapsed_time;
+    sfTime elapsed_time2;
     sfSprite *player_sprite;
     sfVector2f player_pos;
     sfVector2f spawn_point;
@@ -351,6 +354,7 @@ void hit_right_player(data_t *data);
 void hit_up_player(data_t *data);
 void hit_down_player(data_t *data);
 void hit_left_player(data_t *data);
+void timer_damage(data_t *data);
 
 //ennemies functions
 void spawn_slime(data_t *data, sfVector2f pos);
