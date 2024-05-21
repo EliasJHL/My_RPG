@@ -53,10 +53,10 @@ void display_npc(data_t *data)
     npc_t *node = data->npc;
 
     while (node != NULL) {
-        if (node->active) {
+        if (node->active)
             priority_display_npc(data);
+        if (node->nb_frames > 1 && node->active)
             npc_animation(node);
-        }
         node = node->next;
     }
 }

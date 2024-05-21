@@ -312,6 +312,8 @@ typedef struct data_s {
     bool sign_display;
     bool is_on_menu;
     int selected_id;
+    sfMusic *menu_music;
+    sfMusic *tutorial_music;
     sfEvent event;
     sfRenderWindow *window;
     map_t *map;
@@ -354,6 +356,11 @@ ennemies_t *init_ennemies(void);
 void init_slime(ennemies_t *ennemies);
 void init_skeleton(ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
+void init_music(data_t *data);
+
+//save system
+void save_game(data_t *data, int slot);
+void load_game(data_t *data, int slot);
 
 // UI functions
 int is_clicked(data_t *data, sfSprite *sprite);
