@@ -10,8 +10,17 @@
 void init_life(data_t *data)
 {
     sfTexture *heart;
+    sfFont *font = sfFont_createFromFile("assets/font.ttf");
 
     data->player->life_hud = malloc(sizeof(life_t));
+    data->player->life_hud->life_text = sfText_create();
+    sfText_setFont(data->player->life_hud->life_text, font);
+    sfText_setCharacterSize(data->player->life_hud->life_text, 50);
+    sfText_setPosition(data->player->life_hud->life_text, (sfVector2f){0, 0});
+    sfText_setColor(data->player->life_hud->life_text, sfBlack);
+    sfText_setString(data->player->life_hud->life_text, "");
+    sfText_setScale(data->player->life_hud->life_text,
+        (sfVector2f){0.15, 0.15});
     heart = sfTexture_createFromFile("assets/slidebar.png", NULL);
     data->player->life_hud->heart = sfSprite_create();
     sfSprite_setTexture(data->player->life_hud->heart, heart, sfTrue);

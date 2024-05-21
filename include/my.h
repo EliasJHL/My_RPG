@@ -99,6 +99,7 @@ typedef struct inventory_s {
 
 // Life data stock
 typedef struct life_s {
+    sfText *life_text;
     sfSprite *heart;
     sfVector2f heart_pos;
     sfIntRect rect;
@@ -166,6 +167,8 @@ typedef struct ennemies_s {
 
 typedef struct map_s {
     sfSprite *map_sprite;
+    sfSprite *map_top;
+    sfVector2f map_top_pos;
     sfVector2f map_pos;
 } map_t;
 
@@ -339,6 +342,7 @@ void action_menu(sfEvent event, data_t *data);
 void display_item_holder(data_t *data);
 void draw_sprites(sfRenderWindow *window, data_t *data);
 void camera_handler(data_t *data);
+char *int_to_string(int nb);
 void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 
 //menu functions

@@ -73,36 +73,40 @@ void camera_handler(data_t *data)
 
     pos.x += 48 / 2;
     pos.y += 48 / 2;
-    sfView_setCenter(data->player->camera, pos);
-    sfRenderWindow_setView(data->window, data->player->camera);
+    sfSprite_setPosition(data->map->map_top, data->map->map_top_pos);
     display_drop_item(data);
     display_npc(data);
+    if (!data->tuto_mode)
+        sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
     hud_player(data);
     meteo_display(data);
+    sfView_setCenter(data->player->camera, pos);
+    sfRenderWindow_setView(data->window, data->player->camera);
 }
 
 void draw_sprites(sfRenderWindow *window, data_t *data)
 {
-    if (data->tuto_mode == true)
+    if (data->tuto_mode == true) {
         sfRenderWindow_drawSprite(window, data->tuto->tuto, NULL);
-    else
+    } else {
         sfRenderWindow_drawSprite(window, data->map->map_sprite, NULL);
+    }
     if (data->player->animation == 0)
         idle(data, 0);
 }
 
 static void normal_game(data_t *data, sfEvent event)
 {
+    sfRenderWindow_clear(data->window, sfCyan);
     while (sfRenderWindow_pollEvent(data->window, &event))
         event_handler(data->window, event, data);
     dead_condition(data);
-    player_movement(data);
     background(data);
+    player_movement(data);
     draw_sprites(data->window, data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
-    sfRenderWindow_clear(data->window, sfCyan);
     sfRenderWindow_display(data->window);
 }
 
@@ -157,8 +161,7 @@ int main(void)
         sfSprite_setPosition(data->player->player_sprite,
             (sfVector2f){855, 1005});
     menu(data);
-    if (data->is_on_menu == false)
-        game_loop(data);
+    game_loop(data);
     close_the_game(data);
     return 0;
 }
