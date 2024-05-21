@@ -74,6 +74,18 @@ void display_item_holder(data_t *data)
     display_item_holder_slots(data, center);
 }
 
+void display_life_text(data_t *data)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f text_pos = {center.x - 378, center.y - 197};
+
+    sfText_setString(data->player->life_hud->life_text,
+        int_to_string(data->player->life));
+    sfText_setPosition(data->player->life_hud->life_text, text_pos);
+    sfRenderWindow_drawText(data->window, data->player->life_hud->life_text,
+        NULL);
+}
+
 static void display_life(data_t *data, sfVector2f center)
 {
     sfVector2f sprite_pos;
@@ -95,6 +107,7 @@ static void display_life(data_t *data, sfVector2f center)
     sfSprite_setPosition(data->player->life_hud->heart, sprite_pos);
     sfRenderWindow_drawSprite(data->window,
         data->player->life_hud->heart, NULL);
+    display_life_text(data);
 }
 
 void display_life_hud(data_t *data)
