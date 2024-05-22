@@ -230,6 +230,7 @@ typedef struct notif_s {
 typedef struct tuto_s {
     sfClock *clock;
     sfSprite *tuto;
+    sfSprite *tuto_top;
     sfSprite *tuto_finsished;
     sfSprite *finsish_effect;
     bool move;

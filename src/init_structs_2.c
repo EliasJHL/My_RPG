@@ -110,10 +110,14 @@ void init_notification_sprite(data_t *data)
 static void init_tuto_map(tuto_t *tuto)
 {
     sfTexture *txt = sfTexture_createFromFile("assets/tuto.png", NULL);
+    sfTexture *top = sfTexture_createFromFile("assets/tuto_top.png", NULL);
 
     tuto->tuto = sfSprite_create();
+    tuto->tuto_top = sfSprite_create();
     sfSprite_setTexture(tuto->tuto, txt, sfTrue);
+    sfSprite_setTexture(tuto->tuto_top, top, sfTrue);
     free(txt);
+    free(top);
 }
 
 tuto_t *init_tuto(void)
