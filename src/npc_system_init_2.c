@@ -24,6 +24,15 @@ char *get_npc_file(npc_t *node)
     return buffer;
 }
 
+char *str_tranform(char *str)
+{
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '*')
+            str[i] = '\n';
+    }
+    return str;
+}
+
 void config_dialog_npc(npc_t *node)
 {
     char *buffer = get_npc_file(node);
@@ -33,7 +42,7 @@ void config_dialog_npc(npc_t *node)
     node->dialog = malloc(sizeof(char *) * 10);
     line = strtok(buffer, "\n");
     while (line != NULL) {
-        node->dialog[i] = strdup(line);
+        node->dialog[i] = strdup(str_tranform(line));
         line = strtok(NULL, "\n");
         i++;
         node->nb_dialog++;
