@@ -86,7 +86,9 @@ void camera_handler(data_t *data)
     sfSprite_setPosition(data->map->map_top, data->map->map_top_pos);
     display_drop_item(data);
     display_npc(data);
-    if (!data->tuto_mode)
+    if (data->tuto_mode)
+        sfRenderWindow_drawSprite(data->window, data->tuto->tuto_top, NULL);
+    else
         sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
     hud_player(data);
     meteo_display(data);

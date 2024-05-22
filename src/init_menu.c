@@ -126,7 +126,11 @@ void init_holder(menu_window_t *menu)
 menu_window_t *init_menu_window(void)
 {
     menu_window_t *menu = malloc(sizeof(menu_window_t));
+    sfTexture *txt = sfTexture_createFromFile("assets/menu/menu_bg.png", NULL);
 
+    menu->menu_bg = sfSprite_create();
+    sfSprite_setTexture(menu->menu_bg, txt, sfTrue);
+    sfSprite_setPosition(menu->menu_bg, (sfVector2f){0, 0});
     init_start(menu);
     init_holder(menu);
     init_loadgame(menu);
