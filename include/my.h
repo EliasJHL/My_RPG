@@ -246,6 +246,8 @@ typedef struct dialog_s {
 // NPC sprite → name.png | talk sprite → name_talk.png
 typedef struct npc_s {
     char *npc_name;
+    int dialog_count;
+    char **dialog;
     bool active;
     bool to_talk;
     bool is_tuto;

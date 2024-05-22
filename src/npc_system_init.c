@@ -64,6 +64,41 @@ void add_npc(data_t *data, char *name, sfVector2f pos, int nb_frames)
     }
 }
 
+char *get_npc_file(npc_t *node)
+{
+    char *path = malloc(sizeof("config_files/npcs_chat/") + sizeof(node->npc_name) + 5);
+    FILE *fd = NULL;
+    char *buffer = malloc(sizeof(char) * 1000);
+
+    strcpy(path, "config_files/npcs_chat/");
+    strcat(path, node->npc_name);
+    strcat(path, ".txt");
+    fd = fopen(path, "r");
+    fread(buffer, 1, 1000, fd);
+    free(path);
+    fclose(fd);
+    return buffer;
+}
+
+void config_dialog_npc(npc_t *node)
+{
+    char *buffer = get_npc_file(node);
+    char *line = NULL;
+    int i = 0;
+
+    node->dialog = malloc(sizeof(char *) * 10);
+    line = strtok(buffer, "\n");
+    while (line != NULL) {
+        node->dialog[i] = strdup(line);
+        line = strtok(NULL, "\n");
+        i++;
+    }
+    node->dialog[i] = NULL;
+    for (int j = 0; node->dialog[j] != NULL; j++)
+        printf("%s\n", node->dialog[j]);
+    free(buffer);
+}
+
 static void config_txt(char *path, npc_t *newNode, char *text)
 {
     sfTexture *txt = NULL;
@@ -75,11 +110,15 @@ static void config_txt(char *path, npc_t *newNode, char *text)
     } else {
         sfSprite_setTexture(newNode->talk_sprite, txt, sfTrue);
     }
-    if (strcmp(text, "NULL") != 0)
+    if (strcmp(text, "NULL") != 0) {
         newNode->is_sign = true;
-    else
+        newNode->dialog = NULL;
+        newNode->txt_sign = text;
+    } else {
         newNode->is_sign = false;
-    newNode->txt_sign = text;
+        newNode->txt_sign = NULL;
+        config_dialog_npc(newNode);
+    }
     free(txt);
 }
 
@@ -112,11 +151,13 @@ static void init_npc_2(data_t *data)
         " world\nadventurer !          ");
     config_npc("sign_1", data, true, "This is a tutorial map\n"
         "You can interact with 'F'          ");
+    config_npc("jean", data, true, "NULL");
 }
 
 void init_npc(data_t *data)
 {
     add_npc(data, "sign", (sfVector2f){855, 900}, 1);
     add_npc(data, "sign_1", (sfVector2f){855, 800}, 1);
+    add_npc(data, "jean", (sfVector2f){855, 700}, 1);
     init_npc_2(data);
 }
