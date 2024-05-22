@@ -422,6 +422,10 @@ void init_npc(data_t *data);
 void display_npc(data_t *data);
 void detect_npc(data_t *data);
 void config_dialog_npc(npc_t *node);
+void npc_text(data_t *data, npc_t *npc, char *str);
+void sign_text(data_t *data, npc_t *npc);
+void text_writer(data_t *data, char *str, npc_t *npc);
+void display_buuble(data_t *data, npc_t *npc);
 
 // Map functions
 int **init_map_collision(void);
