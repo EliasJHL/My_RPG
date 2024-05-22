@@ -40,13 +40,15 @@ void config_dialog_npc(npc_t *node)
     int i = 0;
 
     node->dialog = malloc(sizeof(char *) * 10);
-    line = strtok(buffer, "\n");
+    line = strtok(buffer, "\n\0");
     while (line != NULL) {
         node->dialog[i] = strdup(str_tranform(line));
-        line = strtok(NULL, "\n");
+        line = strtok(NULL, "\n\0");
         i++;
         node->nb_dialog++;
     }
+    node->nb_dialog -= 1;
+    node->dialog_count = 0;
     node->dialog[i] = NULL;
     free(buffer);
 }

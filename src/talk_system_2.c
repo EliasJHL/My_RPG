@@ -80,6 +80,17 @@ void sign_text(data_t *data, npc_t *npc)
     sfRenderWindow_drawText(data->window, data->bubble_text->text, NULL);
 }
 
+void display_simple_text(data_t *data, npc_t *npc, char *str)
+{
+    sfVector2f center = sfView_getCenter(data->player->camera);
+    sfVector2f dialogue_pos = {center.x - 140, center.y + 110};
+
+    sfText_setPosition(data->bubble_text->text, dialogue_pos);
+    sfRenderWindow_drawText(data->window, data->bubble_text->name, NULL);
+    sfText_setString(data->bubble_text->text, str);
+    sfRenderWindow_drawText(data->window, data->bubble_text->text, NULL);
+}
+
 void npc_text(data_t *data, npc_t *npc, char *str)
 {
     sfVector2f center = sfView_getCenter(data->player->camera);

@@ -426,6 +426,7 @@ void npc_text(data_t *data, npc_t *npc, char *str);
 void sign_text(data_t *data, npc_t *npc);
 void text_writer(data_t *data, char *str, npc_t *npc);
 void display_buuble(data_t *data, npc_t *npc);
+void display_simple_text(data_t *data, npc_t *npc, char *str);
 
 // Map functions
 int **init_map_collision(void);

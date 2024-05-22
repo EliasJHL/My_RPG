@@ -33,14 +33,18 @@ void detect_process_2(data_t *data, npc_t *npc)
     if (npc->is_sign == true) {
         sign_text(data, npc);
     } else {
-        npc_text(data, npc, npc->dialog[npc->dialog_count]);
-        if (data->dialog_finished == true) {
-            npc->dialog_count++;
-            data->dialog_finished = false;
-        }
         if (npc->dialog_count > npc->nb_dialog - 1) {
             npc->dialog_count = 0;
             data->player->is_talking = false;
+            return;
+        }
+        if (data->dialog_finished == true)
+            display_simple_text(data, npc, npc->dialog[npc->dialog_count]);
+        else
+            npc_text(data, npc, npc->dialog[npc->dialog_count]);
+        if (data->dialog_finished == true && sfKeyboard_isKeyPressed(sfKeyF)) {
+            npc->dialog_count++;
+            data->dialog_finished = false;
         }
     }
 }
