@@ -24,6 +24,8 @@ void set_npc_info_2(npc_t *newNode, char *name, sfVector2f pos, int nb)
     newNode->to_talk = true;
     newNode->is_sign = false;
     newNode->txt_sign = NULL;
+    newNode->dialog = NULL;
+    newNode->dialog_count = 0;
 }
 
 npc_t *set_npc_info(char *name, sfVector2f pos, int nb)
@@ -121,8 +123,9 @@ static void init_npc_2(data_t *data)
 
 void init_npc(data_t *data)
 {
+    data->dialog_finished = true;
     add_npc(data, "sign", (sfVector2f){855, 900}, 1);
     add_npc(data, "sign_1", (sfVector2f){855, 800}, 1);
-    add_npc(data, "jean", (sfVector2f){855, 700}, 1);
+    add_npc(data, "jean", (sfVector2f){855, 700}, 6);
     init_npc_2(data);
 }

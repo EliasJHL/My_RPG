@@ -36,9 +36,8 @@ void config_dialog_npc(npc_t *node)
         node->dialog[i] = strdup(line);
         line = strtok(NULL, "\n");
         i++;
+        node->nb_dialog++;
     }
     node->dialog[i] = NULL;
-    for (int j = 0; node->dialog[j] != NULL; j++)
-        printf("%s\n", node->dialog[j]);
     free(buffer);
 }

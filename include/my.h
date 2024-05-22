@@ -247,6 +247,7 @@ typedef struct dialog_s {
 typedef struct npc_s {
     char *npc_name;
     int dialog_count;
+    int nb_dialog;
     char **dialog;
     bool active;
     bool to_talk;
@@ -319,6 +320,7 @@ typedef struct data_s {
     int *map_data;
     bool tuto_mode;
     bool sign_display;
+    bool dialog_finished;
     bool is_on_menu;
     int selected_id;
     sfMusic *menu_music;
