@@ -59,8 +59,6 @@ void text_writer(data_t *data, char *str, npc_t *npc)
         if (str[i] == '\0') {
             if (npc->is_sign == true)
                 data->player->is_talking = false;
-            else
-                data->player->is_talking = true;
             data->player->available = true;
             i = 0;
             data->sign_display = true;
@@ -117,7 +115,7 @@ void detect_process(data_t *data, npc_t *npc)
             npc_text(data, npc, npc->dialog[npc->dialog_count]);
             if (data->dialog_finished == true) {
                 npc->dialog_count++;
-                sfText_setString(data->text->talk, "");
+                data->dialog_finished = false;
             }
             if (npc->dialog_count > npc->nb_dialog - 1) {
                 npc->dialog_count = 0;
