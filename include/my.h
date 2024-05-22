@@ -419,6 +419,7 @@ void recover_item(data_t *data);
 void init_npc(data_t *data);
 void display_npc(data_t *data);
 void detect_npc(data_t *data);
+void config_dialog_npc(npc_t *node);
 
 // Map functions
 int **init_map_collision(void);
