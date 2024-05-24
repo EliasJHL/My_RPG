@@ -16,7 +16,7 @@ void display_buuble(data_t *data, npc_t *npc)
     sfText_setString(data->bubble_text->name, npc->npc_name);
     sfText_setPosition(data->bubble_text->name, name_pos);
     sfRectangleShape_setPosition(data->bubble_text->bubble,
-        (sfVector2f){pos.x - 150, pos.y});
+        (sfVector2f) {pos.x - 150, pos.y});
     sfRenderWindow_drawRectangleShape(data->window,
         data->bubble_text->bubble, NULL);
     sfRenderWindow_drawText(data->window, data->bubble_text->name, NULL);

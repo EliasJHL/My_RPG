@@ -10,7 +10,7 @@
 char *get_npc_file(npc_t *node)
 {
     char *path = malloc(sizeof("config_files/npcs_chat/") +
-        sizeof(node->npc_name) + 5);
+                        sizeof(node->npc_name) + 5);
     FILE *fd = NULL;
     char *buffer = malloc(sizeof(char) * 1000);
 
