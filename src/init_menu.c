@@ -19,9 +19,9 @@ static void init_loadgame(menu_window_t *menu)
     sfSprite_setTexture(menu->loadgame, txt, sfTrue);
     sfSprite_setTexture(menu->loadgame_hover, txt_h, sfTrue);
     sfSprite_setPosition(menu->loadgame, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 290});
+        {(1920 / 2) - (144 / 2) * 3.5, 430});
     sfSprite_setPosition(menu->loadgame_hover, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 290});
+        {(1920 / 2) - (144 / 2) * 3.5, 430});
     sfSprite_setScale(menu->loadgame, (sfVector2f){3.5, 3.5});
     sfSprite_setScale(menu->loadgame_hover, (sfVector2f){3.5, 3.5});
     free(txt);
@@ -40,9 +40,9 @@ static void init_exit(menu_window_t *menu)
     sfSprite_setTexture(menu->exit, txt, sfTrue);
     sfSprite_setTexture(menu->exit_hover, txt_h, sfTrue);
     sfSprite_setPosition(menu->exit, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 560});
+        {(1920 / 2) - (144 / 2) * 3.5, 700});
     sfSprite_setPosition(menu->exit_hover, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 560});
+        {(1920 / 2) - (144 / 2) * 3.5, 700});
     sfSprite_setScale(menu->exit, (sfVector2f){3.5, 3.5});
     sfSprite_setScale(menu->exit_hover, (sfVector2f){3.5, 3.5});
     free(txt);
@@ -61,9 +61,9 @@ static void init_credits(menu_window_t *menu)
     sfSprite_setTexture(menu->credits, txt, sfTrue);
     sfSprite_setTexture(menu->credits_hover, txt_h, sfTrue);
     sfSprite_setPosition(menu->credits, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 470});
+        {(1920 / 2) - (144 / 2) * 3.5, 610});
     sfSprite_setPosition(menu->credits_hover, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 470});
+        {(1920 / 2) - (144 / 2) * 3.5, 610});
     sfSprite_setScale(menu->credits, (sfVector2f){3.5, 3.5});
     sfSprite_setScale(menu->credits_hover, (sfVector2f){3.5, 3.5});
     free(txt);
@@ -82,9 +82,9 @@ static void init_options(menu_window_t *menu)
     sfSprite_setTexture(menu->options, txt, sfTrue);
     sfSprite_setTexture(menu->options_hover, txt_h, sfTrue);
     sfSprite_setPosition(menu->options, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 380});
+        {(1920 / 2) - (144 / 2) * 3.5, 520});
     sfSprite_setPosition(menu->options_hover, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 380});
+        {(1920 / 2) - (144 / 2) * 3.5, 520});
     sfSprite_setScale(menu->options, (sfVector2f){3.5, 3.5});
     sfSprite_setScale(menu->options_hover, (sfVector2f){3.5, 3.5});
     free(txt);
@@ -103,9 +103,9 @@ static void init_start(menu_window_t *menu)
     sfSprite_setTexture(menu->newgame, txt, sfTrue);
     sfSprite_setTexture(menu->newgame_hover, txt_h, sfTrue);
     sfSprite_setPosition(menu->newgame, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 200});
+        {(1920 / 2) - (144 / 2) * 3.5, 340});
     sfSprite_setPosition(menu->newgame_hover, (sfVector2f)
-        {(1500 / 2) - (144 / 2) * 3.5, 200});
+        {(1920 / 2) - (144 / 2) * 3.5, 340});
     sfSprite_setScale(menu->newgame, (sfVector2f){3.5, 3.5});
     sfSprite_setScale(menu->newgame_hover, (sfVector2f){3.5, 3.5});
     free(txt);
@@ -119,7 +119,7 @@ void init_holder(menu_window_t *menu)
     menu->container = sfSprite_create();
     sfSprite_setTexture(menu->container, txt, sfTrue);
     sfSprite_setPosition(menu->container, (sfVector2f)
-        {(1500 / 2) - (768 / 2), (800 / 2) - (560 / 2) + 30});
+        {(1920 / 2) - (768 / 2), (1080 / 2) - (560 / 2) + 30});
     sfSprite_setScale(menu->container, (sfVector2f){1, 1});
 }
 
