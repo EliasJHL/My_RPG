@@ -7,6 +7,20 @@
 
 #include "../include/my.h"
 
+static void init_skeleton2(skeleton_t *skeleton)
+{
+    skeleton->hitbox = sfRectangleShape_create();
+    sfRectangleShape_setSize(skeleton->hitbox, (sfVector2f){14, 14});
+    sfRectangleShape_setFillColor(skeleton->hitbox, sfTransparent);
+    sfRectangleShape_setOutlineThickness(skeleton->hitbox, 1);
+    sfRectangleShape_setOutlineColor(skeleton->hitbox, sfRed);
+    skeleton->attack_hitbox = sfRectangleShape_create();
+    sfRectangleShape_setSize(skeleton->attack_hitbox, (sfVector2f){7, 14});
+    sfRectangleShape_setFillColor(skeleton->attack_hitbox, sfTransparent);
+    sfRectangleShape_setOutlineThickness(skeleton->attack_hitbox, 1);
+    sfRectangleShape_setOutlineColor(skeleton->attack_hitbox, sfRed);
+}
+
 void init_skeleton(ennemies_t *ennemies)
 {
     sfTexture *txt = sfTexture_createFromFile(TEXT_SKELETON, NULL);
@@ -15,6 +29,7 @@ void init_skeleton(ennemies_t *ennemies)
         SKELETON = malloc(sizeof(skeleton_t));
         SKELETON->life = 100;
         SKELETON->clock = sfClock_create();
+        SKELETON->clock2 = sfClock_create();
         SKELETON->sprite = sfSprite_create();
         sfSprite_setTexture(SKELETON->sprite, txt, sfTrue);
         sfSprite_setTextureRect(SKELETON->sprite, (sfIntRect){0, 0, 64, 64});
@@ -22,11 +37,9 @@ void init_skeleton(ennemies_t *ennemies)
         SKELETON->is_alive = false;
         SKELETON->is_mooving = false;
         SKELETON->is_attacking = false;
-        SKELETON->hitbox = sfRectangleShape_create();
-        sfRectangleShape_setSize(SKELETON->hitbox, (sfVector2f){14, 14});
-        sfRectangleShape_setFillColor(SKELETON->hitbox, sfTransparent);
-        sfRectangleShape_setOutlineThickness(SKELETON->hitbox, 1);
-        sfRectangleShape_setOutlineColor(SKELETON->hitbox, sfRed);
+        SKELETON->auto_mode = false;
+        SKELETON->auto_mode_moov = false;
+        init_skeleton2(SKELETON);
     }
     free(txt);
 }
@@ -91,37 +104,18 @@ static void skeleton_idle(data_t *data, int i)
     }
 }
 
-static void choose_state(data_t *data, int i)
-{
-    float distance;
-    sfVector2f pos = data->player->player_pos;
-
-    pos.x += 9;
-    pos.y += 19;
-    if (data->ennemies->slime[i]->is_alive == true) {
-        distance = sqrt(pow(SKELETON_X - PLAYER_X, 2) +
-                        pow(SKELETON_Y - PLAYER_Y, 2));
-        if (distance < 200)
-            data->ennemies->skeleton[i]->is_mooving = true;
-        else
-            data->ennemies->skeleton[i]->is_mooving = false;
-        if (distance < 50)
-            data->ennemies->skeleton[i]->is_attacking = true;
-        else
-            data->ennemies->skeleton[i]->is_attacking = false;
-    }
-}
-
 static void choose_anim(data_t *data)
 {
     for (int i = 0; i < 10; i++) {
-        choose_state(data, i);
+        if (!data->ennemies->skeleton[i]->auto_mode)
+            choose_state(data, i);
         if (!data->ennemies->skeleton[i]->is_mooving &&
             !data->ennemies->skeleton[i]->is_attacking)
             skeleton_idle(data, i);
         if (data->ennemies->skeleton[i]->is_mooving &&
-            !data->ennemies->skeleton[i]->is_attacking)
+            !data->ennemies->skeleton[i]->is_attacking) {
             skeleton_moove(data, i);
+        }
         if (data->ennemies->skeleton[i]->is_attacking)
             skeleton_attack(data, i);
     }
@@ -143,6 +137,8 @@ void display_skeleton(data_t *data)
             pos.x += 25;
             sfRectangleShape_setPosition(data->ennemies->skeleton[i]->hitbox,
                 pos);
+            sfRenderWindow_drawRectangleShape(data->window,
+                data->ennemies->skeleton[i]->attack_hitbox, NULL);
         }
     }
 }
