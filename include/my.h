@@ -249,6 +249,7 @@ typedef struct npc_s {
     int dialog_count;
     int nb_dialog;
     char **dialog;
+    bool talking;
     bool active;
     bool to_talk;
     bool is_tuto;
@@ -316,6 +317,7 @@ typedef struct menu_window_s {
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
 typedef struct data_s {
+    int count_dialog;
     int hud_state;
     int *map_data;
     bool tuto_mode;

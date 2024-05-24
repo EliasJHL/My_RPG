@@ -45,21 +45,20 @@ static void text_process(char *text, char *str, int i, int len)
 
 void text_writer(data_t *data, char *str, npc_t *npc)
 {
-    static int i = 0;
     size_t len = strlen(str);
     char *text = malloc(sizeof(char) * (len + 1));
     double seconds = 0;
 
     seconds = sfTime_asSeconds(data->bubble_text->elapsed_time);
     if (seconds >= 0.08) {
-        text_process(text, str, i, len);
+        text_process(text, str, data->count_dialog, len);
         sfText_setString(data->bubble_text->text, text);
         sfClock_restart(data->bubble_text->clock);
-        if (str[i] == '\0') {
-            i = 0;
+        if (str[data->count_dialog] == '\0') {
+            data->count_dialog = 0;
             handle_dialog(data, npc);
         } else {
-            i++;
+            data->count_dialog++;
             data->dialog_finished = false;
         }
     }

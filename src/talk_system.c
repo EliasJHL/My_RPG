@@ -35,7 +35,6 @@ void detect_process_2(data_t *data, npc_t *npc)
     } else {
         if (npc->dialog_count > npc->nb_dialog - 1) {
             npc->dialog_count = 0;
-            data->player->is_talking = false;
             return;
         }
         if (data->dialog_finished == true)
@@ -55,6 +54,7 @@ void detect_process(data_t *data, npc_t *npc)
         draw_talk_text(data, npc);
     if (sfKeyboard_isKeyPressed(sfKeyF) &&
         data->tuto_mode == npc->is_tuto) {
+        npc->talking = true;
         data->player->is_talking = true;
         data->player->available = false;
     }
@@ -75,16 +75,54 @@ static void check_not_talk(data_t *data)
     }
 }
 
+int detect_if_talking(data_t *data, npc_t *npc)
+{
+    if (npc->talking)
+        return 1;
+    else
+        return 0;
+}
+
+static void reset_all(data_t *data)
+{
+    npc_t *npc = data->npc;
+
+    data->count_dialog = 0;
+    while (npc != NULL) {
+        npc->talking = false;
+        npc->dialog_count = 0;
+        sfClock_restart(npc->clock);
+        npc = npc->next;
+    }
+}
+
+static void check_if_npc(data_t *data)
+{
+    npc_t *detect = data->npc;
+    int i = 0;
+
+    while (detect != NULL) {
+        i += detect_if_talking(data, detect);
+        detect = detect->next;
+    }
+    if (i == 0) {
+        data->player->is_talking = false;
+        reset_all(data);
+    }
+}
+
 void detect_npc(data_t *data)
 {
     npc_t *npc = data->npc;
 
+    check_if_npc(data);
     while (npc != NULL) {
         if (CHECK_NPC(npc->pos, data->player->player_pos, 30)) {
             detect_process(data, npc);
         } else {
             check_not_talk(data);
             npc->dialog_count = 0;
+            npc->talking = false;
         }
         npc = npc->next;
     }
