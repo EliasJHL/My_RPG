@@ -110,7 +110,7 @@ void attack_left(data_t *data)
         data->player->rect.width = 48;
         if (data->player->rect.left == 144)
             attack_hit(data, 3);
-        if (data->player->rect.left <= 96) {
+        if (data->player->rect.left <= 48) {
             data->player->rect.left = 240;
             data->player->is_attacking = false;
         }
