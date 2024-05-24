@@ -406,7 +406,11 @@ void spawn_skeleton(data_t *data);
 void display_skeleton(data_t *data);
 void move_skeleton(data_t *data);
 void choose_state(data_t *data, int i);
-void auto_mode_skeleton(skeleton_t *skeleton);
+int collision_check_up_skeleton(data_t *data, skeleton_t *skeleton);
+int collision_check_down_skeleton(data_t *data, skeleton_t *skeleton);
+int collision_check_left_skeleton(data_t *data, skeleton_t *skeleton);
+int collision_check_right_skeleton(data_t *data, skeleton_t *skeleton);
+void auto_mode_skeleton(data_t *data, skeleton_t *skeleton);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);
