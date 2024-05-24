@@ -11,19 +11,10 @@ int check_click_btn(data_t *data, sfEvent event)
 {
     FILE *save = fopen("saves/save_1.rpg", "rw");
 
-    if (event.type == sfEvtKeyPressed) {
-        if (sfKeyboard_isKeyPressed(sfKeyH)) {
-            sfRenderWindow_close(data->window);
-            data->is_on_menu = false;
-            fclose(save);
-            return 1;
-        }
-        if (sfKeyboard_isKeyPressed(sfKeyN)) {
-            fwrite(data, sizeof(data_t), 1000000, save);
-            data->is_on_menu = false;
-            fclose(save);
-            return 1;
-        }
+    if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
+        data->menu_window->newgame)) {
+        sfRenderWindow_close(data->window);
+        return 1;
     }
     fclose(save);
     return 0;
