@@ -17,6 +17,15 @@ int check_click_btn(data_t *data, sfEvent event)
         data->tuto_mode = true;
         return 1;
     }
+    if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
+        data->menu_window->credits)) {
+        data->menu_window->credits_mode = true;
+        return 1;
+    } else if (sfMouse_isButtonPressed(sfMouseLeft) && !is_hover(data,
+        data->menu_window->credits)) {
+        data->menu_window->credits_mode = false;
+        return 1;
+    }
     fclose(save);
     return 0;
 }
@@ -114,6 +123,9 @@ int menu(data_t *data)
     sfRenderWindow_drawSprite(data->window,
         data->menu_window->container, NULL);
     draw_btn(data);
+    if (data->menu_window->credits_mode)
+        sfRenderWindow_drawSprite(data->window,
+            data->menu_window->credits_hud, NULL);
     sfRenderWindow_display(data->window);
     return 0;
 }

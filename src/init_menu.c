@@ -123,6 +123,17 @@ void init_holder(menu_window_t *menu)
     sfSprite_setScale(menu->container, (sfVector2f){1, 1});
 }
 
+void init_credits_hud(menu_window_t *menu)
+{
+    sfTexture *txt = sfTexture_createFromFile("assets/menu/credits_hud.png",
+        NULL);
+
+    menu->credits_hud = sfSprite_create();
+    sfSprite_setTexture(menu->credits_hud, txt, sfTrue);
+    sfSprite_setPosition(menu->credits_hud, (sfVector2f){0, 0});
+    sfSprite_setScale(menu->credits_hud, (sfVector2f){1, 1});
+}
+
 menu_window_t *init_menu_window(void)
 {
     menu_window_t *menu = malloc(sizeof(menu_window_t));
@@ -132,6 +143,7 @@ menu_window_t *init_menu_window(void)
     menu->clock = sfClock_create();
     menu->zoom = 1;
     menu->zoom_mode = true;
+    menu->credits_mode = false;
     sfSprite_setTexture(menu->menu_bg, txt, sfTrue);
     sfSprite_setPosition(menu->menu_bg, (sfVector2f){0, 0});
     init_start(menu);
@@ -140,5 +152,6 @@ menu_window_t *init_menu_window(void)
     init_options(menu);
     init_credits(menu);
     init_exit(menu);
+    init_credits_hud(menu);
     return menu;
 }

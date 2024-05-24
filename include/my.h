@@ -297,9 +297,11 @@ typedef struct menu_window_s {
     sfClock *clock;
     float zoom;
     bool zoom_mode;
+    bool credits_mode;
     sfTime elapsed_time;
     sfEvent event;
     sfSprite *menu_bg;
+    sfSprite *credits_hud;
     sfSprite *newgame;
     sfSprite *loadgame;
     sfSprite *credits;
