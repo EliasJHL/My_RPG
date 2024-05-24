@@ -71,9 +71,44 @@ void draw_btn(data_t *data)
     draw_btn_2(data);
 }
 
+static void set_data(data_t *data)
+{
+    if (data->menu_window->zoom_mode == true) {
+        data->menu_window->bg_pos.x -= 1;
+        data->menu_window->bg_pos.y -= 0.8;
+        data->menu_window->zoom += 0.001;
+    } else {
+        data->menu_window->bg_pos.x += 1;
+        data->menu_window->bg_pos.y += 0.8;
+        data->menu_window->zoom -= 0.001;
+    }
+    if (data->menu_window->zoom >= 3)
+        data->menu_window->zoom_mode = false;
+    if (data->menu_window->zoom <= 1)
+        data->menu_window->zoom_mode = true;
+}
+
+static void zoom_bg(data_t *data)
+{
+    double seconds;
+
+    data->menu_window->elapsed_time = sfClock_getElapsedTime(
+        data->menu_window->clock);
+    seconds = sfTime_asSeconds(data->menu_window->elapsed_time);
+    if (seconds >= 0) {
+        set_data(data);
+        sfSprite_setPosition(data->menu_window->menu_bg,
+            data->menu_window->bg_pos);
+        sfSprite_setScale(data->menu_window->menu_bg,
+            (sfVector2f){data->menu_window->zoom, data->menu_window->zoom});
+        sfClock_restart(data->menu_window->clock);
+    }
+}
+
 int menu(data_t *data)
 {
     check_event(data, data->event);
+    zoom_bg(data);
     sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
     sfRenderWindow_drawSprite(data->window, data->menu_window->menu_bg, NULL);
     sfRenderWindow_drawSprite(data->window,

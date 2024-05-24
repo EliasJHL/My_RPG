@@ -129,6 +129,9 @@ menu_window_t *init_menu_window(void)
     sfTexture *txt = sfTexture_createFromFile("assets/menu/menu_bg.png", NULL);
 
     menu->menu_bg = sfSprite_create();
+    menu->clock = sfClock_create();
+    menu->zoom = 1;
+    menu->zoom_mode = true;
     sfSprite_setTexture(menu->menu_bg, txt, sfTrue);
     sfSprite_setPosition(menu->menu_bg, (sfVector2f){0, 0});
     init_start(menu);

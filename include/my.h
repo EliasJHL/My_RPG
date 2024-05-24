@@ -291,8 +291,13 @@ typedef struct drop_items_s {
     struct drop_items_s *next;
 }drop_items_t;
 
+//zoom_mode → 1 : zoom in | 0 : zoom out
 typedef struct menu_window_s {
     sfRenderWindow *window;
+    sfClock *clock;
+    float zoom;
+    bool zoom_mode;
+    sfTime elapsed_time;
     sfEvent event;
     sfSprite *menu_bg;
     sfSprite *newgame;
