@@ -7,36 +7,38 @@
 
 #include "../include/my.h"
 
-int check_click_btn(data_t *data, sfEvent event)
+void check_click_btn_2(data_t *data, sfEvent event)
 {
-    FILE *save = fopen("saves/save_1.rpg", "rw");
+    if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
+        data->menu_window->exit)) {
+        sfRenderWindow_close(data->window);
+    }
+}
 
+void check_click_btn(data_t *data, sfEvent event)
+{
     if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
         data->menu_window->newgame)) {
         data->menu_mode = false;
         data->tuto_mode = true;
-        return 1;
     }
     if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
         data->menu_window->credits)) {
         data->menu_window->credits_mode = true;
-        return 1;
     } else if (sfMouse_isButtonPressed(sfMouseLeft) && !is_hover(data,
         data->menu_window->credits)) {
         data->menu_window->credits_mode = false;
-        return 1;
     }
-    fclose(save);
-    return 0;
+    check_click_btn_2(data, event);
 }
 
 static int check_event(data_t *data, sfEvent event)
 {
     while (sfRenderWindow_pollEvent(data->window, &event)) {
-        if (check_click_btn(data, event) == 1)
-            return 1;
-        if (event.type == sfEvtClosed)
+        check_click_btn(data, event);
+        if (event.type == sfEvtClosed) {
             sfRenderWindow_close(data->window);
+        }
     }
     return 0;
 }

@@ -7,7 +7,8 @@
 
 #include "../include/my.h"
 
-static collision_t *get_rectangle_above_skeleton(data_t *data, skeleton_t *skeleton)
+static collision_t *get_rectangle_above_skeleton(data_t *data,
+    skeleton_t *skeleton)
 {
     sfVector2f pos = skeleton->pos;
     sfVector2f col_pos;
@@ -24,7 +25,8 @@ static collision_t *get_rectangle_above_skeleton(data_t *data, skeleton_t *skele
     return NULL;
 }
 
-static collision_t *get_rectangle_under_skeleton(data_t *data, skeleton_t *skeleton)
+static collision_t *get_rectangle_under_skeleton(data_t *data,
+    skeleton_t *skeleton)
 {
     sfVector2f pos = skeleton->pos;
     sfVector2f col_pos;
@@ -41,7 +43,8 @@ static collision_t *get_rectangle_under_skeleton(data_t *data, skeleton_t *skele
     return NULL;
 }
 
-static collision_t *get_rectangle_left_skeleton(data_t *data, skeleton_t *skeleton)
+static collision_t *get_rectangle_left_skeleton(data_t *data,
+    skeleton_t *skeleton)
 {
     sfVector2f pos = skeleton->pos;
     sfVector2f col_pos;
@@ -58,7 +61,8 @@ static collision_t *get_rectangle_left_skeleton(data_t *data, skeleton_t *skelet
     return NULL;
 }
 
-static collision_t *get_rectangle_right_skeleton(data_t *data, skeleton_t *skeleton)
+static collision_t *get_rectangle_right_skeleton(data_t *data,
+    skeleton_t *skeleton)
 {
     sfVector2f pos = skeleton->pos;
     sfVector2f col_pos;
@@ -150,4 +154,3 @@ int collision_check_right_skeleton(data_t *data, skeleton_t *skeleton)
     }
     return 0;
 }
-
