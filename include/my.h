@@ -321,6 +321,7 @@ typedef struct data_s {
     int hud_state;
     int *map_data;
     bool tuto_mode;
+    bool menu_mode;
     bool sign_display;
     bool dialog_finished;
     bool is_on_menu;
@@ -388,6 +389,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 
 //menu functions
 int menu(data_t *data);
+void draw_btn(data_t *data);
 
 //attack functions
 void reset_hit(data_t *data);

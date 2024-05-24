@@ -13,7 +13,8 @@ int check_click_btn(data_t *data, sfEvent event)
 
     if (sfMouse_isButtonPressed(sfMouseLeft) && is_hover(data,
         data->menu_window->newgame)) {
-        sfRenderWindow_close(data->window);
+        data->menu_mode = false;
+        data->tuto_mode = true;
         return 1;
     }
     fclose(save);
@@ -72,20 +73,12 @@ void draw_btn(data_t *data)
 
 int menu(data_t *data)
 {
-    sfEvent event;
-    sfVideoMode mode = {1500, 800, 32};
-
-    data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, NULL);
-    while (sfRenderWindow_isOpen(data->window)) {
-        if (check_event(data, event) == 1)
-            return 1;
-        sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
-        sfRenderWindow_drawSprite(data->window,
-            data->menu_window->menu_bg, NULL);
-        sfRenderWindow_drawSprite(data->window,
-            data->menu_window->container, NULL);
-        draw_btn(data);
-        sfRenderWindow_display(data->window);
-    }
+    check_event(data, data->event);
+    sfRenderWindow_clear(data->window, sfColor_fromRGB(80, 140, 180));
+    sfRenderWindow_drawSprite(data->window, data->menu_window->menu_bg, NULL);
+    sfRenderWindow_drawSprite(data->window,
+        data->menu_window->container, NULL);
+    draw_btn(data);
+    sfRenderWindow_display(data->window);
     return 0;
 }
