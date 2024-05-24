@@ -167,15 +167,22 @@ typedef struct slime_s {
 
 typedef struct skeleton_s {
     int life;
+    int dir;
+    int auto_time;
     bool is_alive;
     bool is_mooving;
     bool is_attacking;
+    bool auto_mode;
+    bool auto_mode_moov;
     sfClock *clock;
+    sfClock *clock2;
     sfTime elapsed_times;
+    sfTime elapsed_times2;
     sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
     sfRectangleShape *hitbox;
+    sfRectangleShape *attack_hitbox;
 } skeleton_t;
 
 typedef struct ennemies_s {
@@ -397,6 +404,9 @@ void display_slime(data_t *data);
 void move_slime(data_t *data);
 void spawn_skeleton(data_t *data);
 void display_skeleton(data_t *data);
+void move_skeleton(data_t *data);
+void choose_state(data_t *data, int i);
+void auto_mode_skeleton(skeleton_t *skeleton);
 
 //game modes functions
 void tutorial_game(data_t *data, sfEvent event);

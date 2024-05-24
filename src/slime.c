@@ -134,8 +134,8 @@ void move_slime(data_t *data)
     pos.y += 19;
     for (int i = 0; i < 10; i++) {
         if (data->ennemies->slime[i]->is_alive == true) {
-            distance = sqrt(pow(SLIME_X - PLAYER_X, 2) +
-                            pow(SLIME_Y - PLAYER_Y, 2));
+            distance = sqrt(pow(SLIME_X - pos.x, 2) +
+                            pow(SLIME_Y - pos.y, 2));
             move_slime_player(data, distance, pos, i);
             slime_animation(data, i);
         }

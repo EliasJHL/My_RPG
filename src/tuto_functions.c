@@ -89,6 +89,7 @@ void tutorial_game(data_t *data, sfEvent event)
     draw_sprites(data->window, data);
     check_monster(data);
     move_slime(data);
+    move_skeleton(data);
     camera_handler(data);
     player_basics(event, data);
     tuto_progress(data);
