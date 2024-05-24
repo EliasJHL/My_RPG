@@ -253,6 +253,10 @@ typedef struct dialog_s {
 // NPC sprite → name.png | talk sprite → name_talk.png
 typedef struct npc_s {
     char *npc_name;
+    int dialog_count;
+    int nb_dialog;
+    char **dialog;
+    bool talking;
     bool active;
     bool to_talk;
     bool is_tuto;
@@ -294,10 +298,17 @@ typedef struct drop_items_s {
     struct drop_items_s *next;
 }drop_items_t;
 
+//zoom_mode → 1 : zoom in | 0 : zoom out
 typedef struct menu_window_s {
     sfRenderWindow *window;
+    sfClock *clock;
+    float zoom;
+    bool zoom_mode;
+    bool credits_mode;
+    sfTime elapsed_time;
     sfEvent event;
     sfSprite *menu_bg;
+    sfSprite *credits_hud;
     sfSprite *newgame;
     sfSprite *loadgame;
     sfSprite *credits;
@@ -320,10 +331,13 @@ typedef struct menu_window_s {
 //1 : Menu | 2 : Options | 3 : Pause | 4 : Inventory | 5 : Quests | 6 : Stats
 // Mode tuto → First Game → Save not loaded
 typedef struct data_s {
+    int count_dialog;
     int hud_state;
     int *map_data;
     bool tuto_mode;
+    bool menu_mode;
     bool sign_display;
+    bool dialog_finished;
     bool is_on_menu;
     int selected_id;
     sfMusic *menu_music;
@@ -389,6 +403,7 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 
 //menu functions
 int menu(data_t *data);
+void draw_btn(data_t *data);
 
 //attack functions
 void reset_hit(data_t *data);
@@ -431,6 +446,12 @@ void recover_item(data_t *data);
 void init_npc(data_t *data);
 void display_npc(data_t *data);
 void detect_npc(data_t *data);
+void config_dialog_npc(npc_t *node);
+void npc_text(data_t *data, npc_t *npc, char *str);
+void sign_text(data_t *data, npc_t *npc);
+void text_writer(data_t *data, char *str, npc_t *npc);
+void display_buuble(data_t *data, npc_t *npc);
+void display_simple_text(data_t *data, npc_t *npc, char *str);
 
 // Map functions
 int **init_map_collision(void);

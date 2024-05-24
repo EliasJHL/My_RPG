@@ -130,11 +130,12 @@ void game_loop(data_t *data)
     data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, 0);
     sfRenderWindow_setFramerateLimit(data->window, 60);
     while (sfRenderWindow_isOpen(data->window)) {
-        if (data->tuto_mode == true) {
+        if (data->tuto_mode && !data->menu_mode)
             tutorial_game(data, event);
-        } else {
+        if (data->menu_mode)
+            menu(data);
+        if (!data->menu_mode && !data->tuto_mode)
             normal_game(data, event);
-        }
     }
 }
 
@@ -167,16 +168,15 @@ int main(void)
     data_t *data = malloc(sizeof(data_t));
 
     data->is_on_menu = true;
+    data->menu_mode = true;
     data->sign_display = true;
     data->hud_state = 0;
     starter(data);
     if (data->tuto_mode == true)
         sfSprite_setPosition(data->player->player_sprite,
             (sfVector2f) {855, 1005});
-    if (menu(data) == 1) {
-        sfMusic_play(data->tutorial_music);
-        game_loop(data);
-    }
+    sfMusic_play(data->tutorial_music);
+    game_loop(data);
     close_the_game(data);
     return 0;
 }
