@@ -17,6 +17,7 @@ static void check_hit_slime(data_t *data, int i)
     if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
         data->ennemies->slime[i]->life -= 10;
         if (data->ennemies->slime[i]->life <= 0) {
+            xp_add(3, data);
             data->ennemies->slime[i]->is_alive = false;
         }
         if (data->player->direction == 0)
