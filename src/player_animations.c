@@ -10,10 +10,12 @@
 void move(data_t *data, int top)
 {
     double seconds;
+    double cond = 0;
 
     data->player->elapsed_time = sfClock_getElapsedTime(data->player->clock);
     seconds = sfTime_asSeconds(data->player->elapsed_time);
-    if (seconds >= 0.15) {
+    cond = data->sprint->speed == 1 ? 0 : 0.05;
+    if (seconds >= (0.15 - cond)) {
         data->player->rect.top = top;
         data->player->rect.left += 48;
         data->player->rect.height = 48;
