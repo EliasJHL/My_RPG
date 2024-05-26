@@ -13,7 +13,8 @@ void move_right(data_t *data)
 
     if (RIGHT(event)) {
         old_position = data->player->player_pos;
-        sfSprite_move(data->player->player_sprite, (sfVector2f){1.2, 0});
+        sfSprite_move(data->player->player_sprite,
+            (sfVector2f){1.2 * data->sprint->speed, 0});
         data->player->player_pos = sfSprite_getPosition
             (data->player->player_sprite);
         if (collision_check_right(data)) {
@@ -33,7 +34,8 @@ void move_left(data_t *data)
 
     if (LEFT(event)) {
         old_position = data->player->player_pos;
-        sfSprite_move(data->player->player_sprite, (sfVector2f){-1.2, 0});
+        sfSprite_move(data->player->player_sprite,
+            (sfVector2f){-1.2 * data->sprint->speed, 0});
         data->player->player_pos = sfSprite_getPosition
             (data->player->player_sprite);
         if (collision_check_left(data)) {
@@ -56,7 +58,8 @@ void move_down(data_t *data)
         data->player->animation = 0;
     if (DOWN(event)) {
         old_position = data->player->player_pos;
-        sfSprite_move(data->player->player_sprite, (sfVector2f){0, 1.2});
+        sfSprite_move(data->player->player_sprite,
+            (sfVector2f){0, 1.2 * data->sprint->speed});
         data->player->player_pos = sfSprite_getPosition
             (data->player->player_sprite);
         if (collision_check_down(data)) {
@@ -79,7 +82,8 @@ void move_player(data_t *data)
             data->player->animation = 0;
     if (UP(event)) {
         old_position = data->player->player_pos;
-        sfSprite_move(data->player->player_sprite, (sfVector2f){0, -1.2});
+        sfSprite_move(data->player->player_sprite,
+            (sfVector2f){0, -1.2 * data->sprint->speed});
         data->player->player_pos = sfSprite_getPosition
             (data->player->player_sprite);
         if (collision_check_up(data)) {

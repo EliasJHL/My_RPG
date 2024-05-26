@@ -116,16 +116,60 @@ typedef struct collision_s {
     int collision;
 } collision_t;
 
+typedef struct quest_s {
+    int id;
+    int item_reward;
+    int progression_count;
+    int progression_goal;
+    char *banner_name;
+    char *title_full;
+    char *description_full;
+    char *title_short;
+    char *description_short;
+    bool is_active;
+    bool has_progression;
+    bool has_reward;
+    bool is_finished;
+    bool is_tutorial;
+    struct quest_s *next;
+}quest_t;
+
+typedef struct quest_display_s {
+    bool banner_available;
+    // Mini display
+    sfText *title;
+    sfText *description;
+    sfText *progression;
+    sfRectangleShape *mini_banner;
+    sfRectangleShape *prog_bar;
+    sfRectangleShape *prog_bar_bg;
+    sfVector2f prog_bar_pos;
+    sfVector2f mini_banner_pos;
+    sfVector2f title_pos;
+    sfVector2f description_pos;
+    // Banner display
+    sfClock *clock;
+    sfTime elapsed_time;
+    sfText *title_full;
+    sfText *description_full;
+    sfRectangleShape *banner;
+    sfVector2f banner_pos;
+    sfVector2f title_full_pos;
+    sfVector2f description_full_pos;
+} quest_display_t;
+
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
     int item_selected;
     int animation;
     int direction;
+    int quest_id;
     int life;
     int hungry;
     int xp;
     int level;
     float zoom;
+    bool doing_quest;
     bool is_talking;
     bool available;
     bool is_attacking;
@@ -250,6 +294,15 @@ typedef struct dialog_s {
     struct dialog_s *next;
 }dialog_t;
 
+typedef struct sprint_s {
+    sfClock *clock;
+    sfTime elapsed_time;
+    float speed;
+    int stamina;
+    sfRectangleShape *stamina_rec;
+    sfVector2f stamina_pos;
+} sprint_t;
+
 // NPC sprite → name.png | talk sprite → name_talk.png
 typedef struct npc_s {
     char *npc_name;
@@ -261,6 +314,8 @@ typedef struct npc_s {
     bool to_talk;
     bool is_tuto;
     bool is_sign;
+    bool give_quest;
+    int quest_id;
     char *txt_sign;
     sfSprite *sprite;
     sfSprite *talk_sprite;
@@ -357,10 +412,13 @@ typedef struct data_s {
     collision_t *col_map;
     npc_t *npc;
     text_t *text;
+    quest_t *quests;
+    quest_display_t *quests_display;
     bubble_text_t *bubble_text;
     drop_items_t *drop_items;
     ennemies_t *ennemies;
     menu_window_t *menu_window;
+    sprint_t *sprint;
 }data_t;
 
 // Init structs & data
@@ -384,7 +442,9 @@ ennemies_t *init_ennemies(void);
 void init_slime(ennemies_t *ennemies);
 void init_skeleton(ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
+void init_mini_display(data_t *data);
 void init_music(data_t *data);
+void init_quest(data_t *data);
 
 //save system
 void save_game(data_t *data, int slot);
@@ -404,6 +464,11 @@ void event_handler(sfRenderWindow *window, sfEvent event, data_t *data);
 //menu functions
 int menu(data_t *data);
 void draw_btn(data_t *data);
+
+//quest system
+void display_mini_quest(data_t *data, int id);
+void display_banner(data_t *data);
+void give_quest(data_t *data, int id);
 
 //attack functions
 void reset_hit(data_t *data);
@@ -469,6 +534,8 @@ void notification_display(data_t *data);
 
 // Basic Functions for player
 int player_basics(sfEvent event, data_t *data);
+void init_sprint(data_t *data);
+void sprint_check(data_t *data);
 
 //event function (player movements)
 void player_movement(data_t *data);

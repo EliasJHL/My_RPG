@@ -38,6 +38,8 @@ static void meteo_changer(sfEvent event, data_t *data)
         data->hud->meteo_status = 2;
     if (event.key.code == sfKeyNumpad3)
         data->hud->meteo_status = 3;
+    if (event.key.code == sfKeyP)
+        give_quest(data, 0);
 }
 
 static void disable_hud(sfEvent event, data_t *data)
@@ -92,6 +94,9 @@ void camera_handler(data_t *data)
         sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
     hud_player(data);
     meteo_display(data);
+    display_mini_quest(data, 0);
+    display_banner(data);
+    sprint_check(data);
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
 }
@@ -141,7 +146,6 @@ void game_loop(data_t *data)
 
 static void starter(data_t *data)
 {
-    data->tuto_mode = true;
     data->menu_window = init_menu_window();
     data->map = init_map();
     data->player = init_player();
@@ -161,20 +165,22 @@ static void starter(data_t *data)
     init_text(data);
     init_bubble_text(data);
     start_meteo(data);
+    init_mini_display(data);
 }
 
 int main(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
+    data->tuto_mode = true;
     data->is_on_menu = true;
     data->menu_mode = true;
     data->sign_display = true;
     data->hud_state = 0;
     starter(data);
-    if (data->tuto_mode == true)
-        sfSprite_setPosition(data->player->player_sprite,
-            (sfVector2f) {855, 1005});
+    init_quest(data);
+    sfSprite_setPosition(data->player->player_sprite,
+        (sfVector2f) {855, 1005});
     sfMusic_play(data->tutorial_music);
     game_loop(data);
     close_the_game(data);
