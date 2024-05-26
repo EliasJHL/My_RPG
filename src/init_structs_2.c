@@ -50,7 +50,7 @@ static void start_slots(inventory_t *inv)
 
     inv->slots = malloc(sizeof(slots_t) * 48);
     for (int i = 0; i < 48; i++) {
-        inv->slots[i].item_id = 002;
+        inv->slots[i].item_id = 0;
         inv->slots[i].slot_id = i;
         inv->slots[i].slot = sfRectangleShape_create();
         inv->slots[i].slot_pos.x = 0;
@@ -64,6 +64,18 @@ static void start_slots(inventory_t *inv)
     }
 }
 
+static void init_inventory_2(inventory_t *inventory)
+{
+    sfColor intern = sfColor_fromRGBA(216, 201, 172, 255);
+    sfColor outline = sfColor_fromRGBA(180, 167, 148, 255);
+
+    inventory->bg_player = sfRectangleShape_create();
+    sfRectangleShape_setSize(inventory->bg_player, (sfVector2f){80, 100});
+    sfRectangleShape_setFillColor(inventory->bg_player, intern);
+    sfRectangleShape_setOutlineThickness(inventory->bg_player, 1);
+    sfRectangleShape_setOutlineColor(inventory->bg_player, outline);
+}
+
 inventory_t *init_inventory(void)
 {
     inventory_t *inventory = malloc(sizeof(inventory_t));
@@ -72,6 +84,7 @@ inventory_t *init_inventory(void)
     sfColor inv_color = sfColor_fromRGBA(0, 0, 0, 150);
 
     start_slots(inventory);
+    init_inventory_2(inventory);
     inventory->inv_sprite = sfSprite_create();
     inventory->inv = sfRectangleShape_create();
     sfSprite_setTexture(inventory->inv_sprite, txt, sfTrue);

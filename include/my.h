@@ -95,7 +95,12 @@ typedef struct inventory_s {
     bool status;
     sfSprite *item_selected;
     sfRectangleShape *inv;
+    sfRectangleShape *bg_player;
     sfSprite *inv_sprite;
+    sfText *Player_name;
+    sfText *attack_stat;
+    sfText *defense_stat;
+    sfText *lvl_stat;
     sfVector2f inv_pos;
     sfVector2f sprite_pos;
     slots_t *slots;
@@ -469,6 +474,7 @@ void draw_btn(data_t *data);
 void display_mini_quest(data_t *data, int id);
 void display_banner(data_t *data);
 void give_quest(data_t *data, int id);
+quest_t *get_quest(data_t *data, int id);
 
 //attack functions
 void reset_hit(data_t *data);
@@ -506,6 +512,7 @@ void display_slots(data_t *data);
 void drop_item(data_t *data, int id);
 void display_drop_item(data_t *data);
 void recover_item(data_t *data);
+void inventory_menu_2(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);

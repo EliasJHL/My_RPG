@@ -53,5 +53,6 @@ void xp_add(int xp, data_t *data)
     while (xp_calc > 200) {
         xp_calc -= 200;
         data->player->level += 1;
+        notification(data, "Level Up !", 0);
     }
 }
