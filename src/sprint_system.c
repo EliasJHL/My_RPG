@@ -71,7 +71,10 @@ void adapt_rectangle_stamina(data_t *data)
 void sprint_check(data_t *data)
 {
     if (sfKeyboard_isKeyPressed(sfKeyLShift) == sfTrue) {
-        data->sprint->speed = 1.7;
+        if (data->sprint->stamina > 0)
+            data->sprint->speed = 1.7;
+        else
+            data->sprint->speed = 1;
         stamina_consomation(data);
     } else {
         data->sprint->speed = 1;
