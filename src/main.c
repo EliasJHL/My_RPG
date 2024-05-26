@@ -38,6 +38,8 @@ static void meteo_changer(sfEvent event, data_t *data)
         data->hud->meteo_status = 2;
     if (event.key.code == sfKeyNumpad3)
         data->hud->meteo_status = 3;
+    if (event.key.code == sfKeyP)
+        give_quest(data, 0);
 }
 
 static void disable_hud(sfEvent event, data_t *data)
@@ -92,7 +94,8 @@ void camera_handler(data_t *data)
         sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
     hud_player(data);
     meteo_display(data);
-    display_mini_quest(data);
+    display_mini_quest(data, 0);
+    display_banner(data);
     sprint_check(data);
     sfView_setCenter(data->player->camera, pos);
     sfRenderWindow_setView(data->window, data->player->camera);
@@ -175,6 +178,7 @@ int main(void)
     data->sign_display = true;
     data->hud_state = 0;
     starter(data);
+    init_quest(data);
     sfSprite_setPosition(data->player->player_sprite,
         (sfVector2f) {855, 1005});
     sfMusic_play(data->tutorial_music);

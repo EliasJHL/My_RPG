@@ -10,11 +10,12 @@
 void set_scale(data_t *data)
 {
     sfText_setScale(data->quests_display->title, (sfVector2f){0.5, 0.5});
-    sfText_setScale(data->quests_display->description, (sfVector2f){0.5, 0.5});
+    sfText_setScale(data->quests_display->description,
+        (sfVector2f){0.35, 0.35});
     sfText_setScale(data->quests_display->progression, (sfVector2f){0.5, 0.5});
     sfText_setScale(data->quests_display->title_full, (sfVector2f){0.5, 0.5});
     sfText_setScale(data->quests_display->description_full,
-        (sfVector2f){0.5, 0.5});
+        (sfVector2f){0.3, 0.3});
 }
 
 void set_font(data_t *data)
@@ -27,16 +28,15 @@ void set_font(data_t *data)
     sfText_setFont(data->quests_display->title_full, font);
     sfText_setFont(data->quests_display->description_full, font);
     sfText_setCharacterSize(data->quests_display->title, 20);
-    sfText_setCharacterSize(data->quests_display->description, 50);
+    sfText_setCharacterSize(data->quests_display->description, 20);
     sfText_setCharacterSize(data->quests_display->progression, 50);
-    sfText_setCharacterSize(data->quests_display->title_full, 50);
-    sfText_setCharacterSize(data->quests_display->description_full, 50);
+    sfText_setCharacterSize(data->quests_display->title_full, 40);
+    sfText_setCharacterSize(data->quests_display->description_full, 40);
     sfText_setColor(data->quests_display->title, sfWhite);
     sfText_setColor(data->quests_display->description, sfWhite);
     sfText_setColor(data->quests_display->progression, sfWhite);
     sfText_setColor(data->quests_display->title_full, sfWhite);
     sfText_setColor(data->quests_display->description_full, sfWhite);
-    free(font);
 }
 
 static void set_rectangles_color(data_t *data)
@@ -61,11 +61,11 @@ void create_rectangles(data_t *data)
     sfRectangleShape_setSize(data->quests_display->mini_banner,
         (sfVector2f){180, 60});
     sfRectangleShape_setSize(data->quests_display->prog_bar,
-        (sfVector2f){400, 50});
+        (sfVector2f){160, 1});
     sfRectangleShape_setSize(data->quests_display->prog_bar_bg,
-        (sfVector2f){400, 50});
+        (sfVector2f){160, 1});
     sfRectangleShape_setSize(data->quests_display->banner,
-        (sfVector2f){1920, 300});
+        (sfVector2f){1920, 100});
     set_rectangles_color(data);
 }
 
@@ -77,6 +77,7 @@ void init_mini_display(data_t *data)
     data->quests_display->progression = sfText_create();
     data->quests_display->title_full = sfText_create();
     data->quests_display->description_full = sfText_create();
+    data->quests_display->clock = sfClock_create();
     set_font(data);
     set_scale(data);
     create_rectangles(data);

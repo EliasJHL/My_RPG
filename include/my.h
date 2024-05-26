@@ -135,6 +135,7 @@ typedef struct quest_s {
 }quest_t;
 
 typedef struct quest_display_s {
+    bool banner_available;
     // Mini display
     sfText *title;
     sfText *description;
@@ -147,13 +148,15 @@ typedef struct quest_display_s {
     sfVector2f title_pos;
     sfVector2f description_pos;
     // Banner display
+    sfClock *clock;
+    sfTime elapsed_time;
     sfText *title_full;
     sfText *description_full;
     sfRectangleShape *banner;
     sfVector2f banner_pos;
     sfVector2f title_full_pos;
     sfVector2f description_full_pos;
-}quest_display_t;
+} quest_display_t;
 
 // Player data | animation = 1 → animation en cours | 0 → idle
 typedef struct player_s {
@@ -311,6 +314,8 @@ typedef struct npc_s {
     bool to_talk;
     bool is_tuto;
     bool is_sign;
+    bool give_quest;
+    int quest_id;
     char *txt_sign;
     sfSprite *sprite;
     sfSprite *talk_sprite;
@@ -439,6 +444,7 @@ void init_skeleton(ennemies_t *ennemies);
 menu_window_t *init_menu_window(void);
 void init_mini_display(data_t *data);
 void init_music(data_t *data);
+void init_quest(data_t *data);
 
 //save system
 void save_game(data_t *data, int slot);
@@ -460,7 +466,9 @@ int menu(data_t *data);
 void draw_btn(data_t *data);
 
 //quest system
-void display_mini_quest(data_t *data);
+void display_mini_quest(data_t *data, int id);
+void display_banner(data_t *data);
+void give_quest(data_t *data, int id);
 
 //attack functions
 void reset_hit(data_t *data);
