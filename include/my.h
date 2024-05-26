@@ -95,7 +95,12 @@ typedef struct inventory_s {
     bool status;
     sfSprite *item_selected;
     sfRectangleShape *inv;
+    sfRectangleShape *bg_player;
     sfSprite *inv_sprite;
+    sfText *Player_name;
+    sfText *attack_stat;
+    sfText *defense_stat;
+    sfText *lvl_stat;
     sfVector2f inv_pos;
     sfVector2f sprite_pos;
     slots_t *slots;
@@ -168,6 +173,10 @@ typedef struct player_s {
     int hungry;
     int xp;
     int level;
+    int attack_stat;
+    int defense_stat;
+    float coef;
+    int xp_to_next;
     float zoom;
     bool doing_quest;
     bool is_talking;
@@ -316,7 +325,9 @@ typedef struct npc_s {
     bool is_tuto;
     bool is_sign;
     bool give_quest;
+    bool drop_item;
     int quest_id;
+    int item_id;
     char *txt_sign;
     sfSprite *sprite;
     sfSprite *talk_sprite;
@@ -470,6 +481,7 @@ void draw_btn(data_t *data);
 void display_mini_quest(data_t *data, int id);
 void display_banner(data_t *data);
 void give_quest(data_t *data, int id);
+quest_t *get_quest(data_t *data, int id);
 
 //attack functions
 void reset_hit(data_t *data);
@@ -507,6 +519,9 @@ void display_slots(data_t *data);
 void drop_item(data_t *data, int id);
 void display_drop_item(data_t *data);
 void recover_item(data_t *data);
+void inventory_menu_2(data_t *data);
+void conditions_check_1(data_t *data, int i, sfVector2f sprite_pos);
+void display_slots_stat(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);
@@ -518,6 +533,7 @@ void sign_text(data_t *data, npc_t *npc);
 void text_writer(data_t *data, char *str, npc_t *npc);
 void display_buuble(data_t *data, npc_t *npc);
 void display_simple_text(data_t *data, npc_t *npc, char *str);
+void init_npc_3(data_t *data);
 
 // Map functions
 int **init_map_collision(void);

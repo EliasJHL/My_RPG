@@ -46,12 +46,20 @@ void starve(int food, data_t *data)
 void xp_add(int xp, data_t *data)
 {
     int xp_calc = 0;
+    int level_stock = data->player->level;
+    float growth_rate = 1.1;
 
+    if (data->player->coef < 1)
+        data->player->coef = 1;
     data->player->level = 0;
     data->player->xp += xp;
     xp_calc = data->player->xp;
-    while (xp_calc > 200) {
-        xp_calc -= 200;
+    while (xp_calc > (200 * data->player->coef)){
+        data->player->coef = pow(data->player->coef, growth_rate);
+        xp_calc -= 200 * data->player->coef;
         data->player->level += 1;
     }
+    if (data->player->level > level_stock)
+        notification(data, "Level Up !", 0);
+    data->player->xp_to_next = (200 * data->player->coef) - xp_calc;
 }

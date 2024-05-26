@@ -26,12 +26,19 @@ void update_position_mini_quest(data_t *data)
 
 void set_text(data_t *data, int id)
 {
+    quest_t *tmp = get_quest(data, id);
+    char *prog_text = malloc(sizeof(char) * 5);
+
+    sprintf(prog_text, "%d", tmp->progression_count * 100 /
+        tmp->progression_goal);
+    strcat(prog_text, "%");
     sfText_setString(data->quests_display->title,
-        "Kill 5 slimes");
+        tmp->title_short);
     sfText_setString(data->quests_display->description,
-        "Find a slime sector and kill 5 of them");
+        tmp->description_short);
     sfText_setString(data->quests_display->progression,
-        "0/5");
+        prog_text);
+    free(prog_text);
 }
 
 void draw_mini_quest(data_t *data)

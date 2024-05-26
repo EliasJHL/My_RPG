@@ -72,6 +72,7 @@ int display_banner_2(data_t *data, int opacity, double seconds)
     if (seconds >= 0.01 && opacity < 200 && mode == 0) {
         opacity += 5;
         set_opacity(data, opacity);
+        sfClock_restart(data->quests_display->clock);
     }
     if (seconds >= 5 && opacity == 200 && mode == 0) {
         mode = 1;
@@ -83,7 +84,6 @@ int display_banner_2(data_t *data, int opacity, double seconds)
     }
     if (seconds >= 1 && opacity == 0 && mode == 1) {
         data->quests_display->banner_available = false;
-        sfClock_restart(data->quests_display->clock);
     }
     return opacity;
 }

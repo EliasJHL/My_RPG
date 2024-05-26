@@ -109,25 +109,6 @@ void config_npc(char *name, data_t *data, bool is_tuto, char *text)
     free(path);
 }
 
-static void quest_npc_config(data_t *data, char *name, bool has_quest, int id)
-{
-    npc_t *node = data->npc;
-
-    while (node != NULL) {
-        if (strcmp(node->npc_name, name) == 0) {
-            node->give_quest = has_quest;
-            node->quest_id = id;
-        }
-        node = node->next;
-    }
-}
-
-static void init_npc_quest(data_t *data)
-{
-    quest_npc_config(data, "jean", true, 1);
-    quest_npc_config(data, "john", true, 2);
-}
-
 //give txt if it's only a sign else send "NULL"
 //if u want to set some signs u need to call him "sign_1" ; "sign_2" ; ...
 // And create the sprite sign_1.png ; sign_2.png ; ...
@@ -139,6 +120,7 @@ static void init_npc_2(data_t *data)
         "You can interact with 'F'          ");
     config_npc("jean", data, true, "NULL");
     config_npc("john", data, true, "NULL");
+    init_npc_3(data);
 }
 
 void init_npc(data_t *data)

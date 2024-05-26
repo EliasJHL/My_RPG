@@ -27,6 +27,17 @@ static void draw_talk_text(data_t *data, npc_t *npc)
     sfRenderWindow_drawText(data->window, data->text->talk, NULL);
 }
 
+void finish_talk_check(data_t *data, npc_t *npc)
+{
+    npc->dialog_count = 0;
+    if (npc->drop_item) {
+        drop_item(data, npc->item_id);
+    }
+    if (npc->give_quest) {
+        give_quest(data, npc->quest_id);
+    }
+}
+
 void detect_process_2(data_t *data, npc_t *npc)
 {
     display_buuble(data, npc);
@@ -34,7 +45,7 @@ void detect_process_2(data_t *data, npc_t *npc)
         sign_text(data, npc);
     } else {
         if (npc->dialog_count > npc->nb_dialog - 1) {
-            npc->dialog_count = 0;
+            finish_talk_check(data, npc);
             return;
         }
         if (data->dialog_finished == true)

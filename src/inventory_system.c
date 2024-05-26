@@ -31,7 +31,7 @@ static void display_items(data_t *data, sfVector2f sprite_pos, int id)
 
 static int check_slot_click(data_t *data)
 {
-    for (int i = 0; i < 48; i++) {
+    for (int i = 0; i < 52; i++) {
         if (is_clicked_slot(data, data->inv->slots[i].slot)) {
             return i;
         }
@@ -169,4 +169,5 @@ void display_slots(data_t *data)
         conditions_check_1(data, i, sprite_pos);
         data->selected_id = 0;
     }
+    display_slots_stat(data);
 }
