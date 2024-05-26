@@ -36,6 +36,12 @@ static void init_player_2(player_t *player)
     player->available = true;
     player->is_attacking = false;
     player->damage_taken = false;
+    player->xp = 0;
+    player->level = 1;
+    player->xp_to_next = 200;
+    player->coef = 1.0;
+    player->attack_stat = 10;
+    player->defense_stat = 10;
     player->hitbox = sfRectangleShape_create();
     sfRectangleShape_setSize(player->hitbox, (sfVector2f){10, 10});
     sfRectangleShape_setFillColor(player->hitbox, sfTransparent);

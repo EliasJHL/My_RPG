@@ -54,7 +54,7 @@ void inventory_menu(data_t *data)
     sfVector2f bg_pos = {center.x - 1920 / 2, center.y - 1080 / 2};
     sfVector2f s = {(656 * 0.7), (544 * 0.9)};
     sfVector2f sprite_pos = {center.x - s.x / 2, center.y - s.y / 2};
-    sfVector2f player_pos = {center.x - 180, center.y - 170};
+    sfVector2f player_pos = {center.x - 180, center.y - 190};
 
     sfSprite_setScale(data->player->player_sprite, (sfVector2f){3, 3});
     sfSprite_setPosition(data->player->player_sprite, player_pos);

@@ -173,6 +173,10 @@ typedef struct player_s {
     int hungry;
     int xp;
     int level;
+    int attack_stat;
+    int defense_stat;
+    float coef;
+    int xp_to_next;
     float zoom;
     bool doing_quest;
     bool is_talking;

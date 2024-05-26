@@ -68,12 +68,21 @@ static void init_inventory_2(inventory_t *inventory)
 {
     sfColor intern = sfColor_fromRGBA(216, 201, 172, 255);
     sfColor outline = sfColor_fromRGBA(180, 167, 148, 255);
+    sfFont *font = sfFont_createFromFile("assets/font.ttf");
 
     inventory->bg_player = sfRectangleShape_create();
     sfRectangleShape_setSize(inventory->bg_player, (sfVector2f){80, 100});
     sfRectangleShape_setFillColor(inventory->bg_player, intern);
     sfRectangleShape_setOutlineThickness(inventory->bg_player, 1);
     sfRectangleShape_setOutlineColor(inventory->bg_player, outline);
+    inventory->attack_stat = sfText_create();
+    inventory->defense_stat = sfText_create();
+    inventory->lvl_stat = sfText_create();
+    inventory->Player_name = sfText_create();
+    sfText_setFont(inventory->attack_stat, font);
+    sfText_setFont(inventory->defense_stat, font);
+    sfText_setFont(inventory->lvl_stat, font);
+    sfText_setFont(inventory->Player_name, font);
 }
 
 inventory_t *init_inventory(void)
