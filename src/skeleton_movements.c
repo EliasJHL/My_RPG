@@ -41,20 +41,25 @@ static int check_collision(data_t *data, skeleton_t *skeleton)
     return check_collision_2(data, skeleton);
 }
 
+static void auto_side(skeleton_t *skeleton)
+{
+    if (skeleton->dir == 1) {
+        skeleton->side = false;
+        skeleton->pos.x += 0.3;
+    }
+    if (skeleton->dir == 2) {
+        skeleton->side = true;
+        skeleton->pos.x -= 0.3;
+    }
+}
+
 static void auto_true(data_t *data, skeleton_t *skeleton)
 {
     if (skeleton->auto_mode_moov == true) {
         if (check_collision(data, skeleton) == 1)
             skeleton->dir = (rand() % 4) + 1;
         skeleton->is_mooving = true;
-        if (skeleton->dir == 1) {
-            skeleton->side = false;
-            skeleton->pos.x += 0.3;
-        }
-        if (skeleton->dir == 2) {
-            skeleton->side = true;
-            skeleton->pos.x -= 0.3;
-        }
+        auto_side(skeleton);
         if (skeleton->dir == 3)
             skeleton->pos.y += 0.3;
         if (skeleton->dir == 4)
@@ -133,6 +138,14 @@ static void move_skeleton_true(data_t *data, sfVector2f pos,
         skeleton->auto_mode = false;
 }
 
+static int move_hitbox_skeleton(skeleton_t *skeleton)
+{
+    if (skeleton->side == false)
+        return 45;
+    else
+        return 12;
+}
+
 void move_skeleton(data_t *data)
 {
     float distance;
@@ -149,10 +162,7 @@ void move_skeleton(data_t *data)
             move_skeleton_true(data, pos,
                 data->ennemies->skeleton[i], distance);
             pos2 = data->ennemies->skeleton[i]->pos;
-            if (data->ennemies->skeleton[i]->side == false)
-                pos2.x += 45;
-            else
-                pos2.x += 12;
+            pos2.x += move_hitbox_skeleton(data->ennemies->skeleton[i]);
             pos2.y += 40;
             sfRectangleShape_setPosition(data->ennemies->skeleton[i]->
                 attack_hitbox, pos2);
