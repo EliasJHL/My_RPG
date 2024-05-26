@@ -324,7 +324,9 @@ typedef struct npc_s {
     bool is_tuto;
     bool is_sign;
     bool give_quest;
+    bool drop_item;
     int quest_id;
+    int item_id;
     char *txt_sign;
     sfSprite *sprite;
     sfSprite *talk_sprite;
@@ -530,6 +532,7 @@ void sign_text(data_t *data, npc_t *npc);
 void text_writer(data_t *data, char *str, npc_t *npc);
 void display_buuble(data_t *data, npc_t *npc);
 void display_simple_text(data_t *data, npc_t *npc, char *str);
+void init_npc_3(data_t *data);
 
 // Map functions
 int **init_map_collision(void);
