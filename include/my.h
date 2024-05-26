@@ -517,6 +517,8 @@ void drop_item(data_t *data, int id);
 void display_drop_item(data_t *data);
 void recover_item(data_t *data);
 void inventory_menu_2(data_t *data);
+void conditions_check_1(data_t *data, int i, sfVector2f sprite_pos);
+void display_slots_stat(data_t *data);
 
 //NPC System
 void init_npc(data_t *data);

@@ -48,8 +48,8 @@ static void start_slots(inventory_t *inv)
     sfColor outline = sfColor_fromRGBA(180, 167, 148, 255);
     sfColor intern = sfColor_fromRGBA(216, 201, 172, 255);
 
-    inv->slots = malloc(sizeof(slots_t) * 48);
-    for (int i = 0; i < 48; i++) {
+    inv->slots = malloc(sizeof(slots_t) * 52);
+    for (int i = 0; i < 52; i++) {
         inv->slots[i].item_id = 0;
         inv->slots[i].slot_id = i;
         inv->slots[i].slot = sfRectangleShape_create();
