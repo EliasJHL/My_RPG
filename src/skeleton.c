@@ -68,29 +68,6 @@ static void skeleton_attack(data_t *data, int i)
     }
 }
 
-static void skeleton_moove(data_t *data, int i)
-{
-    double seconds;
-
-    data->ennemies->skeleton[i]->elapsed_times = sfClock_getElapsedTime(
-        data->ennemies->skeleton[i]->clock);
-    seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
-    if (seconds > 0.30) {
-        if (data->ennemies->skeleton[i]->side == false)
-            data->ennemies->skeleton[i]->rect.top = 64;
-        else
-            data->ennemies->skeleton[i]->rect.top = 384;
-        data->ennemies->skeleton[i]->rect.left += 64;
-        data->ennemies->skeleton[i]->rect.height = 64;
-        data->ennemies->skeleton[i]->rect.width = 64;
-        if (data->ennemies->skeleton[i]->rect.left >= 64 * 6)
-            data->ennemies->skeleton[i]->rect.left = 0;
-        sfClock_restart(data->ennemies->skeleton[i]->clock);
-        sfSprite_setTextureRect(data->ennemies->skeleton[i]->sprite,
-            data->ennemies->skeleton[i]->rect);
-    }
-}
-
 static void skeleton_idle(data_t *data, int i)
 {
     double seconds;

@@ -498,6 +498,7 @@ void move_slime(data_t *data);
 void spawn_skeleton(data_t *data);
 void display_skeleton(data_t *data);
 void move_skeleton(data_t *data);
+void skeleton_moove(data_t *data, int i);
 void choose_state(data_t *data, int i);
 int collision_check_up_skeleton(data_t *data, skeleton_t *skeleton);
 int collision_check_down_skeleton(data_t *data, skeleton_t *skeleton);
