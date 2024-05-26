@@ -227,6 +227,7 @@ typedef struct skeleton_s {
     bool is_attacking;
     bool auto_mode;
     bool auto_mode_moov;
+    bool side;
     sfClock *clock;
     sfClock *clock2;
     sfTime elapsed_times;

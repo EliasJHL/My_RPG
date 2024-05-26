@@ -39,6 +39,7 @@ void init_skeleton(ennemies_t *ennemies)
         SKELETON->is_attacking = false;
         SKELETON->auto_mode = false;
         SKELETON->auto_mode_moov = false;
+        SKELETON->side = false;
         init_skeleton2(SKELETON);
     }
     free(txt);
@@ -52,7 +53,10 @@ static void skeleton_attack(data_t *data, int i)
         data->ennemies->skeleton[i]->clock);
     seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
     if (seconds > 0.15) {
-        data->ennemies->skeleton[i]->rect.top = 128;
+        if (data->ennemies->skeleton[i]->side == false)
+            data->ennemies->skeleton[i]->rect.top = 128;
+        else
+            data->ennemies->skeleton[i]->rect.top = 448;
         data->ennemies->skeleton[i]->rect.left += 64;
         data->ennemies->skeleton[i]->rect.height = 64;
         data->ennemies->skeleton[i]->rect.width = 64;
@@ -72,7 +76,10 @@ static void skeleton_moove(data_t *data, int i)
         data->ennemies->skeleton[i]->clock);
     seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
     if (seconds > 0.30) {
-        data->ennemies->skeleton[i]->rect.top = 64;
+        if (data->ennemies->skeleton[i]->side == false)
+            data->ennemies->skeleton[i]->rect.top = 64;
+        else
+            data->ennemies->skeleton[i]->rect.top = 384;
         data->ennemies->skeleton[i]->rect.left += 64;
         data->ennemies->skeleton[i]->rect.height = 64;
         data->ennemies->skeleton[i]->rect.width = 64;
@@ -92,7 +99,10 @@ static void skeleton_idle(data_t *data, int i)
         data->ennemies->skeleton[i]->clock);
     seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
     if (seconds > 0.30) {
-        data->ennemies->skeleton[i]->rect.top = 0;
+        if (data->ennemies->skeleton[i]->side == false)
+            data->ennemies->skeleton[i]->rect.top = 0;
+        else
+            data->ennemies->skeleton[i]->rect.top = 320;
         data->ennemies->skeleton[i]->rect.left += 64;
         data->ennemies->skeleton[i]->rect.height = 64;
         data->ennemies->skeleton[i]->rect.width = 64;
