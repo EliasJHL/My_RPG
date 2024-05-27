@@ -14,11 +14,11 @@ static void check_monster(data_t *data)
             display_slime(data);
         else
             spawn_slime(data);
-    for (int i = 0; i < 10; i++)
-        if (data->ennemies->skeleton[i]->is_alive == true)
-            display_skeleton(data);
-        else
-            spawn_skeleton(data);
+    //for (int i = 0; i < 10; i++)
+    //    if (data->ennemies->skeleton[i]->is_alive == true)
+    //        display_skeleton(data);
+    //    else
+    //        spawn_skeleton(data);
 }
 
 static void display_hud(sfEvent event, data_t *data)
@@ -138,7 +138,7 @@ static void normal_game(data_t *data, sfEvent event)
     draw_sprites(data->window, data);
     check_monster(data);
     move_slime(data);
-    move_skeleton(data);
+    //move_skeleton(data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);

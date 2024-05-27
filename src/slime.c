@@ -40,10 +40,6 @@ void display_slime(data_t *data)
         if (data->ennemies->slime[i]->is_alive == true) {
             sfSprite_setPosition(data->ennemies->slime[i]->sprite,
                 data->ennemies->slime[i]->pos);
-            printf("ppos.x = %f\n", data->player->player_pos.x);
-            printf("ppos.y = %f\n", data->player->player_pos.y);
-            printf("pos.x = %f\n", data->ennemies->slime[i]->pos.x);
-            printf("pos.y = %f\n", data->ennemies->slime[i]->pos.y);
             sfRenderWindow_drawSprite(data->window,
                 data->ennemies->slime[i]->sprite, NULL);
             pos = data->ennemies->slime[i]->pos;
