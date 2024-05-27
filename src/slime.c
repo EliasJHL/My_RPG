@@ -11,7 +11,7 @@ void init_slime(ennemies_t *ennemies)
 {
     sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         SLIME = malloc(sizeof(slime_t));
         SLIME->life = 100;
         SLIME->clock = sfClock_create();
@@ -36,10 +36,14 @@ void display_slime(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true) {
             sfSprite_setPosition(data->ennemies->slime[i]->sprite,
                 data->ennemies->slime[i]->pos);
+            printf("ppos.x = %f\n", data->player->player_pos.x);
+            printf("ppos.y = %f\n", data->player->player_pos.y);
+            printf("pos.x = %f\n", data->ennemies->slime[i]->pos.x);
+            printf("pos.y = %f\n", data->ennemies->slime[i]->pos.y);
             sfRenderWindow_drawSprite(data->window,
                 data->ennemies->slime[i]->sprite, NULL);
             pos = data->ennemies->slime[i]->pos;
@@ -91,7 +95,7 @@ static void hit_slime(data_t *data, sfVector2f pos)
     pos.y = PLAYER_Y + 31;
     sfRectangleShape_setPosition(data->player->hitbox, pos);
     rect1 = GLOBAL(data->player->hitbox);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
         if (sfFloatRect_intersects(&rect1, &rect2, &intersection) &&
             !data->player->damage_taken) {
@@ -132,7 +136,7 @@ void move_slime(data_t *data)
 
     pos.x += 9;
     pos.y += 19;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true) {
             distance = sqrt(pow(SLIME_X - pos.x, 2) +
                             pow(SLIME_Y - pos.y, 2));
@@ -147,7 +151,7 @@ void spawn_slime(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true)
             continue;
         pos.x = (rand() % (data->ennemies->slimex2 -

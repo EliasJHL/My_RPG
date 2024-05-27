@@ -7,6 +7,20 @@
 
 #include "../include/my.h"
 
+static void check_monster(data_t *data)
+{
+    for (int i = 0; i < 100; i++)
+        if (data->ennemies->slime[i]->is_alive == true)
+            display_slime(data);
+        else
+            spawn_slime(data);
+    for (int i = 0; i < 10; i++)
+        if (data->ennemies->skeleton[i]->is_alive == true)
+            display_skeleton(data);
+        else
+            spawn_skeleton(data);
+}
+
 static void display_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape)
@@ -92,7 +106,7 @@ void camera_handler(data_t *data)
         sfRenderWindow_drawSprite(data->window, data->tuto->tuto_top, NULL);
     else
         sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
-    hud_player(data);
+    //hud_player(data);
     meteo_display(data);
     if (data->player->doing_quest)
         display_mini_quest(data, data->player->quest_id);
@@ -122,6 +136,9 @@ static void normal_game(data_t *data, sfEvent event)
     background(data);
     player_movement(data);
     draw_sprites(data->window, data);
+    check_monster(data);
+    move_slime(data);
+    move_skeleton(data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);

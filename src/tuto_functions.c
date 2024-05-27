@@ -7,6 +7,19 @@
 
 #include "../include/my.h"
 
+static void reset_monsters(data_t *data)
+{
+    for (int i = 0; i < 10; i++) {
+        if (data->ennemies->slime[i]->is_alive == true) {
+            data->ennemies->slime[i]->is_alive = false;
+            data->ennemies->slimex1 = 828;
+            data->ennemies->slimey1 = 2765;
+            data->ennemies->slimex2 = 2725;
+            data->ennemies->slimey2 = 2765;
+        }
+    }
+}
+
 static void check_monster(data_t *data)
 {
     for (int i = 0; i < 10; i++)
@@ -73,6 +86,7 @@ static void tuto_finished(data_t *data)
             data->player->player_pos = data->player->spawn_point;
             sfClock_destroy(data->tuto->clock);
             data->tuto_mode = false;
+            reset_monsters(data);
         }
     } else {
         sfClock_restart(data->tuto->clock);
