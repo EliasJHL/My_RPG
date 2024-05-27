@@ -53,7 +53,7 @@ static void tuto_progress(data_t *data)
         && data->hud_state == 0)
         data->tuto->inventory = true;
     if (data->tuto->inventory == true && data->tuto->move == true &&
-        sfMouse_isButtonPressed(sfMouseLeft) && data->hud_state == 0)
+            sfKeyboard_isKeyPressed(sfKeySpace) && data->hud_state == 0)
         data->tuto->attack = true;
 }
 
