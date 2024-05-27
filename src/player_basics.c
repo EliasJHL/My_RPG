@@ -82,6 +82,15 @@ items_t *get_item_by_id(data_t *data, int id)
     return NULL;
 }
 
+static void delete_item_on_hotbar(data_t *data, items_t *item)
+{
+    for (int i = 36; i < 48; i++) {
+        if (item->item_id == data->inv->slots[i].item_id) {
+            data->inv->slots[i].item_id = 0;
+        }
+    }
+}
+
 static void check_use_item(data_t *data)
 {
     items_t *item = NULL;
@@ -92,9 +101,11 @@ static void check_use_item(data_t *data)
             return;
         if (strcmp(item->item_type, "health")) {
             heal(item->item_value, data);
+            delete_item_on_hotbar(data, item);
         }
         if (strcmp(item->item_type, "food")) {
             heal(item->item_value, data);
+            delete_item_on_hotbar(data, item);
         }
     }
 }
