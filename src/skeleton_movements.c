@@ -150,7 +150,7 @@ void move_skeleton(data_t *data)
 
     pos.x -= 7;
     pos.y -= 13;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->skeleton[i]->is_alive == true &&
             !data->ennemies->skeleton[i]->is_attacking) {
             distance = sqrt(pow(data->ennemies->skeleton[i]->pos.x - pos.x, 2)

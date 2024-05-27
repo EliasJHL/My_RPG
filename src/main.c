@@ -122,6 +122,9 @@ static void normal_game(data_t *data, sfEvent event)
     background(data);
     player_movement(data);
     draw_sprites(data->window, data);
+    check_monstero(data);
+    move_slime(data);
+    move_skeleton(data);
     camera_handler(data);
     player_basics(event, data);
     recover_item(data);
@@ -133,8 +136,11 @@ void game_loop(data_t *data)
     sfVideoMode mode = {1920, 1080, 32};
     sfEvent event;
 
+    spawn_slimey(data);
     data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, 0);
     sfRenderWindow_setFramerateLimit(data->window, 60);
+    spawn_slime(data);
+    spawn_skeleton(data);
     while (sfRenderWindow_isOpen(data->window)) {
         if (data->tuto_mode && !data->menu_mode)
             tutorial_game(data, event);

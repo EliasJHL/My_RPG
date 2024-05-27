@@ -53,3 +53,15 @@ void choose_state(data_t *data, int i)
             intersection);
     }
 }
+
+void check_monstero(data_t *data)
+{
+    display_slime(data);
+    display_skeleton(data);
+    for (int i = 0; i < 100; i++) {
+        if (!data->ennemies->slime[i]->is_alive)
+            spawn_slime(data);
+        if (!data->ennemies->skeleton[i]->is_alive)
+            spawn_skeleton(data);
+    }
+}

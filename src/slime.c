@@ -11,7 +11,7 @@ void init_slime(ennemies_t *ennemies)
 {
     sfTexture *txt = sfTexture_createFromFile(TEXT_SLIME, NULL);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         SLIME = malloc(sizeof(slime_t));
         SLIME->life = 100;
         SLIME->clock = sfClock_create();
@@ -35,9 +35,14 @@ void init_slime(ennemies_t *ennemies)
 void display_slime(data_t *data)
 {
     sfVector2f pos = {0, 0};
+    sfVector2f pos2 = data->player->player_pos;
+    float distance = 0;
 
-    for (int i = 0; i < 10; i++) {
-        if (data->ennemies->slime[i]->is_alive == true) {
+    for (int i = 0; i < 100; i++) {
+        distance = sqrt(pow(SLIME_X - pos2.x, 2) +
+                        pow(SLIME_Y - pos2.y, 2));
+        if (data->ennemies->slime[i]->is_alive == true &&
+            distance < 600) {
             sfSprite_setPosition(data->ennemies->slime[i]->sprite,
                 data->ennemies->slime[i]->pos);
             sfRenderWindow_drawSprite(data->window,
@@ -91,13 +96,13 @@ static void hit_slime(data_t *data, sfVector2f pos)
     pos.y = PLAYER_Y + 31;
     sfRectangleShape_setPosition(data->player->hitbox, pos);
     rect1 = GLOBAL(data->player->hitbox);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
         if (sfFloatRect_intersects(&rect1, &rect2, &intersection) &&
             !data->player->damage_taken) {
             sfClock_restart(data->player->clock2);
             data->player->damage_taken = true;
-            data->player->life -= 10;
+            damage(10, data);
             sfSprite_setColor(data->player->player_sprite,
                 sfColor_fromRGBA(255, 0, 0, 150));
         } else
@@ -132,7 +137,7 @@ void move_slime(data_t *data)
 
     pos.x += 9;
     pos.y += 19;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true) {
             distance = sqrt(pow(SLIME_X - pos.x, 2) +
                             pow(SLIME_Y - pos.y, 2));
@@ -147,7 +152,7 @@ void spawn_slime(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true)
             continue;
         pos.x = (rand() % (data->ennemies->slimex2 -

@@ -25,7 +25,7 @@ void init_skeleton(ennemies_t *ennemies)
 {
     sfTexture *txt = sfTexture_createFromFile(TEXT_SKELETON, NULL);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         SKELETON = malloc(sizeof(skeleton_t));
         SKELETON->life = 100;
         SKELETON->clock = sfClock_create();
@@ -45,46 +45,52 @@ void init_skeleton(ennemies_t *ennemies)
     free(txt);
 }
 
+static void skeleton_attack_left(data_t *data, int i)
+{
+    static bool old = false;
+
+    if (old != false && data->ennemies->skeleton[i]->side == false) {
+        data->ennemies->skeleton[i]->rect.left = calc_change(
+            data->ennemies->skeleton[i]->rect.left);
+        old = false;
+    }
+    if (old != true && data->ennemies->skeleton[i]->side == true) {
+        data->ennemies->skeleton[i]->rect.left = calc_change(
+            data->ennemies->skeleton[i]->rect.left);
+        old = true;
+    }
+    if (data->ennemies->skeleton[i]->side == false &&
+        data->ennemies->skeleton[i]->rect.left >= 64 * 5)
+        data->ennemies->skeleton[i]->rect.left = 0;
+    if (data->ennemies->skeleton[i]->side == true &&
+        data->ennemies->skeleton[i]->rect.left <= 0)
+        data->ennemies->skeleton[i]->rect.left = 64 * 5;
+}
+
+static void skeleton_attack_up(data_t *data, int i)
+{
+    if (data->ennemies->skeleton[i]->side == false) {
+        data->ennemies->skeleton[i]->rect.top = 128;
+        data->ennemies->skeleton[i]->rect.left += 64;
+    } else {
+        data->ennemies->skeleton[i]->rect.top = 448;
+        data->ennemies->skeleton[i]->rect.left -= 64;
+    }
+}
+
 static void skeleton_attack(data_t *data, int i)
 {
     double seconds;
 
+    skeleton_attack_left(data, i);
     data->ennemies->skeleton[i]->elapsed_times = sfClock_getElapsedTime(
         data->ennemies->skeleton[i]->clock);
     seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
     if (seconds > 0.15) {
-        if (data->ennemies->skeleton[i]->side == false)
-            data->ennemies->skeleton[i]->rect.top = 128;
-        else
-            data->ennemies->skeleton[i]->rect.top = 448;
-        data->ennemies->skeleton[i]->rect.left += 64;
+        skeleton_attack_up(data, i);
         data->ennemies->skeleton[i]->rect.height = 64;
         data->ennemies->skeleton[i]->rect.width = 64;
-        if (data->ennemies->skeleton[i]->rect.left >= 64 * 5)
-            data->ennemies->skeleton[i]->rect.left = 0;
-        sfClock_restart(data->ennemies->skeleton[i]->clock);
-        sfSprite_setTextureRect(data->ennemies->skeleton[i]->sprite,
-            data->ennemies->skeleton[i]->rect);
-    }
-}
-
-static void skeleton_moove(data_t *data, int i)
-{
-    double seconds;
-
-    data->ennemies->skeleton[i]->elapsed_times = sfClock_getElapsedTime(
-        data->ennemies->skeleton[i]->clock);
-    seconds = sfTime_asSeconds(data->ennemies->skeleton[i]->elapsed_times);
-    if (seconds > 0.30) {
-        if (data->ennemies->skeleton[i]->side == false)
-            data->ennemies->skeleton[i]->rect.top = 64;
-        else
-            data->ennemies->skeleton[i]->rect.top = 384;
-        data->ennemies->skeleton[i]->rect.left += 64;
-        data->ennemies->skeleton[i]->rect.height = 64;
-        data->ennemies->skeleton[i]->rect.width = 64;
-        if (data->ennemies->skeleton[i]->rect.left >= 64 * 6)
-            data->ennemies->skeleton[i]->rect.left = 0;
+        skeleton_attack_left(data, i);
         sfClock_restart(data->ennemies->skeleton[i]->clock);
         sfSprite_setTextureRect(data->ennemies->skeleton[i]->sprite,
             data->ennemies->skeleton[i]->rect);
@@ -116,7 +122,7 @@ static void skeleton_idle(data_t *data, int i)
 
 static void choose_anim(data_t *data)
 {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (!data->ennemies->skeleton[i]->auto_mode)
             choose_state(data, i);
         if (!data->ennemies->skeleton[i]->is_mooving &&
@@ -134,10 +140,13 @@ static void choose_anim(data_t *data)
 void display_skeleton(data_t *data)
 {
     sfVector2f pos = {0, 0};
+    float distance;
 
     choose_anim(data);
-    for (int i = 0; i < 10; i++) {
-        if (data->ennemies->skeleton[i]->is_alive == true) {
+    for (int i = 0; i < 100; i++) {
+        distance = sqrt(pow(SKELETON_X - PLAYER_X, 2) +
+            pow(SKELETON_Y - PLAYER_Y, 2));
+        if (data->ennemies->skeleton[i]->is_alive == true && distance < 700) {
             sfSprite_setPosition(data->ennemies->skeleton[i]->sprite,
                 data->ennemies->skeleton[i]->pos);
             sfRenderWindow_drawSprite(data->window,
@@ -145,10 +154,7 @@ void display_skeleton(data_t *data)
             pos = data->ennemies->skeleton[i]->pos;
             pos.y += 41;
             pos.x += 25;
-            sfRectangleShape_setPosition(data->ennemies->skeleton[i]->hitbox,
-                pos);
-            sfRenderWindow_drawRectangleShape(data->window,
-                data->ennemies->skeleton[i]->attack_hitbox, NULL);
+            sfRectangleShape_setPosition(data->SKELETON->hitbox, pos);
         }
     }
 }
@@ -157,7 +163,7 @@ void spawn_skeleton(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->skeleton[i]->is_alive == true)
             continue;
         pos.x = (rand() % (data->ennemies->skeletonx2 -

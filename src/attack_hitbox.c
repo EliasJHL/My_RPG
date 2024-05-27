@@ -15,7 +15,7 @@ static void check_hit_slime(data_t *data, int i)
 
     rect2 = GLOBAL(data->ennemies->slime[i]->hitbox);
     if (sfFloatRect_intersects(&rect1, &rect2, &intersection)) {
-        data->ennemies->slime[i]->life -= 10;
+        data->ennemies->slime[i]->life -= (10 * ATACK);
         if (data->ennemies->slime[i]->life <= 0) {
             xp_add(3, data);
             data->ennemies->slime[i]->is_alive = false;
@@ -33,7 +33,7 @@ static void check_hit_slime(data_t *data, int i)
 
 void check_hit(data_t *data)
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 100; i++)
         check_hit_slime(data, i);
 }
 
