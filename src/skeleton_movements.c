@@ -12,31 +12,27 @@ static int check_collision_2(data_t *data, skeleton_t *skeleton)
     if (skeleton->dir == 3) {
         if (collision_check_down_skeleton(data, skeleton) != 0)
             return 1;
-        else
-            return 0;
     }
     if (skeleton->dir == 4) {
         if (collision_check_up_skeleton(data, skeleton) != 0)
             return 1;
-        else
-            return 0;
     }
     return 0;
 }
 
 static int check_collision(data_t *data, skeleton_t *skeleton)
 {
+    for (int i = 0; i < 14300; i++) {
+        sfRectangleShape_setFillColor(
+            data->collision[i].col_sprite, sfTransparent);
+    }
     if (skeleton->dir == 1) {
         if (collision_check_right_skeleton(data, skeleton) != 0)
             return 1;
-        else
-            return 0;
     }
     if (skeleton->dir == 2) {
         if (collision_check_left_skeleton(data, skeleton) != 0)
             return 1;
-        else
-            return 0;
     }
     return check_collision_2(data, skeleton);
 }
