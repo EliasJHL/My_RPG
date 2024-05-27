@@ -38,10 +38,10 @@ void init_npc_4(data_t *data)
 {
     drop_item_npc_config(data, "john", false, 0);
     drop_item_npc_config(data, "pierre", true, 1);
-    drop_item_npc_config(data, "pierrik the fisherman", true, 1);
-    drop_item_npc_config(data, "lumberjack", true, 1);
-    drop_item_npc_config(data, "villager", true, 1);
-    drop_item_npc_config(data, "Angel", true, 1);
+    drop_item_npc_config(data, "pierrik the fisherman", true, 7);
+    drop_item_npc_config(data, "lumberjack", true, 12);
+    drop_item_npc_config(data, "villager", true, 10);
+    drop_item_npc_config(data, "Angel", true, 4);
     drop_item_npc_config(data, "Guard", false, 0);
 }
 
