@@ -18,7 +18,7 @@ void heal(int life, data_t *data)
 
 void damage(int life, data_t *data)
 {
-    data->player->life -= life;
+    data->player->life -= (life * (1 - (data->player->defense_stat / 100)));
     if (data->player->life > 200)
         data->player->life = 200;
     if (data->player->life < 0)
