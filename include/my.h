@@ -30,12 +30,16 @@
 #define GLOBAL sfRectangleShape_getGlobalBounds
 #define TEXT_SLIME "assets/characters/slime.png"
 #define TEXT_SKELETON "assets/characters/skeleton.png"
+#define TEXT_TRAIN "assets/characters/TrainDummy.png"
 #define SLIME ennemies->slime[i]
 #define SKELETON ennemies->skeleton[i]
+#define TRAIN ennemies->train
 #define SLIME_X data->ennemies->slime[i]->pos.x
 #define SLIME_Y data->ennemies->slime[i]->pos.y
 #define SKELETON_X data->ennemies->skeleton[i]->pos.x
 #define SKELETON_Y data->ennemies->skeleton[i]->pos.y
+#define TRAIN_X data->ennemies->train->pos.x
+#define TRAIN_Y data->ennemies->train->pos.y
 #define PLAYER_X data->player->player_pos.x
 #define PLAYER_Y data->player->player_pos.y
 #define CHECK_X_NPC(pos, npc, n) (pos.x >= npc.x - n && pos.x <= npc.x + n)
@@ -205,6 +209,18 @@ typedef struct boss_s {
     sfVector2f boss_pos;
     sfIntRect rectb;
 } boss_t;
+
+typedef struct train_s {
+    int life;
+    bool is_alive;
+    bool is_mooving;
+    sfClock *clock;
+    sfTime elapsed_times;
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect rect;
+    sfRectangleShape *hitbox;
+} train_t;
 
 typedef struct slime_s {
     int life;
