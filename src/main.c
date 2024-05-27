@@ -151,6 +151,8 @@ void game_loop(data_t *data)
     spawn_slimey(data);
     data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, 0);
     sfRenderWindow_setFramerateLimit(data->window, 60);
+    spawn_slime(data);
+    spawn_skeleton(data);
     while (sfRenderWindow_isOpen(data->window)) {
         if (data->tuto_mode && !data->menu_mode)
             tutorial_game(data, event);
