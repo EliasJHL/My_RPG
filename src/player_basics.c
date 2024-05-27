@@ -69,6 +69,51 @@ void item_hold_change(sfEvent event, data_t *data)
     item_hold_change_2(event, data);
 }
 
+items_t *get_item_by_id(data_t *data, int id)
+{
+    items_t *items = data->items;
+
+    while (items != NULL) {
+        if (items->item_id == id) {
+            return items;
+        }
+        items = items->next;
+    }
+    return NULL;
+}
+
+static void delete_item_on_hotbar(data_t *data, items_t *item)
+{
+    int slot = data->hud->item_slot_nb + 36;
+
+    if (slot > 48 || slot < 36)
+        return;
+    if (item->item_id == data->inv->slots[slot].item_id) {
+        data->inv->slots[slot].item_id = 0;
+    }
+}
+
+static void check_use_item(data_t *data)
+{
+    items_t *item = NULL;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft) && data->hud_state == 0
+        && !data->menu_mode) {
+        item = get_item_by_id(data, data->player->item_selected);
+        if (item == NULL)
+            return;
+        if (strcmp(item->item_type, "health") == 0 &&
+            data->player->life < 200) {
+            heal(item->item_value, data);
+            delete_item_on_hotbar(data, item);
+        }
+        if (strcmp(item->item_type, "food") == 0 && data->player->life < 200){
+            heal(item->item_value, data);
+            delete_item_on_hotbar(data, item);
+        }
+    }
+}
+
 void player_movement(data_t *data)
 {
     if (data->player->is_attacking && data->hud_state == 0
@@ -87,6 +132,7 @@ int player_basics(sfEvent event, data_t *data)
 {
     type_hud(data);
     detect_npc(data);
+    check_use_item(data);
     if (data->player->life > 200)
         data->player->life = 200;
     if (data->player->life < 0)

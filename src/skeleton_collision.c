@@ -19,6 +19,8 @@ static collision_t *get_rectangle_above_skeleton(data_t *data,
         col_pos = data->tuto_mode ? data->collision[i].col_pos :
             data->col_map[i].col_pos;
         if (col_pos.x >= pos.x + 10 && col_pos.y >= pos.y) {
+            sfRectangleShape_setFillColor(
+                data->collision[i].col_sprite, sfRed);
             return data->tuto_mode ? &data->collision[i] : &data->col_map[i];
         }
     }
@@ -37,6 +39,8 @@ static collision_t *get_rectangle_under_skeleton(data_t *data,
         col_pos = data->tuto_mode ? data->collision[i].col_pos :
             data->col_map[i].col_pos;
         if (col_pos.x >= pos.x + 10 && col_pos.y >= pos.y + 10) {
+            sfRectangleShape_setFillColor(
+                data->collision[i].col_sprite, sfGreen);
             return data->tuto_mode ? &data->collision[i] : &data->col_map[i];
         }
     }
@@ -55,6 +59,8 @@ static collision_t *get_rectangle_left_skeleton(data_t *data,
         col_pos = data->tuto_mode ? data->collision[i].col_pos :
             data->col_map[i].col_pos;
         if (col_pos.x >= pos.x && col_pos.y >= pos.y + 10) {
+            sfRectangleShape_setFillColor(
+                data->collision[i].col_sprite, sfBlue);
             return data->tuto_mode ? &data->collision[i] : &data->col_map[i];
         }
     }
@@ -73,6 +79,8 @@ static collision_t *get_rectangle_right_skeleton(data_t *data,
         col_pos = data->tuto_mode ? data->collision[i].col_pos :
             data->col_map[i].col_pos;
         if (col_pos.x >= pos.x + 20 && col_pos.y >= pos.y + 10) {
+            sfRectangleShape_setFillColor(
+                data->collision[i].col_sprite, sfYellow);
             return data->tuto_mode ? &data->collision[i] : &data->col_map[i];
         }
     }
