@@ -145,7 +145,7 @@ void display_skeleton(data_t *data)
     choose_anim(data);
     for (int i = 0; i < 100; i++) {
         distance = sqrt(pow(SKELETON_X - PLAYER_X, 2) +
-                        pow(SKELETON_Y - PLAYER_Y, 2));
+            pow(SKELETON_Y - PLAYER_Y, 2));
         if (data->ennemies->skeleton[i]->is_alive == true && distance < 700) {
             sfSprite_setPosition(data->ennemies->skeleton[i]->sprite,
                 data->ennemies->skeleton[i]->pos);
@@ -154,10 +154,7 @@ void display_skeleton(data_t *data)
             pos = data->ennemies->skeleton[i]->pos;
             pos.y += 41;
             pos.x += 25;
-            sfRectangleShape_setPosition(data->ennemies->skeleton[i]->hitbox,
-                pos);
-            sfRenderWindow_drawRectangleShape(data->window,
-                data->ennemies->skeleton[i]->attack_hitbox, NULL);
+            sfRectangleShape_setPosition(data->SKELETON->hitbox, pos);
         }
     }
 }

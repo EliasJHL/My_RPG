@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <math.h>
+#define ATACK (1 + data->player->attack_stat / 100)
 #define UP_KEY(e) (sfKeyboard_isKeyPressed(sfKeyZ))
 #define UP(e) (sfKeyboard_isKeyPressed(sfKeyUp) || UP_KEY(e))
 #define DOWN_KEY(e) (sfKeyboard_isKeyPressed(sfKeyS))
@@ -492,6 +493,7 @@ void hit_left_player(data_t *data);
 void timer_damage(data_t *data);
 
 //ennemies functions
+void check_monstero(data_t *data);
 void spawn_slimey(data_t *data);
 int calc_change(int left);
 void spawn_slime(data_t *data);

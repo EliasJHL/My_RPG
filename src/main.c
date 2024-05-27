@@ -7,18 +7,6 @@
 
 #include "../include/my.h"
 
-static void check_monster(data_t *data)
-{
-    display_slime(data);
-    display_skeleton(data);
-    for (int i = 0; i < 100; i++) {
-        if (!data->ennemies->slime[i]->is_alive)
-            spawn_slime(data);
-        if (!data->ennemies->skeleton[i]->is_alive)
-            spawn_skeleton(data);
-    }
-}
-
 static void display_hud(sfEvent event, data_t *data)
 {
     if (event.key.code == sfKeyEscape)
@@ -134,7 +122,7 @@ static void normal_game(data_t *data, sfEvent event)
     background(data);
     player_movement(data);
     draw_sprites(data->window, data);
-    check_monster(data);
+    check_monstero(data);
     move_slime(data);
     move_skeleton(data);
     camera_handler(data);

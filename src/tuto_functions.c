@@ -53,7 +53,7 @@ void disp_slime(data_t *data)
     for (int i = 0; i < 1; i++) {
         distance = sqrt(pow(SLIME_X - pos2.x, 2) +
                         pow(SLIME_Y - pos2.y, 2));
-        if (data->ennemies->slime[i]->is_alive == true  && distance < 600) {
+        if (data->ennemies->slime[i]->is_alive == true && distance < 600) {
             sfSprite_setPosition(data->ennemies->slime[i]->sprite,
                 data->ennemies->slime[i]->pos);
             sfRenderWindow_drawSprite(data->window,
