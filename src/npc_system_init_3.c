@@ -40,8 +40,9 @@ void init_npc_4(data_t *data)
     drop_item_npc_config(data, "pierre", true, 1);
     drop_item_npc_config(data, "pierrik the fisherman", true, 7);
     drop_item_npc_config(data, "lumberjack", true, 12);
-    drop_item_npc_config(data, "villager", false, 0);
-    drop_item_npc_config(data, "Angel", false, 0);
+    drop_item_npc_config(data, "villager", true, 10);
+    drop_item_npc_config(data, "Angel", true, 4);
+    drop_item_npc_config(data, "Guard", false, 0);
 }
 
 //For quests
@@ -53,5 +54,6 @@ void init_npc_3(data_t *data)
     quest_npc_config(data, "lumberjack", false, 0);
     quest_npc_config(data, "villager", false, 0);
     quest_npc_config(data, "Angel", false, 0);
+    quest_npc_config(data, "Guard", false, 0);
     init_npc_4(data);
 }

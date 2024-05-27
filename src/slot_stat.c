@@ -28,7 +28,7 @@ void set_stat(data_t *data, int i)
         return;
     if (strcmp(current->item_type, "attack") == 0)
         data->player->attack_stat += current->item_value;
-    if (strcmp(current->item_type, "defense") == 0)
+    if (strcmp(current->item_type, "armor") == 0)
         data->player->defense_stat += current->item_value;
 }
 

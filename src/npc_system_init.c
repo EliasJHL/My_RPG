@@ -124,6 +124,7 @@ static void init_npc_2(data_t *data)
     config_npc("lumberjack", data, false, "NULL");
     config_npc("villager", data, false, "NULL");
     config_npc("Angel", data, false, "NULL");
+    config_npc("Guard", data, false, "NULL");
     init_npc_3(data);
 }
 
@@ -138,5 +139,6 @@ void init_npc(data_t *data)
     add_npc(data, "lumberjack", (sfVector2f){1950, 1440}, 6);
     add_npc(data, "villager", (sfVector2f){1747, 1952}, 6);
     add_npc(data, "Angel", (sfVector2f){3072, 1776}, 6);
+    add_npc(data, "Guard", (sfVector2f){2220, 892}, 6);
     init_npc_2(data);
 }
