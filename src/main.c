@@ -94,7 +94,6 @@ void camera_handler(data_t *data)
         sfRenderWindow_drawSprite(data->window, data->map->map_top, NULL);
     hud_player(data);
     meteo_display(data);
-    debug_hitbox_collision(data);
     if (data->player->doing_quest)
         display_mini_quest(data, data->player->quest_id);
     display_banner(data);

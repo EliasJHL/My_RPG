@@ -102,11 +102,12 @@ static void check_use_item(data_t *data)
         item = get_item_by_id(data, data->player->item_selected);
         if (item == NULL)
             return;
-        if (strcmp(item->item_type, "health") == 0) {
+        if (strcmp(item->item_type, "health") == 0 &&
+            data->player->life < 200) {
             heal(item->item_value, data);
             delete_item_on_hotbar(data, item);
         }
-        if (strcmp(item->item_type, "food") == 0) {
+        if (strcmp(item->item_type, "food") == 0 && data->player->life < 200){
             heal(item->item_value, data);
             delete_item_on_hotbar(data, item);
         }
