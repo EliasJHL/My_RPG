@@ -15,14 +15,14 @@ static void reset_monsters(data_t *data)
             data->ennemies->slimex1 = 828;
             data->ennemies->slimey1 = 2765;
             data->ennemies->slimex2 = 2725;
-            data->ennemies->slimey2 = 2765;
+            data->ennemies->slimey2 = 3665;
         }
     }
 }
 
 static void check_monster(data_t *data)
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 100; i++)
         if (data->ennemies->slime[i]->is_alive == true)
             display_slime(data);
         else

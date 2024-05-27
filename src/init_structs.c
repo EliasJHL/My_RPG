@@ -54,7 +54,7 @@ player_t *init_player(void)
     player_t *player = malloc(sizeof(player_t));
     sfTexture *txt = sfTexture_createFromFile("assets/player/p.png", NULL);
 
-    player->zoom = 2.5;
+    player->zoom = 0.5;
     player->life = 200;
     player->hungry = 100;
     player->player_sprite = sfSprite_create();

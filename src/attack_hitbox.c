@@ -33,7 +33,7 @@ static void check_hit_slime(data_t *data, int i)
 
 void check_hit(data_t *data)
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 100; i++)
         check_hit_slime(data, i);
 }
 

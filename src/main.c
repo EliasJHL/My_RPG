@@ -9,11 +9,11 @@
 
 static void check_monster(data_t *data)
 {
-    for (int i = 0; i < 100; i++)
-        if (data->ennemies->slime[i]->is_alive == true)
-            display_slime(data);
-        else
+    display_slime(data);
+    for (int i = 0; i < 100; i++) {
+        if (!data->ennemies->slime[i]->is_alive)
             spawn_slime(data);
+    }
     //for (int i = 0; i < 10; i++)
     //    if (data->ennemies->skeleton[i]->is_alive == true)
     //        display_skeleton(data);
