@@ -118,10 +118,12 @@ static void init_npc_2(data_t *data)
         " world\nadventurer !          ");
     config_npc("sign_1", data, true, "This is a tutorial map\n"
         "You can interact with 'F'          ");
-    config_npc("jean", data, true, "NULL");
     config_npc("john", data, true, "NULL");
     config_npc("pierre", data, false, "NULL");
     config_npc("pierrik the fisherman", data, false, "NULL");
+    config_npc("lumberjack", data, false, "NULL");
+    config_npc("villager", data, false, "NULL");
+    config_npc("Angel", data, false, "NULL");
     init_npc_3(data);
 }
 
@@ -130,9 +132,11 @@ void init_npc(data_t *data)
     data->dialog_finished = true;
     add_npc(data, "sign", (sfVector2f){855, 900}, 1);
     add_npc(data, "sign_1", (sfVector2f){855, 800}, 1);
-    add_npc(data, "jean", (sfVector2f){855, 700}, 6);
     add_npc(data, "john", (sfVector2f){900, 700}, 6);
     add_npc(data, "pierre", (sfVector2f){1868, 1221}, 6);
     add_npc(data, "pierrik the fisherman", (sfVector2f){2427, 1335}, 6);
+    add_npc(data, "lumberjack", (sfVector2f){1950, 1440}, 6);
+    add_npc(data, "villager", (sfVector2f){1747, 1952}, 6);
+    add_npc(data, "Angel", (sfVector2f){3072, 1776}, 6);
     init_npc_2(data);
 }

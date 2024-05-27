@@ -136,6 +136,8 @@ void game_loop(data_t *data)
     data->window = sfRenderWindow_create(mode, "My_RPG", sfClose, 0);
     sfRenderWindow_setFramerateLimit(data->window, 60);
     while (sfRenderWindow_isOpen(data->window)) {
+        printf("player pos x: %f\n", data->player->player_pos.x);
+        printf("player pos y: %f\n", data->player->player_pos.y);
         if (data->tuto_mode && !data->menu_mode)
             tutorial_game(data, event);
         if (data->menu_mode)
