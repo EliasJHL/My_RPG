@@ -50,7 +50,10 @@ static void start_slots(inventory_t *inv)
 
     inv->slots = malloc(sizeof(slots_t) * 52);
     for (int i = 0; i < 52; i++) {
-        inv->slots[i].item_id = 0;
+        if (i == 40)
+            inv->slots[i].item_id = 10;
+        else
+            inv->slots[i].item_id = 0;
         inv->slots[i].slot_id = i;
         inv->slots[i].slot = sfRectangleShape_create();
         inv->slots[i].slot_pos.x = 0;

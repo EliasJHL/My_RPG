@@ -84,12 +84,12 @@ items_t *get_item_by_id(data_t *data, int id)
 
 static void delete_item_on_hotbar(data_t *data, items_t *item)
 {
-    int slot = data->hud->item_slot_nb;
+    int slot = data->hud->item_slot_nb + 36;
 
     if (slot > 48 || slot < 36)
         return;
-    if (item->item_id == data->inv->slots[slot + 36].item_id) {
-        data->inv->slots[slot + 36].item_id = 0;
+    if (item->item_id == data->inv->slots[slot].item_id) {
+        data->inv->slots[slot].item_id = 0;
     }
 }
 
@@ -97,15 +97,16 @@ static void check_use_item(data_t *data)
 {
     items_t *item = NULL;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft) && data->hud_state == 0) {
+    if (sfMouse_isButtonPressed(sfMouseLeft) && data->hud_state == 0
+        && !data->menu_mode) {
         item = get_item_by_id(data, data->player->item_selected);
         if (item == NULL)
             return;
-        if (strcmp(item->item_type, "health")) {
+        if (strcmp(item->item_type, "health") == 0) {
             heal(item->item_value, data);
             delete_item_on_hotbar(data, item);
         }
-        if (strcmp(item->item_type, "food")) {
+        if (strcmp(item->item_type, "food") == 0) {
             heal(item->item_value, data);
             delete_item_on_hotbar(data, item);
         }
