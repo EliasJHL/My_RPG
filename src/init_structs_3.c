@@ -52,7 +52,7 @@ ennemies_t *init_ennemies(void)
     ennemies_t *ennemies = malloc(sizeof(ennemies_t));
 
     ennemies->slime = malloc(sizeof(slime_t *) * 100);
-    ennemies->skeleton = malloc(sizeof(skeleton_t *) * 10);
+    ennemies->skeleton = malloc(sizeof(skeleton_t *) * 100);
     ennemies->slimex1 = 1300;
     ennemies->slimex2 = 1350;
     ennemies->slimey1 = 500;

@@ -17,21 +17,59 @@ static void reset_monsters(data_t *data)
             data->ennemies->slimex2 = 2725;
             data->ennemies->slimey2 = 3665;
         }
+        if (data->ennemies->skeleton[i]->is_alive == true) {
+            data->ennemies->skeleton[i]->is_alive = false;
+            data->ennemies->skeletonx1 = 3121;
+            data->ennemies->skeletony1 = 1424;
+            data->ennemies->skeletonx2 = 3942;
+            data->ennemies->skeletony2 = 2850;
+        }
+    }
+}
+
+void spawn_slimey(data_t *data)
+{
+    sfVector2f pos = {0, 0};
+
+    for (int i = 0; i < 1; i++) {
+        if (data->ennemies->slime[i]->is_alive == true)
+            continue;
+        pos.x = (rand() % (data->ennemies->slimex2 -
+            data->ennemies->slimex1 + 1)) + data->ennemies->slimex1;
+        pos.y = (rand() % (data->ennemies->slimey2 -
+            data->ennemies->slimey1 + 1)) + data->ennemies->slimey1;
+        data->ennemies->slime[i]->is_alive = true;
+        data->ennemies->slime[i]->pos = pos;
+        data->ennemies->slime[i]->life = 100;
+    }
+}
+
+void disp_slime(data_t *data)
+{
+    float distance = 0;
+    sfVector2f pos;
+    sfVector2f pos2 = data->player->player_pos;
+
+    for (int i = 0; i < 1; i++) {
+        distance = sqrt(pow(SLIME_X - pos2.x, 2) +
+                        pow(SLIME_Y - pos2.y, 2));
+        if (data->ennemies->slime[i]->is_alive == true  && distance < 600) {
+            sfSprite_setPosition(data->ennemies->slime[i]->sprite,
+                data->ennemies->slime[i]->pos);
+            sfRenderWindow_drawSprite(data->window,
+                data->ennemies->slime[i]->sprite, NULL);
+            pos = data->ennemies->slime[i]->pos;
+            pos.y += 10;
+            pos.x += 9;
+            sfRectangleShape_setPosition(data->ennemies->slime[i]->hitbox,
+                pos);
+        }
     }
 }
 
 static void check_monster(data_t *data)
 {
-    for (int i = 0; i < 100; i++)
-        if (data->ennemies->slime[i]->is_alive == true)
-            display_slime(data);
-        else
-            spawn_slime(data);
-    for (int i = 0; i < 10; i++)
-        if (data->ennemies->skeleton[i]->is_alive == true)
-            display_skeleton(data);
-        else
-            spawn_skeleton(data);
+    disp_slime(data);
 }
 
 void display_header(data_t *data, int i)

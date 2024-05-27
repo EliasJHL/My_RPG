@@ -25,7 +25,7 @@ void init_skeleton(ennemies_t *ennemies)
 {
     sfTexture *txt = sfTexture_createFromFile(TEXT_SKELETON, NULL);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         SKELETON = malloc(sizeof(skeleton_t));
         SKELETON->life = 100;
         SKELETON->clock = sfClock_create();
@@ -122,7 +122,7 @@ static void skeleton_idle(data_t *data, int i)
 
 static void choose_anim(data_t *data)
 {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (!data->ennemies->skeleton[i]->auto_mode)
             choose_state(data, i);
         if (!data->ennemies->skeleton[i]->is_mooving &&
@@ -140,10 +140,13 @@ static void choose_anim(data_t *data)
 void display_skeleton(data_t *data)
 {
     sfVector2f pos = {0, 0};
+    float distance;
 
     choose_anim(data);
-    for (int i = 0; i < 10; i++) {
-        if (data->ennemies->skeleton[i]->is_alive == true) {
+    for (int i = 0; i < 100; i++) {
+        distance = sqrt(pow(SKELETON_X - PLAYER_X, 2) +
+                        pow(SKELETON_Y - PLAYER_Y, 2));
+        if (data->ennemies->skeleton[i]->is_alive == true && distance < 700) {
             sfSprite_setPosition(data->ennemies->skeleton[i]->sprite,
                 data->ennemies->skeleton[i]->pos);
             sfRenderWindow_drawSprite(data->window,
@@ -163,7 +166,7 @@ void spawn_skeleton(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->skeleton[i]->is_alive == true)
             continue;
         pos.x = (rand() % (data->ennemies->skeletonx2 -

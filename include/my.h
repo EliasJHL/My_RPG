@@ -492,6 +492,7 @@ void hit_left_player(data_t *data);
 void timer_damage(data_t *data);
 
 //ennemies functions
+void spawn_slimey(data_t *data);
 int calc_change(int left);
 void spawn_slime(data_t *data);
 void display_slime(data_t *data);
