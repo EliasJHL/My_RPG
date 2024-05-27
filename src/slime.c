@@ -37,6 +37,7 @@ void display_slime(data_t *data)
     sfVector2f pos = {0, 0};
 
     for (int i = 0; i < 100; i++) {
+        printf("slime %d\n", i);
         if (data->ennemies->slime[i]->is_alive == true) {
             sfSprite_setPosition(data->ennemies->slime[i]->sprite,
                 data->ennemies->slime[i]->pos);

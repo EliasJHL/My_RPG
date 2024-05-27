@@ -9,7 +9,7 @@
 
 static void reset_monsters(data_t *data)
 {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         if (data->ennemies->slime[i]->is_alive == true) {
             data->ennemies->slime[i]->is_alive = false;
             data->ennemies->slimex1 = 828;
