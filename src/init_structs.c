@@ -13,6 +13,8 @@ map_t *init_map(void)
     sfTexture *txt = sfTexture_createFromFile("assets/Mapss.png", NULL);
     sfTexture *txt2 = sfTexture_createFromFile("assets/Maps_top.png", NULL);
 
+    if (!txt || !txt2)
+        exit(84);
     map->map_top = sfSprite_create();
     map->map_sprite = sfSprite_create();
     sfSprite_setTexture(map->map_sprite, txt, sfTrue);

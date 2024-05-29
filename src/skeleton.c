@@ -122,7 +122,7 @@ static void skeleton_idle(data_t *data, int i)
 
 static void choose_anim(data_t *data)
 {
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 80; i++) {
         if (!data->ennemies->skeleton[i]->auto_mode)
             choose_state(data, i);
         if (!data->ennemies->skeleton[i]->is_mooving &&
@@ -143,7 +143,7 @@ void display_skeleton(data_t *data)
     float distance;
 
     choose_anim(data);
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 80; i++) {
         distance = sqrt(pow(SKELETON_X - PLAYER_X, 2) +
             pow(SKELETON_Y - PLAYER_Y, 2));
         if (data->ennemies->skeleton[i]->is_alive == true && distance < 700) {
@@ -163,7 +163,7 @@ void spawn_skeleton(data_t *data)
 {
     sfVector2f pos = {0, 0};
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 80; i++) {
         if (data->ennemies->skeleton[i]->is_alive == true)
             continue;
         pos.x = (rand() % (data->ennemies->skeletonx2 -

@@ -50,7 +50,7 @@ void text_writer(data_t *data, char *str, npc_t *npc)
     double seconds = 0;
 
     seconds = sfTime_asSeconds(data->bubble_text->elapsed_time);
-    if (seconds >= 0.08) {
+    if (seconds >= 0.01) {
         text_process(text, str, data->count_dialog, len);
         sfText_setString(data->bubble_text->text, text);
         sfClock_restart(data->bubble_text->clock);
