@@ -18,9 +18,13 @@ void debug_life(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyK))
         notification(data, "New Quest", 0);
     if (sfKeyboard_isKeyPressed(sfKeyJ))
-        drop_item(data, 002);
+        drop_item(data, 004);
     if (sfKeyboard_isKeyPressed(sfKeyL))
         drop_item(data, 18);
+    if (sfKeyboard_isKeyPressed(sfKeyU))
+        xp_add(100, data);
+    if (sfKeyboard_isKeyPressed(sfKeyLControl))
+        data->sprint->speed = 4;
 }
 
 void debug_hitbox_collision(data_t *data)
