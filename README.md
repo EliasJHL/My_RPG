@@ -49,7 +49,7 @@ Toute contribution au projet est la bienvenue ! Si vous souhaitez contribuer, ve
 ## Crédits - Membres du projet
 [Elias Josué HAJJAR LLAUQUEN](https://www.linkedin.com/in/elias-josu%C3%A9-hajjar-llauquen/)  /
 [Enzo LOBATO COUTINHO](https://www.linkedin.com/in/enzo-lobato-coutinho/)  /
-Pierrik CLARY  /
+[Pierrik CLARY](https://www.linkedin.com/in/pierrik-clary-837a852a1/)  /
 [Kinsley SEUDILE COLLET](https://www.linkedin.com/in/kinsley-suedile-collet-3b03462bb/)
 
 ## Licence
