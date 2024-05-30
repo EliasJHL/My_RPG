@@ -46,15 +46,14 @@ Toute contribution au projet est la bienvenue ! Si vous souhaitez contribuer, ve
 5. Poussez votre branche (`git push origin feature/{name}`)
 6. Ouvrez une Pull Request
 
-## Licence
-
-Ce projet est Open Source, toute amélioration ou utilisation est libre.
-
-===================================
-Créé par : 
+## Crédits - Membres du projet
 [Elias Josué HAJJAR LLAUQUEN](https://www.linkedin.com/in/elias-josu%C3%A9-hajjar-llauquen/)  /
 [Enzo LOBATO COUTINHO](https://www.linkedin.com/in/enzo-lobato-coutinho/)  /
 Pierrik CLARY  /
 Kinsley SEUDILE COLLET
+
+## Licence
+
+Ce projet est Open Source, toute amélioration ou utilisation est libre.
 
 
