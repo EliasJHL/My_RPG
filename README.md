@@ -2,7 +2,7 @@
 
 Bienvenue dans le projet de fin d'année d'{EPITECH}
 
-Si vous souhaitez le tester : ![Itch.io](https://eliasjhl.itch.io/my-rpg)
+Si vous souhaitez le tester : [Itch.io](https://eliasjhl.itch.io/my-rpg)
 
 ## Contraintes & Thème
 
