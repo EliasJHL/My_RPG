@@ -9,11 +9,14 @@ Si vous souhaitez le tester : [Itch.io](https://eliasjhl.itch.io/my-rpg)
 On a décidé de s'inspirer de deux jeux populaires Zelda & Minecraft tout en gardant un style Pixel Art.
 
 Principales contraintes :
- - To complete...
+ - Prise en main d'une bibliothèque graphique en C
+ - Création d'un jeu complet qui réunit toutes les compétences qu'on a appris durant l'année
+ - Organisation dans une grande équipe
+ - Création de nouvelles mécaniques de jeu
 
 ## Présentation du jeu
 
-Le jeu est intitulé [NAME], il a été fait dans le cadre du projet de fin d'année de Tek1.
+Le jeu est intitulé Chroma Legend, il a été fait dans le cadre du projet de fin d'année de Tek1.
 
 ### KeyBinding
  - B : quest menu (inactive)
@@ -34,17 +37,6 @@ Le jeu a été développé en utilisant les technologies suivantes :
 - [CSFML](https://www.sfml-dev.org/download/csfml/) - Libraire Graphique en C
 - GitHub Actions - Automatisation d'auto-tests
 - Langage C
-
-## Contribuer
-
-Toute contribution au projet est la bienvenue ! Si vous souhaitez contribuer, veuillez suivre les étapes suivantes :
-
-1. Forkez le projet
-2. Créez une nouvelle branche (`git checkout -b feature/{name}`)
-3. Faites vos modifications
-4. Validez vos modifications (`git commit -m 'Ajouter une fonctionnalité incroyable'`)
-5. Poussez votre branche (`git push origin feature/{name}`)
-6. Ouvrez une Pull Request
 
 ## Crédits - Membres du projet
 [Elias Josué HAJJAR LLAUQUEN](https://www.linkedin.com/in/elias-josu%C3%A9-hajjar-llauquen/)  /
