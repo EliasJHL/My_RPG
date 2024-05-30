@@ -50,4 +50,7 @@ Toute contribution au projet est la bienvenue ! Si vous souhaitez contribuer, ve
 
 Ce projet est Open Source, toute amélioration ou utilisation est libre.
 
+===================================
+Créé par : Elias Josué HAJJAR LLAUQUEN  /  Enzo LOBATO COUTINHO  /  Pierrik CLARY  /  Kinsley SEUDILE COLLET
+
 
